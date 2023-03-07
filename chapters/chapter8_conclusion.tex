@@ -1,0 +1,44 @@
+\addtocontents{toc}{\protect\newpage}
+\chapter{Tổng kết}
+\label{chap:tong_ket}
+	\textit{Trong chương này, chúng tôi tổng kết lại các kết quả đã đạt được, đồng thời nêu ra các mặt hạn chế trong quá trình nghiên cứu và xây dựng hệ thống. Cuối cùng, chúng tôi trình bày hướng mở rộng, phát triển của hệ thống trong tương lai.}
+\minitoc
+
+\section{Kết quả đạt được}
+\label{sec:ket_qua_dat_duoc}
+	Kết thúc giai đoạn Luận văn tốt nghiệp, chúng tôi đã được trang bị thêm các kiến thức trong lĩnh vực Xử lý ảnh nói chung, cũng như các phương pháp tiếp cận trong lĩnh vực Phân đoạn hình ảnh y khoa nói riêng. Chúng tôi đã hiện thực được một hệ thống xây dựng hệ thống mạch máu của cơ quan gan từ ảnh chụp CT.
+	
+	Hệ thống mà chúng tôi xây dựng đã đáp ứng được đầy đủ các yêu cầu trong bài toán đặt ra, bao gồm:
+	\begin{itemize}
+		\item Phân đoạn được hệ thống mạch máu của cơ quan gan từ ảnh chụp CT sử dụng mạng học sâu. Kết quả phân đoạn trên tập kiểm tra có độ chính xác theo độ đo Dice là 0.569 và kết quả trực quan rất khả quan.
+		\item Xác định được đường chính giữa của mạch máu sau kết quả phân đoạn thông qua đề xuất thực hiện trích xuất khung xương đối tượng bằng phép toán skeleton\index{Skeleton} trong không gian 3D.
+		\item Xác định được điểm phân nhánh của mạch máu thông qua đề xuất xem xét số lượng điểm ảnh liền kề cũng thuộc đường chính giữa mạch máu của từng điểm ảnh trong đường chính giữa mạch máu.
+	\end{itemize}
+	
+	 Bên cạnh các kết quả nêu trên, chúng tôi còn có hai đóng góp quan trọng liên quan đến tiền xử lý và hậu xử lý dữ liệu. Những đề xuất này đã giúp kết quả phân đoạn của hệ thống cải thiện đáng kể.
+	 
+	 Về tiền xử lý dữ liệu, chúng tôi đề xuất sử dụng phương pháp nội suy để lấp các lớp CT bị thiếu trong khối ảnh CT. Bên cạnh đó, chúng tôi đề xuất thực hiện biến đổi độ sáng điểm ảnh thông qua phương pháp đặt ngưỡng giới hạn và hàm bình phương giá trị điểm ảnh giúp hình ảnh mạch máu hiển thị rõ hơn. Từ đó, kết quả học trở nên tốt hơn.
+	 
+	 Về hậu xử lý dữ liệu, chúng tôi đã cải thiện được kết quả phân đoạn thông qua đề xuất xác định các thành phần liên thông và loại bỏ các thành phần liên thông nhỏ không thuộc mạch máu trong kết quả phân đoạn.
+	 
+	 Với những kết quả có được của luận văn này, chúng tôi hy vọng có thể đóng góp một phần vào các công trình nghiên cứu trong lĩnh vực Phân đoạn hình ảnh y khoa về sau. Sớm đưa được các công trình nghiên cứu vào ứng dụng thực tiễn giúp cải thiện chất lượng trong công tác y tế cũng như cuộc sống xã hội.
+
+\newpage
+\section{Hạn chế và hướng phát triển}
+\label{sec:han_che_va_huong_phat_trien}
+	\textbf{Hạn chế.\hspace{5mm}} Bên cạnh các kết quả đạt được, chúng tôi cũng gặp các khó khăn trong quá trình hiện thực hệ thống. Nếu các vấn đề này sớm được khắc phục rất có thể kết quả hệ thống sẽ tốt hơn nữa.
+	\begin{itemize}
+		\item Tập dữ liệu quá nhỏ dẫn tới quá trình huấn luyện không thực sự tốt. Trong nhiều trường hợp hệ thống nhanh chóng rơi vào overfitting\index{Overfitting} trong khi chưa học được toàn diện các đặc trưng của hệ thống mạch máu trong ảnh CT.
+		\item Hệ thống vẫn phải đặt trên giả thiết nhãn phân đoạn cơ quan gan đã được cung cấp do nhãn phân đoạn động mạch ở bên ngoài cơ quan gan không được cung cấp ở một số bệnh nhân trong bộ dữ liệu.
+		\item Hệ thống chưa thực sự dễ sử dụng. Các công đoạn của hệ thống vẫn phải thực hiện một cách riêng lẻ thông qua sự điều khiển, chưa xây dựng được một ứng dụng end-to-end\footnote{End-to-end là khái niệm dùng để chỉ một hệ thống có khả năng tiếp nhận dữ liệu thô ở đầu vào và cho ra kết quả cuối cùng ở đầu ra, mọi công đoạn trung gian được thực hiện một cách tự động.}.
+	\end{itemize}
+
+	\textbf{Hướng phát triển.\hspace{5mm}} Không thể nào phủ nhận sự cần thiết của một hệ thống chẩn đoán thông minh trong lĩnh vực y tế, đặc biệt là một hệ thống cho phép cải thiện khả năng nhìn và phán đoán về hình ảnh y khoa. Chính vì vậy, việc mở rộng và phát triển hệ thống mà chúng tôi đã xây dựng mở ra nhiều hướng mới trong tương lai. Do giới hạn về thời gian thực hiện luận văn nên nhiều ý tưởng chúng tôi vẫn chưa thực hiện được.
+	
+	Thứ nhất, chúng tôi muốn phát triển hệ thống để có thể phân đoạn hệ thống mạch máu trên toàn ảnh CT. Xây dựng hệ thống mạch máu một cách toàn diện không chỉ giúp nhìn thấy hệ thống mạch máu bên trong cơ quan gan mà còn thấy được sự tương quan của cơ quan gan và các cơ quan khác trong cơ thể.
+	
+	Thứ hai, chúng tôi muốn hệ thống không chỉ phân đoạn hệ thống mạch máu và còn phân đoạn được các cơ quan khác nhau cũng như các tổn thương bất thường trong cơ thể. Xác định chính xác vị trí tổn thương giúp quá trình chữa trị có thể tiến hành thuận lợi hơn.
+	
+	Thứ ba, chúng tôi muốn khai thác các thông tin đặc thù trong lĩnh vực y khoa. Tìm hiểu mối liên quan giữa kết quả chẩn đoán và quá trình điều trị. Từ đó, giúp phát triển một hệ thống có khả năng đưa ra phác đồ điều trị từ kết quả dự đoán.
+	
+	Cuối cùng, chúng tôi muốn xây dựng giao diện người dùng cho hệ thống để đưa hệ thống đến với người dùng. Chúng tôi mong muốn quá trình chuẩn đoán thông qua hình ảnh y khoa được thực hiện một cách nhanh chóng và chính xác thay vì phương pháp thủ công trước đây.

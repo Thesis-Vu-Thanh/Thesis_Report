@@ -1,0 +1,47 @@
+\chapter{Introduction}
+\label{chap:introduction}
+	\textit{Trong chương này, chúng tôi giới thiệu các vấn đề trong lĩnh vực Xử lý hình ảnh y khoa,\linebreak làm rõ những cơ hội, thách thức và sự cần thiết xây dựng một hệ thống chẩn đoán thông minh. Tiếp đến, chúng tôi trình bày khái quát về mục tiêu, phạm vi và cấu trúc\linebreak luận văn.}
+\minitoc
+
+\section{Motivation and problem statement}
+\label{sec:motivation}
+Websites have become necessary for every business, brand, institutions, organizations and individuals. Due to the amount of information it collects from users, web services are vulnerable to threats to information security. In the modern environment, data retention via web apps is the most efficient method. A corporation may be scammed using inaccurate data, which could have disastrous consequences for its finances and credibility. The Open Web Application Security Project (OWASP) has conducted a thorough analysis of the multiple vulnerabilities caused by the use of online transactions using web-based apps. So, it is necessary to draw attention to newly created web applications and developers.
+
+Web-based applications offer the general public and enterprises fast and simple services. These services may be used for social media, email, banking, online shopping, education, or entertainment. There are definitely many widely used apps, and each one of them has the potential to be the next big exploit for threat actors.
+
+Cybercriminals detect easy targets in the enormous "hunting ground" of insecure online applications, much like sharks lured to blood in the water. Cyberattacks are malicious attempts to access a person's or an organization's computer systems, networks, or data without authorization. Private data is intended to be stolen, held for ransom, or destroyed. Recently, cyberattacks have improved in sophistication and tenacity, making it simpler for attackers to compromise a weak system and do serious harm.
+
+The main sectors targeted by these attacks, according to the 2022 Verizon DBIR, were finance, professional services, healthcare, and public administration. Cyber attacks devastate businesses of all sizes and in any sector. Not only do they put your data at risk, but they can also lead to financial losses, reputational damage, and disruption of operations. The most common cyber attacks are phishing, malware, distributed denial of services, and ransomware attacks. 
+
+Let's take a look at the statistics about cybersecurity by industry. Healthcare, throughout the past 12 years, this sector has experienced the most costly data breaches, the costs have even increased by 41.6\% since 2020 until 2022. At least 849 healthcare cybersecurity incidents and 571 data breaches were reported in 2022. The average financial loss due to data breaches in healthcare has skyrocketed from around USD 9 million to USD 10.10 million (2022). In the Finance industry, phishing attacks against banks and other financial institutions held the largest share, accounting for 23.2\% of all cyberattacks targeting the financial sector. In the first quarter of 2022, ransomware assaults increased by 35\% in the financial sectors. On average, financial organizations bore the second-highest data breach costs, at USD 5.97 million, just behind healthcare institutions (2022). 
+
+From the above situation, our group also wanted to try API security, so we decided to choose this topic: Building a Security HTTPS requests module for Web firewall.
+
+\section{Objectives}
+\label{sec:objectives}
+Given the necessity of cybersecurity in this era, we chose to construct a firewall add-on. This thesis will concentrate on identifying malicious requests that pass through the firewall. We want to apply machine learning to assist the WAF process a tremendous amount of requests per second swiftly and efficiently. The developed module should be able to validate the request and identify whether or not it is an attack.
+
+To reduce the high FP, a inherent weakness of rule-based WAF and assure the speed of the WAF, which must react nearly instantly to deliver an consistancy customer experience, the module will use two fast and simple machine learning models. Each model will run independently to generate an output, then combined the result to achieve the high accuracy as well as low latency for the WAF
+
+\section{Challenges}
+\label{sec:challenges}
+In this topic, we have encountered some problems such as:
+\begin{itemize}
+    \item WAFs needs accuracy as well as speed in order to meet client demands.
+    \item Many others contenders on the market have also offered their WAF as a product to customers. However, there are several inherent problems of WAF, such as the high false positive \footnote{A false positive is an error in binary classification in which a test result incorrectly indicates the presence of a condition} or the delay time to validate incoming request.
+    \item Run two distinct machine learning models concurrently is proved to be challenging.
+\end{itemize}
+\section{Tentative structure of the thesis}
+\label{sec:structure}
+	\newcommand\nextintro{\\[7mm]}
+	The content of the thesis proposal is demonstrated by these 8 following parts: \nextintro
+	\fullref{chap:introduction} Trong chương đầu tiên, chúng tôi giới thiệu các vấn đề trong lĩnh vực xử lý hình ảnh y khoa, làm rõ những cơ hội, thách thức và sự cần thiết xây dựng một hệ thống chẩn đoán thông minh. Tiếp đến, chúng tôi trình bày khái quát về mục tiêu, phạm vi và cấu trúc luận văn.\nextintro
+	\fullref{chap:background} introduces the background knowledge of this thesis, including the information about API, Web Application Firewall, Machine Learning Model and Deep Neural Network\nextintro
+	\fullref{chap:cac_cong_trinh_lien_quan} Chương này chúng tôi giới thiệu hai công trình liên quan sử dụng mạng học sâu để phân đoạn hình ảnh y khoa. Công trình thứ nhất sử dụng mạng U-Net trong phân đoạn hình ảnh 2D\nomenclature{2D}{Two Dimensional} và công trình thứ hai sử dụng mạng DeepVesselNet trong phân đoạn hình ảnh 3D\nomenclature{3D}{Three Dimensional}.\nextintro
+	\fullref{chap:tap_du_lieu} Chương này chúng tôi giới thiệu tập dữ liệu \textit{3D-IRCADb-01} mà chúng tôi đã sử dụng để đánh giá hệ thống. Sau đó, chúng tôi trình bày các vấn đề cần xử lý đối với tập dữ liệu này trước khi có thể sử dụng.\nextintro
+	\fullref{chap:phuong_an_de_xuat} Chương này chúng tôi mô tả chi tiết bài toán trước khi bắt tay vào hiện thực. Sau đó, chúng tôi đề xuất kiến trúc mạng và các hàm lỗi sẽ sử dụng. Cuối cùng, chúng tôi đề xuất phương pháp tìm đường chính giữa và điểm phân nhánh của mạch máu.\nextintro
+	\fullref{chap:hien_thuc_he_thong} Chương này chúng tôi trình bày các bước trong quá trình hiện thực hệ thống bao gồm tiền xử lý dữ liệu, xây dựng mã nguồn hệ thống, đặc tả phần cứng, hậu xử lý kết quả phân đoạn và trực quan hoá kết quả thí nghiệm.\nextintro
+	\fullref{chap:thi_nghiem_va_danh_gia} Chương này chúng tôi trình bày việc phân chia tập dữ liệu trước khi huấn luyện, đưa ra các phương pháp đánh giá và kết quả thí nghiệm. So sánh kết quả giữa các thí nghiệm tham khảo từ các công trình liên quan và các thí nghiệm do chúng tôi đề xuất.\nextintro
+	\fullref{chap:tong_ket} Chương cuối cùng, chúng tôi tổng kết lại các vấn đề trong quá trình nghiên cứu và xây dựng hệ thống. Đồng thời, chúng tôi nêu ra các hạn chế cũng như mở ra các hướng phát triển của đề tài trong tương lai.\nextintro
+	\fullref{appendix:thong_so_tap_du_lieu_3d_ircadb_01} Trong phụ lục này, chúng tôi trình bày bảng thông số chi tiết về tập dữ liệu \textit{3D-IRCADb-01}. Bảng thông số này được lấy từ trang chủ của Viện nghiên cứu chống ung thư đường tiêu hoá \textit{IRCAD}\nomenclature{IRCAD}{Research Institute against Digestive Cancer}. \nextintro
+	\fullref{appendix:ke_hoach_thuc_hien_luan_van} Trong phụ lục này, chúng tôi trình bày chi tiết kế hoạch thực hiện đề tài bao gồm các công việc đã thực hiện trong giai đoạn Đề cương luận văn và giai đoạn Luận văn. Xây dựng kế hoạch cụ thể là cơ sở quan trọng giúp chúng tôi hoàn thành tốt luận văn này.

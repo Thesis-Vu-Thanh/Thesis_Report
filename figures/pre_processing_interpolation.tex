@@ -1,0 +1,26 @@
+\begin{tikzpicture}[scale=.4]
+	% \drawtile#x#y#size#drawcolor
+	\def\drawtile#1#2#3#4{
+		\filldraw[fill=black, fill opacity=.3, draw=#4] (#1, #2) -- (#1 + #3, #2) -- (#1 + 1.5 * #3, #2 + #3 / 2) -- (#1 + #3 / 2, #2 + #3 / 2) -- cycle;
+	}
+	
+	% \drawline#x1#y1#x2#y2#color
+	\def\drawline#1#2#3#4#5{
+		\draw[#5] (#1, #2) -- (#3, #4);
+	}
+	
+	% interpolation
+	\foreach \x in {0, 20} {
+		\foreach \y in {0, ..., 4} {
+			\drawtile{\x}{\y}{7}{black}
+			\ifnum\x=20
+				\ifnum\y<4
+					\drawtile{\x}{\y + .5}{7}{none}
+					\drawline{30.75}{4 + \y}{32}{5.5}{gray}
+				\fi
+			\fi
+		}
+	}
+	\draw[->, ultra thick] (12, 3.75) -- (18, 3.75) node[midway, above] {Nội suy};
+	\node at (36, 5.5) {Các lớp nội suy};
+\end{tikzpicture}

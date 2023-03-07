@@ -1,0 +1,15 @@
+\begin{tikzpicture}[thick, scale=.75]
+	% axis
+	\draw[->] (-1.5, 0) -- (7, 0) node[right] {$x$};
+	\draw[->] (0, -1.5) -- (0, 6) node[above] {$y$};
+	% A
+	\draw (1, 1) rectangle (6,5); 
+	\node at (3.5, 4.5) {$A$};
+	% Erosion result
+	\filldraw[gray] (2,2) rectangle (5,4);
+	\node at (3.5, 3) {$A\ominus B$};
+	% Structuring element
+	\draw (0, 0) node {\textbullet} ellipse (1 and 1);
+	\draw[dashed] (5, 2) node {\textbullet} ellipse (1 and 1);
+	\node at (1, -1) {$B$};
+\end{tikzpicture}

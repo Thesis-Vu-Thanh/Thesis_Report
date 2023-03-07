@@ -1,0 +1,91 @@
+\begin{tikzpicture}[scale=.25]
+	\definecolor{boxfill}{RGB}{114, 159, 207};
+	\definecolor{boxoutline}{RGB}{57, 106, 167};
+	\definecolor{arrowcvbnre}{RGB}{0, 0, 128};
+	\definecolor{arrowconcat}{RGB}{198, 198, 198};
+	\definecolor{arrowmapool}{RGB}{128, 0, 0};
+	\definecolor{arrowupconv}{RGB}{0, 123, 0};
+	\definecolor{arrowsoftcv}{RGB}{0, 176, 240};
+	\definecolor{colornumber}{RGB}{100, 100, 100};
+	
+	% \drawbox#x#y#width#height#fillcolor
+	\def\drawbox#1#2#3#4#5{
+		\draw[fill=#5, draw=boxoutline, very thick]  (#1, #2) rectangle (#1 + #3, #2 - #4);
+	}
+
+	% \drawarrow#x1#y1#x2#y2#color
+	\def\drawarrow#1#2#3#4#5{
+		\draw[->, >={Triangle[width=2.5mm, length=2mm]}, line width=1.5mm, #5]  (#1, #2) -- (#3, #4);
+	}
+
+	% \drawnodeh#x#y#label
+	\def\drawnodeh#1#2#3{
+		\node[above] at (#1, #2) {\scriptsize\sffamily\textcolor{colornumber}{#3}};
+	}
+
+	% \drawnodev#x#y#label
+	\def\drawnodev#1#2#3{
+		\node[rotate=90, yshift=1.75mm] at (#1, #2) {\scriptsize\sffamily\textcolor{colornumber}{#3}};
+	}
+
+	% model
+	\drawbox{0}{0}{.25}{10}{boxfill}\drawnodev{0}{-9}{112\textsuperscript{3}}\drawnodeh{.125}{0}{1}
+	\drawarrow{.5}{-5}{1.75}{-5}{arrowcvbnre}
+	\drawbox{2}{0}{1}{10}{boxfill}\drawnodev{2}{-9}{112\textsuperscript{3}}\drawnodeh{2.5}{0}{64}
+	\drawarrow{3.25}{-5}{4.5}{-5}{arrowcvbnre}
+	\drawbox{4.75}{0}{1}{10}{boxfill}\drawnodev{4.75}{-9}{112\textsuperscript{3}}\drawnodeh{5.25}{0}{64}
+	
+	\drawarrow{5.25}{-10.5}{5.25}{-12.5}{arrowmapool}
+	
+	\drawbox{4.75}{-13}{1}{5}{boxfill}\drawnodev{4.75}{-18}{56\textsuperscript{3}}
+	\drawarrow{6}{-15.5}{7.25}{-15.5}{arrowcvbnre}
+	\drawbox{7.5}{-13}{2}{5}{boxfill}\drawnodev{7.5}{-18}{56\textsuperscript{3}}\drawnodeh{8.5}{-13}{128}
+	\drawarrow{9.75}{-15.5}{11}{-15.5}{arrowcvbnre}
+	\drawbox{11.25}{-13}{2}{5}{boxfill}\drawnodev{11.25}{-18}{56\textsuperscript{3}}\drawnodeh{12.25}{-13}{128}
+	
+	\drawarrow{12.25}{-18.5}{12.25}{-20.5}{arrowmapool}
+	
+	\drawbox{11.25}{-21}{2}{2}{boxfill}\drawnodev{11.25}{-24}{28\textsuperscript{3}}
+	\drawarrow{13.5}{-22}{14.75}{-22}{arrowcvbnre}
+	\drawbox{15}{-21}{4}{2}{boxfill}\drawnodev{15}{-24}{28\textsuperscript{3}}\drawnodeh{17}{-21}{256}
+	\drawarrow{19.25}{-22}{20.5}{-22}{arrowcvbnre}
+	\drawbox{20.75}{-21}{4}{2}{boxfill}\drawnodev{20.75}{-24}{28\textsuperscript{3}}
+	
+	\drawarrow{23.75}{-20.5}{23.75}{-18.5}{arrowupconv}
+	
+	\drawbox{20.75}{-13}{2}{5}{none}\drawnodev{20.75}{-18}{56\textsuperscript{3}}
+	\drawbox{22.75}{-13}{2}{5}{boxfill}\drawnodeh{22.75}{-13}{256}
+	\drawarrow{25}{-15.5}{26.25}{-15.5}{arrowcvbnre}
+	\drawbox{26.5}{-13}{2}{5}{boxfill}\drawnodev{26.5}{-18}{56\textsuperscript{3}}\drawnodeh{27.5}{-13}{128}
+	\drawarrow{28.75}{-15.5}{30}{-15.5}{arrowcvbnre}
+	\drawbox{30.25}{-13}{2}{5}{boxfill}\drawnodev{30.25}{-18}{56\textsuperscript{3}}
+	
+	\drawarrow{31.5}{-12.5}{31.5}{-10.5}{arrowupconv}
+	
+	\drawbox{30.25}{0}{1}{10}{none}\drawnodev{30.25}{-9}{112\textsuperscript{3}}
+	\drawbox{31.25}{0}{1}{10}{boxfill}\drawnodeh{31.25}{0}{128}
+	\drawarrow{32.5}{-5}{33.75}{-5}{arrowcvbnre}
+	\drawbox{34}{0}{1}{10}{boxfill}\drawnodev{34}{-9}{112\textsuperscript{3}}\drawnodeh{34.5}{0}{64}
+	\drawarrow{35.25}{-5}{36.5}{-5}{arrowcvbnre}
+	\drawbox{36.75}{0}{1}{10}{boxfill}\drawnodev{36.75}{-9}{112\textsuperscript{3}}\drawnodeh{37.25}{0}{64}
+	\drawarrow{38}{-5}{39.25}{-5}{arrowsoftcv}
+	\drawbox{39.5}{0}{.25}{10}{boxfill}\drawnodev{39.5}{-9}{112\textsuperscript{3}}\drawnodeh{39.625}{0}{2}
+	
+	\drawarrow{8}{-5}{28}{-5}{arrowconcat}
+	\drawarrow{15.5}{-15.5}{18.5}{-15.5}{arrowconcat}
+	
+	\node[align=right, left] at (0, -3) {\sffamily input\\\sffamily volume\\\sffamily data};
+	\node[align=left, right] at (39.75, -5) {\sffamily output\\\sffamily segmentation\\\sffamily map};
+	
+	% legend
+	\drawarrow{35.5}{-14}{36.75}{-14}{arrowcvbnre}
+	\node[right] at (37, -14) {\sffamily\textcolor{arrowcvbnre}{conv 3x3x3, (batchnorm), ReLU}};
+	\drawarrow{35.5}{-16.5}{36.75}{-16.5}{arrowconcat}
+	\node[right] at (37, -16.5) {\sffamily\textcolor{colornumber}{copy and concat}};
+	\drawarrow{36.2}{-18.375}{36.2}{-19.625}{arrowmapool}
+	\node[right] at (37, -19) {\sffamily\textcolor{arrowmapool}{max-pool 2x2x2}};
+	\drawarrow{36.2}{-22.125}{36.2}{-20.875}{arrowupconv}
+	\node[right] at (37, -21.5) {\sffamily\textcolor{arrowupconv}{up-conv 2x2x2}};
+	\drawarrow{35.5}{-24}{36.75}{-24}{arrowsoftcv}
+	\node[right] at (37, -24) {\sffamily\textcolor{arrowsoftcv}{conv 1x1x1}};
+\end{tikzpicture}

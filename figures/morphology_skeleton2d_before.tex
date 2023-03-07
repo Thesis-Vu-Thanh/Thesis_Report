@@ -1,0 +1,43 @@
+\begin{tikzpicture}[thick, scale=.45]
+	\def\colors{{
+		"000 000 000", % black
+		"255 255 255"  % white
+	}}
+
+	% \drawsquare#x#y#label#textcolor#fillcolor
+	\def\drawsquare#1#2#3#4#5{
+		\filldraw[fill=#5] (#1, #2) rectangle (#1 + 1, #2 + 1) node[pos=.5] {\textcolor{#4}{\scriptsize #3}};
+	}
+	
+	% values
+	\def\values{{
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0,
+		0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+		0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0,
+		0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0,
+		0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0,
+		0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0,
+		0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0,
+		0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0,
+		0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0,
+		0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0,
+		0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+	}}
+	
+	% pixel
+	\foreach \y in {0, ..., 15} {
+		\foreach \x in {0, ..., 15} {
+			\def\value{\values[16 * \y + \x]}
+			\pgfmathparse{\colors[\value]};
+			\definecolor{fillcolor}{RGB}{\pgfmathresult};
+			\pgfmathparse{\colors[1 - \value]};
+			\definecolor{textcolor}{RGB}{\pgfmathresult};
+			\drawsquare{\x}{15 - \y}{\pgfmathparse{\value}\pgfmathresult}{textcolor}{fillcolor}
+		}
+	}
+\end{tikzpicture}

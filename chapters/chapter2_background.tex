@@ -1,0 +1,264 @@
+\chapter{Backgrounds}
+\label{chap:background}
+	\textit{introduces the background knowledge of this thesis, including the information about API, Web Application Firewall, Machine Learning Model and Deep Neural Network}
+\minitoc
+
+\section{Web Application Firewall} 
+\label{sec:waf}
+	
+\subsection{What is WAF ?}
+\label{subsec:waf_def}
+WAF stands for \textbf{Web Application Firewall}. This firewall solution commonly monitors data packets and filters them for the presence of malware or viruses. It performs the data monitoring/filtering for to and from data packets.  
+
+The WAF tool can be distributed using network-based, cloud-based, or host-based architectures. It needs a reverse proxy to make sure that one or more web apps are in front of it while facing forward. 
+
+It can be utilized either alone or in conjunction with other applications. WAF may function at a lower level or a higher level depending on the requirement \footnote{Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}.
+
+
+\subsection{How does WAF work?}
+\label{subsec:waf_work}
+As mentioned before, WAF is placed at the application layer and functions as a two-way protection there. At work, WAF keeps an eye on HTTP or HTTPS traffic entering or leaving a certain web app. When a malicious object is seen in the traffic, WAF activates and destroys it . \\
+\begin{figure}[!h]
+   
+	\centering
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/WAF.JPG}
+	\caption{Normal users (top-left and bottom-left) are permitted access to the server with a WAF enabled, but attackers (middle-left) are prevented from doing so.}\label{Fig:Data1}
+  
+\end{figure}
+\\
+To make the process a bit more simplified, WAF predefined what is vindictive and what’s not. WAF follows these rules all through the process. Mainly, WAF analyses the GET and POST part of the HTTP traffic. GET retrieves data from the server while POST is used to guide the data to the server to alter its original condition \footnote{Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}.
+
+\subsection{Lớp Pooling}
+\label{subsec:lop_pooling}
+	Thông thường, lớp pooling\index{Pooling} được chèn định kỳ giữa các lớp convolution\index{Convolution} liên tiếp trong kiến trúc mạng. Chức năng của nó là giảm dần kích thước không gian của dữ liệu để giảm số lượng tham số và lượng tính toán trong mạng, và do đó cũng có thể kiểm soát việc overfitting\index{Overfitting}\footnote{Overfitting là hiện tượng mạng ghi nhớ thông tin của dữ liệu thay vì học các đặc trưng. Điều này không tốt cho quá trình sử dụng mạng sau này.}. Tuy nhiên, việc sử dụng pooling cũng dẫn đến việc mất mát thông tin, điều này khiến cho mô hình trở nên nhạy cảm với các phép biến đổi trên dữ liệu đầu vào như xoay (rotate) hoặc lật hình (flip). 
+	
+	Lớp pooling hoạt động độc lập từng vùng trên dữ liệu đầu vào và thay đổi kích thước không gian của dữ liệu. Phép max-pooling\index{Max-pooling} là phép toán thường được sử dụng nhất, đặc biệt là max-pooling với filter có kích thước $2\times 2$ và $stride=2$. Khi áp dụng phép max-pooling này, filter sẽ trượt trên dữ liệu đầu vào và lấy giá trị lớn nhất trong mỗi vùng làm giá trị đầu ra, kích thước đầu ra sẽ giảm hai lần cho cả chiều rộng và chiều cao. \autoref{fig:max_pool} mô phỏng cho phép toán này. Ngoài ra cũng có thể sử dụng các phép pooling khác như lấy giá trị trung bình hoặc chuẩn hoá $L2$.
+	\newpage
+	\begin{figure}[h!]
+		\centering
+		\input{figures/max_pool}
+		\caption[Phép toán Max-pooling với kích thước kernel $2\times2$ và stride 2.]{Phép toán Max-pooling với kích thước filter\index{Filter} $2\times2$ và stride\index{Stride} 2 trên ảnh đầu vào có kích thước $4\times4$ cho kết quả đầu ra có kích thước $2\times2$ \sourcefig{\cite{cs231nmaxpool}}.}
+		\label{fig:max_pool}
+	\end{figure}
+
+\subsection{Receptive field} 
+\label{subsec:receptive_field}
+	Receptive field\index{Receptive field} trong lĩnh vực thị giác máy tính được định nghĩa là vùng trên không gian đầu vào tương ứng cho một đặc trưng được trích xuất ở kết quả đầu ra. Receptive field của một đặc trưng được mô tả bằng điểm chính giữa và kích thước của nó.  Trong một receptive field, điểm ảnh càng gần tâm càng đóng góp nhiều vào đặc trưng đầu ra. Điều đó có nghĩa rằng, một đặc trưng không chỉ nhìn vào một vùng riêng biệt trong ảnh đầu vào mà còn tập trung nhiều vào vùng giữa của receptive field đó. 
+	
+	\autoref{fig:receptive_field} minh họa receptive field của toán tử convolution có kích thước filter\index{Filter} $3\times3$, stride\index{Stride} là 2 và padding\index{Padding} ``same''. Áp dụng toán tử này trên ảnh đầu vào có kích thước 5$\times$5 cho kết quả đầu ra có kích thước 3$\times$3 (màu xanh). Tiếp tục áp dụng toán tử này trên đầu ra thu được cho kết quả cuối cùng có kích thước 2$\times$2 (màu cam). Vùng màu xám trong hình chính là receptive field của một đặc trưng trên kết quả cuối cùng này.
+	\vfill
+	\begin{figure}[h!]
+		\centering
+		\input{figures/receptive_field}
+		\caption[Receptive field của phép toán Convolution có kích thước filter $3\times 3$, stride 2 và padding ``same''.]{Receptive field của phép toán convolution\index{Convolution} có kích thước filter\index{Filter} $3\times 3$, stride\index{Stride} 2  và padding\index{Padding} ``same''\sourcefig{\cite{le2017receptive}}.}
+		\label{fig:receptive_field}
+	\end{figure}
+
+\subsection{Lớp Batchnorm}
+\label{subsec:lop_batchnorm}
+	Thông thường chúng ta chuẩn hoá dữ liệu đầu vào bằng cách điều chỉnh và co giãn miền giá trị của chúng để việc học không bị thiên vị về một thuộc tính bất kỳ nào của dữ liệu. Ví dụ, nếu dữ liệu của chúng ta có một thuộc tính với miền giá trị trong khoảng từ 0 đến 1\linebreak và một thuộc tính khác có miền giá trị trong khoảng từ 0 đến 1000 thì chúng ta nên thực hiện bước chuẩn hoá dữ liệu để việc huấn luyện đạt kết quả tốt hơn. Tuy nhiên việc chuẩn hoá này chỉ mới được áp dụng trên dữ liệu đầu vào. Ioffe và Szegedy \cite{ioffe2015batch} đã đề xuất việc chuẩn hoá dữ liệu nên được thực hiện trên cả những lớp ẩn của kiến trúc mạng.
+	
+	Dữ liệu sẽ được chuẩn hoá nhờ lớp batchnorm\index{Batchnorm} trước khi đi qua một lớp mạng, giúp việc học trên từng lớp mạng có tính độc lập cao hơn, ít bị phụ thuộc bởi giá trị đầu ra của lớp mạng phía trước như trước đây. Đồng thời, việc sử dụng batchnorm cho phép chúng ta sử dụng giá trị learning rate\index{Learning rate} (tốc độ học) lớn hơn vì lớp batchnorm đảm bảo dữ liệu đầu vào của một lớp mạng không quá cao hoặc quá thấp.
+	
+	Lớp batchnorm thực hiện chuẩn hoá dữ liệu đầu ra của một lớp mạng bằng cách lấy giá trị đầu ra trừ đi giá trị trung bình (mean\index{Mean}) rồi chia cho độ lệch chuẩn (standard deviation) của chính nó. Chi tiết về giải thuật batchnorm được mô tả trong \autoref{fig:batchnorm}.
+	\begin{figure}[h!]
+		\centering
+		\fbox{%
+			\parbox{.6\textwidth}{%
+				\vspace{-4mm}
+				\begin{tabbing}
+					\hspace{2cm}\=\kill
+					\textbf{Input:} \>Values of $x$ over a mini-batch: $\mathcal{B}=\{x_{1...m}\}$;\\
+					\>Parameters to be learned: $\gamma, \beta$\\
+					\textbf{Output:} \>$\{y_i=\text{BN}_{\gamma,\beta}(x_i)\}$
+				\end{tabbing}
+				\begin{tabbing}
+					\hspace{5mm}\=\hspace{6mm}\=\hspace{5mm}\=\hspace{4cm}\=\kill
+					\>$\mu_\mathcal{B}$\>$\leftarrow$\>$\dfrac{1}{m}\sum\limits_{i=1}^{m}x_i$\>//mini-batch mean\\[3mm]
+					\>$\sigma_\mathcal{B}^2$\>$\leftarrow$\> $\dfrac{1}{m}\sum\limits_{i=1}^{m}(x_i-\mu_\mathcal{B})^2$\>//mini-batch variance\\[3mm]
+					\>$\hat{x}_i$\>$\leftarrow$\>$\dfrac{x_i-\mu_\mathcal{B}}{\sqrt{\sigma_\mathcal{B}^2+\epsilon}}$\>// normalize\\[3mm]
+					\>$y_i$\>$\leftarrow$\>$\gamma\hat{x}_i+\beta\equiv\text{BN}_{\gamma, \beta}(x_i)$\>// scale and shift
+				\end{tabbing}
+			}%
+		}
+		\caption[Giải thuật Batchnorm áp dụng lên dữ liệu đầu vào của một mini-batch.]{Giải thuật Batchnorm áp dụng lên dữ liệu đầu vào của một mini-batch trong quá trình huấn luyện \sourcefig{\cite{ioffe2015batch}}.}
+		\label{fig:batchnorm}
+	\end{figure}
+
+\newpage
+\subsection{Lớp Sigmoid}
+\label{subsec:lop_sigmoid}
+	Trong toán học, hàm sigmoid\index{Sigmoid} với phương trình toán học như sau
+	\begin{equation}
+	\sigma(x)=\dfrac{1}{1+e^{-x}}
+	\label{eqn:sigmoid}
+	\end{equation}
+	là một hàm số biến một giá trị thực bất kỳ thành một giá trị thực trong phạm vi $(0, 1)$. Một số dương càng lớn sẽ cho ra giá trị gần với 1 và một số âm càng nhỏ sẽ cho ra giá trị gần với 0. Hàm sigmoid có thể được sử dụng sau một lớp convolution\index{Convolution} hoặc là lớp cuối cùng của kiến trúc mạng nhằm mục đích phân loại. Đồ thị biểu diễn hàm sigmoid được mô tả như \autoref{fig:sigmoid}.
+	\begin{figure}[h!]
+		\centering
+		\input{figures/sigmoid}
+		\caption{Đồ thị biểu diễn hàm sigmoid.}
+		\label{fig:sigmoid}
+	\end{figure}
+	\vspace{-6mm}
+
+\subsection{Lớp ReLU}
+\label{subsec:lop_relu}
+	ReLU (Rectified Linear Unit)\index{ReLU} do Mair và Hinton \cite{nair2010rectified} đề xuất với công thức toán học\linebreak như sau 
+	\begin{equation}
+		ReLU(x)=max(0, x),
+		\label{eqn:relu}
+	\end{equation}
+	nghĩa là hàm ReLU đặt một ngưỡng tại 0 chỉ cho những giá trị dương đi qua. So với hàm Sigmoid\index{Sigmoid}, hàm ReLU giúp tăng tốc độ hội tụ khi huấn luyện bằng SGD (Stochastic Gradient Descent)\index{SGD}\nomenclature{SGD}{Stochastic Gradient Descent}. Một ưu điểm nữa của hàm ReLU là trong quá trình lập trình, hàm ReLU có thể hiện thực dễ dàng bằng cách áp một mặt nạ với ngưỡng bằng 0 cho cả quá trình lan truyền xuôi và lan truyền ngược. Tuy nhiên, chính việc áp mặt nạ làm cho gradient bằng $0$ tại một số điểm trong mạng dẫn đến gradient\index{Gradient} từ điểm đó về trước trong quá trình lan truyền ngược bằng $0$ và mạng không học được. Đồ thị biểu diễn hàm ReLU như \autoref{fig:relu}.
+	\begin{figure}[h!]
+		\centering
+		\input{figures/relu}
+		\caption{Đồ thị biểu diễn hàm ReLU.}
+		\label{fig:relu}
+	\end{figure}
+
+\subsection{Lớp Softmax}
+\label{subsec:lop_softmax}
+	Trong toán học, hàm softmax\index{Softmax} (hay hàm trung bình mũ) là một hàm số biến không gian $K$ chiều với giá trị thực bất kỳ đến không gian $K$ chiều mang giá trị trong phạm vi $(0, 1)$. Phương trình toán học của hàm softmax được biểu diễn như sau
+	\begin{equation}
+	a_i=\dfrac{e^{z_i}}{\sum_{j=1}^{K}e^{z_j}},
+	\label{eqn:softmax}
+	\end{equation}
+	trong đó, $z_i$ là giá trị đầu vào, $K$ là số khả năng khác nhau có thể xảy ra và $a_i$ là giá trị đầu ra của hàm softmax. Hàm softmax là một hàm đồng biến đảm bảo nếu giá trị $z_i$ càng lớn thì xác suất rơi vào khả năng thứ $i$ trong $K$ khả năng càng cao. Đồng thời, hàm này đảm bảo các giá trị đầu ra $a_i$ dương và tổng của chúng bằng $1$. \autoref{fig:softmax} mô tả một số giá trị đầu vào và đầu ra tương ứng của hàm softmax.
+	\begin{figure}[h!]
+		\centering
+		\input{figures/softmax}
+		\caption[Một số ví dụ về đầu vào và đầu ra của hàm Softmax.]{Một số ví dụ về đầu vào và đầu ra của hàm Softmax \sourcefig{\cite{machinelearningcoban}}.}
+		
+		\label{fig:softmax}
+	\end{figure}
+	
+	Trong lý thuyết xác suất, giá trị xuất ra của hàm softmax có thể được sử dụng để đại diện cho một loại phân phối -- đó là phân phối xác suất trên $K$ khả năng khác nhau có thể xảy ra.
+	
+	Hàm softmax\index{Softmax} được sử dụng trong nhiều phương pháp phân loại đa lớp như hồi quy logistic đa biến, biệt thức tuyến tính phân tích nhiều lớp và mạng nơ-ron. Đặc biệt, trong mạng nơ-ron, lớp softmax được sử dụng làm lớp cuối cùng của kiến trúc mạng để xác định độ chắc chắc trong kết quả dự đoán.
+	
+\newpage
+\section{Các toán tử trong xử lý hình ảnh} 
+\label{sec:cac_toan_tu_trong_xu_ly_hinh_anh}
+	Trong mục này, chúng tôi trình bày ba phép toán trong xử lý hình ảnh bao gồm phép toán giãn nở đối tượng dilation, phép toán làm co đối tượng erosion và phép toán trích xuất khung xương đối tượng skeleton. Trong đó, phép toán dilation và phép toán skeleton được chúng tôi sử dụng trong luận văn này.
+
+\subsection{Phép toán Dilation}
+\label{subsec:phep_toan_dilation}
+	Phép toán giãn nở đối tượng dilation\index{Dilation} (thường được biểu diễn bởi ký hiệu $\oplus$) là một trong các toán tử cơ bản thuộc miền toán học hình thái (mathematical morphology) được \citeauthor{weeks1996fundamentals} \cite{weeks1996fundamentals} trình bày trong cuốn \citetitle{weeks1996fundamentals}. Toán tử dilation có tác dụng làm tăng kích thước đối tượng, nối đứt đoạn và lấp lỗ trống. Ban đầu toán tử này được phát triển để sử dụng trên ảnh nhị phân, về sau được mở rộng và áp dụng được cho cả ảnh xám.
+	
+	Trong các phép toán biến đổi hình thái, phép toán dilation thuộc loại toán tử shift-invariant\index{Shift-invariant}\footnote{Shift-invariant là khái niệm chỉ phép trượt một đối tượng trong không gian của nó và giữ nguyên cấu trúc của đối tượng.}. Nó thường sử dụng một thành phần cấu trúc (structuring element) để thăm dò và mở rộng đối tượng chứa trong ảnh đầu vào. Gọi $A$ là tập các điểm thuộc các đối tượng trong ảnh nhị phân, $B$ là một thành phần cấu trúc, khi đó phép toán dilation trên $A$ áp dụng $B$ được định nghĩa là 
+	\begin{equation}
+		A \oplus B = \bigcup_{x\in I^2}\{x|\hat{B}_x\cap A\neq\varnothing\},
+		\label{eqn:dilation}
+	\end{equation}
+	trong đó, $I^2$ là miền không gian hai chiều của ảnh nhị phân, $\hat{B}_x$ là một tịnh tiến của thành phần cấu trúc đối xứng qua góc toạ độ của $B$ theo vec-tơ $x$ thuộc miền $I^2$. \autoref{eqn:dilation} có thể được hiểu như sau. Đầu tiên đối xứng thành phần cấu trúc $B$ qua gốc toạ độ ta được thành phần cấu trúc mới $\hat{B}$, sau đó tịnh tiến $\hat{B}$ theo một vec-tơ $x$ bất kỳ trên ảnh đầu vào sao cho giao của nó và $A$ khác rỗng. Lúc đó, tập tất cả các điểm $x$ chính là kết quả của phép toán dilation.
+	
+	Nếu $B$ có tâm đặt tại gốc toạ độ, lúc đó phép toán dilation trên $A$ áp dụng $B$ được hiểu là quỹ tích các điểm bao phủ bởi $B$ với tâm của $B$ dịch chuyển bên trong $A$ như mô phỏng ở \autoref{fig:dilation}.
+	\begin{figure}[h!]
+		\centering
+		\input{figures/morphology_dilation}
+		\caption[Phép toán Dilation trên $A$ áp dụng thành phần cấu trúc $B$.]{Phép toán Dilation trên $A$ áp dụng thành phần cấu trúc $B$ \sourcefig{\cite{weeks1996fundamentals}}.}
+		\label{fig:dilation}
+	\end{figure}
+
+\subsection{Phép toán Erosion}
+\label{subsec:phep_toan_erosion}
+	Phép toán làm co đối tượng erosion\index{Erosion} (thường được biểu diễn bởi ký hiệu $\ominus$) là toán tử cơ bản thứ hai thuộc miền toán học hình thái được giới thiệu bởi \citeauthor{weeks1996fundamentals} \cite{weeks1996fundamentals}. Toán tử erosion có tác dụng làm mảnh đối tượng, xóa bỏ nhiễu và chi tiết thừa. Ban đầu toán tử này được phát triển để sử dụng trên ảnh nhị phân, về sau được mở rộng và áp dụng được cho cả ảnh xám.
+\newpage	
+	Tương tự phép toán dilation, phép toán erosion thuộc loại toán tử shift-invariant\index{Shift-invariant}. Nó cũng sử dụng một thành phần cấu trúc để thăm dò và thu giảm đối tượng chứa trong ảnh đầu vào. Gọi $A$ là tập các điểm thuộc các đối tượng trong ảnh nhị phân, $B$ là một thành phần cấu trúc, khi đó phép toán erosion trên $A$ áp dụng $B$ được định nghĩa là 
+	\begin{equation}
+	A \ominus B = \bigcup_{x\in I^2} \{x|B_x\subseteq A\},
+	\label{eqn:erosion}
+	\end{equation}
+	trong đó, $I^2$ là miền không gian hai chiều của ảnh nhị phân, $B_x$ là một tịnh tiến của $B$ theo vec-tơ $x$ thuộc miền $I^2$. \autoref{eqn:dilation} có thể được hiểu như sau. Tịnh tiến $B$ theo một vec-tơ $x$ bất kỳ trên ảnh đầu vào sao cho nó là một tập con hoặc bằng $A$. Lúc đó, tập tất cả các điểm $x$ chính là kết quả của phép toán erosion. 
+	
+	Nếu $B$ có tâm đặt tại gốc toạ độ, lúc đó phép erosion trên $A$ áp dụng $B$ được hiểu là quỹ tích các điểm bao phủ bởi tâm $B$ với $B$ dịch chuyển bên trong $A$ như mô phỏng ở \autoref{fig:erosion}.
+	\begin{figure}[h!]
+		\centering
+		\input{figures/morphology_erosion}
+		\caption[Phép toán Erosion trên $A$ áp dụng thành phần cấu trúc $B$.]{Phép toán Erosion trên $A$ áp dụng thành phần cấu trúc $B$ \sourcefig{\cite{weeks1996fundamentals}}.}
+		\label{fig:erosion}
+	\end{figure}
+
+\subsection{Phép toán Skeleton}
+\label{subsec:phep_toan_skeleton}
+	Phép toán trích xuất khung xương đối tượng skeleton\index{Skeleton} là một trong các phép toán biến đổi hình thái được giới thiệu bởi Fisher và cộng sự \cite{hipr2thining}. Phép toán này được sử dụng để rút trích thành phần chính đại diện cho hình dạng của đối tượng trong ảnh nhị phân. Được ứng dụng trong nhận dạng mẫu (nhận dạng kí tự), nén ảnh, phát hiện lỗi trên sản phẩm công nghiệp (đứt đoạn).
+	
+	Gọi $\{nB\}, n= 0, 1, ...$ là một họ các hình khối với $B$ là một thành phần cấu trúc, ta có
+	\begin{equation}
+		nB = \underbrace{B\oplus \cdots \oplus B}_{n\ \text{lần}}.
+		\label{eqn:skeleton_nb}
+	\end{equation}
+	Khi $n=0$, $nB=\{o\}$ với $o$ biểu diễn cho thành phần cấu trúc ban đầu. Phép toán skeleton lên ảnh nhị phân $A$ được định nghĩa như sau
+	\begin{equation}
+		S(A) = \bigcup_{n = 0}^N (A \ominus nB) - ((A \ominus nB) \ominus B)\oplus B,
+		\label{eqn:skeleton}
+	\end{equation}
+	trong đó, $N$ là số lần lặp lớn nhất trước khi $A$ trở thành tập rỗng. $N$ được xác định theo công thức
+	\begin{equation}
+		N = \text{max}\{k|(A\ominus kB)\neq\varnothing\}.
+	\label{eqn:skeleton_n}
+	\end{equation}
+	
+	\autoref{fig:skeleton2d_apply} là một ví dụ áp dụng phép toán skeleton để rút trích khung xương đối tượng trong ảnh nhị phân.
+	\begin{figure}[h!]
+		\hfill
+		\begin{subfigure}[b]{0.475\textwidth}
+			\centering
+			\input{figures/morphology_skeleton2d_before}
+			\caption{}
+			\label{fig:skeleton2d_apply_before}
+		\end{subfigure}
+		\begin{subfigure}[b]{0.475\textwidth}
+			\centering
+			\input{figures/morphology_skeleton2d_after}
+			\caption{}
+			\label{fig:skeleton2d_apply_after}
+		\end{subfigure}
+		\hfill\null
+		\caption[Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 2D.]{Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 2D. \subref{fig:skeleton2d_apply_before} ảnh nhị phân ban đầu. \subref{fig:skeleton2d_apply_after} ảnh nhị phân sau khi trích xuất khung xương đối tượng. \sourcefig{\cite{hipr2thining}}.}
+		\label{fig:skeleton2d_apply}
+	\end{figure}
+	
+	Trong luận văn này chúng tôi sử dụng kỹ thuật rút trích khung xương đối tượng trong không gian 3D được đề xuất bởi Lee và cộng sự \cite{lee1994building} để tìm đường chính giữa của mạch máu trong \autoref{sec:tim_duong_chinh_giua_va_diem_phan_nhanh}. \autoref{fig:skeleton3d_apply} minh hoạ việc áp dụng phép toán skeleton làm mảnh đối tượng trong không gian 3D.
+	\begin{figure}[h!]
+		\centering
+		\begin{subfigure}[b]{0.49\textwidth}
+			\centering
+			\includegraphics[width=.8\textwidth]{figures/morphology_skeleton3d_before}
+			\caption{}
+			\label{fig:skeleton3d_apply_before}
+		\end{subfigure}
+		\hfill
+		\begin{subfigure}[b]{0.49\textwidth}
+			\centering
+			\includegraphics[width=.6\textwidth]{figures/morphology_skeleton3d_after}
+			\caption{}
+			\label{fig:skeleton3d_apply_after}
+		\end{subfigure}%
+		\caption[Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 3D.]{Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 3D. \subref{fig:skeleton3d_apply_before} đối tượng ban đầu. \subref{fig:skeleton3d_apply_after} khung xương được tạo ra từ phép toán skeleton. \sourcefig{\cite{lee1994building}}.}
+		\label{fig:skeleton3d_apply}
+	\end{figure}
+
+\section{Thư viện và công cụ} 
+\label{sec:thu_vien_va_cong_cu}
+	Trong mục này, chúng tôi giới thiệu các thư viện và công cụ mà chúng tôi đã sử dụng trong quá trình thực hiện Luận văn này, bao gồm nền tảng PyTorch, thư viện VTK và ứng dụng Slicer.
+
+\subsection{Nền tảng PyTorch}
+\label{subsec:nen_tang_pytorch}
+	\index{PyTorch}PyTorch\footnote{\url{https://pytorch.org}}là một nền tảng mã nguồn mở được phát triển và duy trì bởi nhóm nghiên cứu về trí thông minh nhân tạo của Facebook. PyTorch có khả năng tự động ghi lại các toán tử đã xử lý vào một đồ thị tính toán trong bước forward\index{Forward} (lan truyền xuôi) và sau đó tái thực thi các toán tử này để tính toán gradient\index{Gradient} một cách nhanh chóng ở bước backward\index{Backward} (lan truyền ngược). Kỹ thuật này giúp PyTorch trở nên hiệu quả trong việc xây dựng một mạng nơ-ron vì nó giúp tiết kiệm thời gian nhờ vào việc tính toán đạo hàm các tham số trước khi thực hiện bước forward. Với phiên bản mới nhất của PyTorch (phiên bản 1.0.1, xem \cite{Soumith2019}), các nhà phát triển có thể chuyển từ giai đoạn nghiên cứu sang giai đoạn triển khai sản phẩm một cách dễ dàng, biến PyTorch trở thành một nền tảng học sâu vô cùng mạch mẽ. PyTorch được viết bằng ngôn ngữ C++, CUDA\nomenclature{CUDA}{Compute Unified Device Architecture} và Python và được tối ưu hoá hoàn toàn cho các tác vụ học sâu trên cả CPU\nomenclature{CPU}{Central Processing Unit} và GPU như xử lý hình ảnh, huấn luyện các mạng học sâu với khả năng huấn luyện song song trên nhiều GPU, v.v.
+	
+	Với các tính năng phong phú và sự năng động của cộng đồng hỗ trợ và phát triển, chúng tôi chọn PyTorch làm nền tảng xây dựng và phát triển hệ thống trong luận văn này.
+	
+\newpage
+\subsection{Thư viện VTK}
+\label{subsec:thu_vien_vtk}
+	\nomenclature{VTK}{The Visualization Toolkit}\index{VTK}VTK (The Visualization Toolkit)\footnote{\url{https://pypi.org/project/vtk/}}là một thư viện mã nguồn mở cung cấp cho các nhà phát triển một bộ công cụ đa dạng phục vụ cho đồ hoạ máy tính trong không gian ba chiều, xử lý hình ảnh và trực quan hoá. Thư viện này được hiện thực từ nhiều ngôn ngữ khác nhau như C++, Java và Python. Nó hỗ trợ nhiều giải thuật trực quan hoá bao gồm phương pháp vô hướng, phương pháp vec-tơ, phương pháp kết cấu và thể tích. Đặc biệt, thư viện này còn hỗ trợ các kỹ thuật mô hình hoá nâng cao như mô hình ẩn, thu giảm đa giác, làm mịn bề mặt, tạo đường viền và tam giác phân Delaunay.
+	
+	Trong luận văn này, chúng tôi sử dụng thư viện VTK trên ngôn ngữ Python nhằm trích xuất và làm mịn lưới bề mặt hệ thống mạch máu cũng như đường chính giữa mạch máu và các điểm phân nhánh từ kết quả dự đoán, phục vụ quá trình trực quan hoá sẽ được đề cập tới trong \autoref{sec:truc_quan_hoa_ket_qua_thi_nghiem}.
+
+\subsection{Phần mềm Slicer}
+\label{subsec:pham_mem_Slicer}
+	\index{Slicer}Slicer\footnote{\url{https://www.slicer.org/}}là ứng dụng mã nguồn mở phục vụ cho tin học về hình ảnh y tế, xử lý hình ảnh y khoa và trực quan hoá trong không gian ba chiều. Được xây dựng trong hơn hai thập kỷ qua với sự hỗ trợ của các viện y tế quốc gia (National Institutes of Health) và cộng đồng các nhà phát triển trên toàn thế giới, trong đó phải kể đến sự đóng góp của cộng đồng quốc tế các nhà khoa học, bao gồm cả kỹ thuật và y sinh. Slicer mang đến các công cụ xử lý đa nền tảng miễn phí, mạnh mẽ cho các bác sĩ, các nhà nghiên cứu và cộng đồng.
+	
+	Trong luận văn này, chúng tôi sử dụng ứng dụng Slicer để trực quan hoá kết quả thu được từ hệ thống, nhằm đưa ra những nhận xét mang tính định tính chất lượng, giúp kết quả đánh giá được toàn diện hơn. Chúng tôi sẽ đề cập rõ hơn trong \autoref{sec:truc_quan_hoa_ket_qua_thi_nghiem}.

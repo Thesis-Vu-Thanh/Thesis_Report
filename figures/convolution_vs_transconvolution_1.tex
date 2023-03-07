@@ -1,0 +1,19 @@
+\begin{tikzpicture}[thick, scale=.6]
+  	\input{figures/convolution_command}
+  	
+	% layer 1
+	\drawtile{0}{0}{5}{blue}{1.0}
+	\drawgrid{0}{0}{5}{}
+	\drawtile{0}{0}{3}{black}{0.3}
+	
+	% connection
+	\drawline{0}{0}{2.25}{3.75}{}
+	\drawline{3}{0}{3.25}{3.75}{}
+	\drawline{1.5}{1.5}{2.75}{4.25}{}
+	\drawline{4.5}{1.5}{3.75}{4.25}{}
+	
+	% layer 2
+	\drawtile{2.25}{3.75}{2}{cyan}{1.0}
+	\drawgrid{2.25}{3.75}{2}{}
+	\drawtile{2.25}{3.75}{1}{black}{0.3}
+\end{tikzpicture}

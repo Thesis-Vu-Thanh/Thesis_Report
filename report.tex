@@ -1,0 +1,77 @@
+% This is the report document file of the BKU report template.
+% Copyright (c) 2019/06/20 by Nguyen Van Hung <nvhung1401@gmail.com>.
+
+
+\input{styles/format_and_defs.tex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Main content
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+	
+\pagenumbering{roman} 
+
+%-Cover Page------------------------------------
+%\input{chapters/cover_page_1st.tex}
+\input{chapters/cover_page_2nd.tex}
+
+%-Commitment------------------------------------
+\input{chapters/commitment.tex}
+
+%-Thanks----------------------------------------
+\input{chapters/thanks.tex}
+
+%-Preface---------------------------------------
+\input{chapters/preface.tex}
+
+%-List of figures-------------------------------
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoffigures
+\cleardoublepage
+
+%-List of abbreviations-------------------------
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Tables}
+\listoftables
+\cleardoublepage
+
+%-List of abbreviations-------------------------
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Abbreviations}
+\printnomenclature[2cm]
+\cleardoublepage
+
+%-Table of contents-----------------------------
+\listofcontents
+\cleardoublepage
+
+\pagenumbering{arabic}
+
+%-Chapters--------------------------------------
+\input{chapters/chapter1_introduction.tex}
+\input{chapters/chapter2_background.tex}
+\input{chapters/chapter3_relatedworks.tex}
+\input{chapters/chapter4_dataset.tex}
+\input{chapters/chapter5_proposalsolution.tex}
+\input{chapters/chapter6_implementation.tex}
+\input{chapters/chapter7_experiment.tex}
+\input{chapters/chapter8_conclusion.tex}
+
+%-Appendix--------------------------------------
+\input{chapters/appendix.tex}
+
+%-References------------------------------------
+\phantomsection
+\addcontentsline{toc}{chapter}{References}
+\printbibliography
+\cleardoublepage
+
+%-Keywords--------------------------------------
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Keywords}
+\printindex
+
+\end{document}
