@@ -69,6 +69,7 @@
 
 %%% Rename--------------------------------------
 \AtBeginDocument{
+	\renewcommand{\contentsname}{Table of Contents}
 	\renewcommand{\listfigurename}{List of Figures}
 	\renewcommand{\figurename}{Figure}
 	\renewcommand{\figureautorefname}{Figure}
@@ -112,7 +113,8 @@
 			\ifnum\value{chapter}=0
 				\textit{\MakeUppercase\leftmark}
 			\else
-				\textit{\MakeUppercase\chaptername\ \thechapter}
+				\renewcommand{\chaptername}{Chapter }
+				\textit{\MakeUppercase\chaptername \thechapter}
 			\fi
 		}
 	\else
@@ -120,7 +122,7 @@
 			\ifnum\value{chapter}=0
 				\textit{\MakeUppercase\leftmark}
 			\else
-				\textit{\MakeUppercase\chaptername\ \thechapter\ \MakeUppercase\leftmark}
+				\textit{\MakeUppercase\chaptername \thechapter\ \MakeUppercase\leftmark}
 			\fi
 		}
 		\fancyhead[R]{\thepage}
@@ -154,7 +156,7 @@
 \AtEndDocument{\writenomencl{\jobname}}
 \makenomenclature
 \renewcommand{\nompreamble}{
-	\textit{Danh sách dưới đây liệt kê các chữ cái viết tắt sẽ được sử dụng về sau trong nội dung cuốn luận văn này.}
+	\textit{The following list shows the abbreviations that will be used in the text of this thesis.}
 %	\begin{multicols}{2}
 }
 \renewcommand{\nompostamble}{
@@ -240,8 +242,8 @@
 	}
 	\g@addto@macro\appendix
 	{
-		\addtocontents{toc}{\protect\renewcommand{\protect\cftchappresnum}{Table of Contents}}
-		\renewcommand{\chaptername}{TABLE OF CONTENTS}
+		\addtocontents{toc}{\protect\renewcommand{\protect\cftchappresnum}{}}
+		\renewcommand{\chaptername}{}
 	}
 \makeatother
 \newcommand{\listofcontents} {
@@ -252,6 +254,7 @@
 	\adjustmtc
 	\adjustmtc
 }
+
 
 %%% List of algorithms--------------------------
 \let\oldlistofalgorithms\listofalgorithms
