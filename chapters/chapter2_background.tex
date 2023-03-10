@@ -238,8 +238,8 @@ The updated formula (according to the SGD algorithm) for logistic regression:
 
 \section{Deep Neural Network}
 \label{sec:deep_neural_network}
-With their excellent results, broad applicability, and vast potential for growth, neural networks are currently the most advanced advancement in artificial intelligence.
-Feedforward Neural Networks (FNN) and Convolution Neural Networks (CNN) are widely used to make predictions with independent data input. In CNN (Figure 2.3), each input image is passed through a series of convolutional layers (Filters, Pooling, and Fully-connected layers) to extract features before being classified using Softmax function\footnote{Softmax function:$ \sigma (\overrightarrow{z})_i \: = \: (e^{z_i})/ \sum_{j=1}^{K} e^z_i  $}.
+With their excellent results, broad applicability, and vast growth potential, neural networks are currently the most advanced advancement in artificial intelligence.
+Feedforward Neural Networks (FNN) and Convolution Neural Networks (CNN) are widely used to make predictions with independent data input. In CNN (Figure 2.3), each input image is passed through a series of convolutional layers (Filters, Pooling, and Fully-connected layers) to extract features before being classified using the Softmax function\footnote{Softmax function:$ \sigma (\overrightarrow{z})_i \: = \: (e^{z_i})/ \sum_{j=1}^{K} e^z_i  $}.
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/CNN.png}
@@ -249,13 +249,13 @@ Feedforward Neural Networks (FNN) and Convolution Neural Networks (CNN) are wide
 \emph{Layers} are the building components of deep neural networks such as CNN and others. A \emph{layer} is a broad phrase that refers to a group of 'nodes' that function together at a given level within a neural network. \emph{Layers} are classified into three types: \emph{input layer},\emph{ hidden layers}, and \emph{output layers}.
 
 The \emph{input layer} contains raw data (each variable as a ‘node’) \\
-At neural networks, the black magic happens in the \emph{hidden layer}(s). By minimizing an error/cost function, each layer attempts to learn different elements of the data. The context of 'image recognition,' such as a face, is the most intuitive way to understand these levels. The first layer may learn edge detection, the second eyes, the third a nose, and so on. This isn't exactly what's going on, but the idea is to split the problem down into components that different levels of abstraction can piece together, much to how our own brains work (hence the name neural networks).
+In neural networks, black magic happens in the \emph{hidden layer}(s). By minimizing an error/cost function, each layer attempts to learn different elements of the data. The context of 'image recognition', such as a face, is the most intuitive way to understand these levels. The first layer may learn edge detection, the second eye, the third nose, and so on. This isn't exactly what's going on, but the idea is to split the problem down into components that different levels of abstraction can piece together, much to how our own brains work (hence the name neural networks).
 
-The \emph{output layer} is the simplest, usually consisting of a single output for classification problems. Despite the fact that it is a single 'node,' it is nevertheless regarded a layer in a neural network because it might contain numerous nodes. We use six types of layers given by the TensorFlow framework in this thesis: \textbf{Embedding} layer, \textbf{Conv1D} layer, \textbf{MaxPooling1D} layer, \textbf{Dropout} layer, \textbf{Flatten} layer, and \textbf{Dense} layer.
+The \emph{output layer} is the simplest, usually consisting of a single output for classification problems. Even though it is a single 'node,' it is nevertheless regarded as a layer in a neural network because it might contain numerous nodes. We use six types of layers given by the TensorFlow framework in this thesis: \textbf{Embedding} layer, \textbf{Conv1D} layer, \textbf{MaxPooling1D} layer, \textbf{Dropout} layer, \textbf{Flatten} layer, and \textbf{Dense} layer.
 \newpage
 \subsection{Gradient descent}
 \label{subsec:gradient_descent}
-\emph{Gradient descent} is an optimization algorithm that is used to minimize a function by iteratively traveling in the direction of the steepest descent as defined by the gradient's negative. Gradient descent is used in machine learning to update the parameters of our model, especially and weights in neural networks.
+\emph{Gradient descent} is an optimization algorithm that is used to minimize a function by iteratively traveling in the direction of the steepest descent as defined by the gradient's negative. Gradient descent is used in machine learning to update the parameters of our model, especially weights in neural networks.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/gradient descent.png}
@@ -263,17 +263,17 @@ The \emph{output layer} is the simplest, usually consisting of a single output f
 \end{figure}
 \subsection{Learning Rate}
 \label{subsec:learning_rate}
-The learning rate is the size of each step in each gradient descent cycle. We can cover more territory per step with a high learning rate, but we risk overshooting the lowest spot because the slope of the hill is continually changing. We may reliably go in the direction of the negative gradient with a very low learning rate because we are recalculating it so frequently. A low learning rate is more exact, but calculating the gradient takes time, therefore we will take a long time to reach the bottom. An example of learning rate is shown in Figure 2.5.
+The learning rate is the size of each step in each gradient descent cycle. We can cover more territory per step with a high learning rate, but we risk overshooting the lowest spot because the slope of the hill is continually changing. We may reliably go in the direction of the negative gradient with a very low learning rate because we are recalculating it so frequently. A low learning rate is more exact, but calculating the gradient takes time, therefore we will take a long time to reach the bottom. An example of the learning rate is shown in Figure 2.5.
 \newpage
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/learning rate.png}
-   \caption{Learning ate}
+   \caption{Learning rate}
 \end{figure}
 
 \subsection{Loss Function}
 \label{subsec:loss_function}
-A Loss Function (or cost function) indicates how well the model predicts for a given set of parameters. Index of the cost function The loss function has its own curve and gradients. The slope of this curve indicates how we should adjust our parameters to improve the model's accuracy. If the cost ever rises, we must reduce the value of the learning rate; if the cost falls slowly, we must increase the value of the learning rate. Figure 2.6 shows examples of loss function behavior based on learning rate.
+A Loss Function (or cost function) indicates how well the model predicts a given set of parameters. Index of the cost function The loss function has its curve and gradients. The slope of this curve indicates how we should adjust our parameters to improve the model's accuracy. If the cost ever rises, we must reduce the value of the learning rate; if the cost falls slowly, we must increase the value of the learning rate. Figure 2.6 shows examples of loss function behavior based on the learning rate.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/loss function DL.png}
