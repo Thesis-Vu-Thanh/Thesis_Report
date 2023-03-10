@@ -12,12 +12,12 @@ WAF stands for \textbf{Web Application Firewall}. This firewall solution commonl
 
 The WAF tool can be distributed using network-based, cloud-based, or host-based architectures. It needs a reverse proxy to make sure that one or more web apps are in front of it while facing forward. 
 
-It can be utilized either alone or in conjunction with other applications. WAF may function at a lower level or a higher level depending on the requirement \footnote{Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}.
+It can be utilized either alone or in conjunction with other applications. WAF may function at a lower level or a higher level depending on the requirement\footnote{Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}.
 
 
 \subsection{How does WAF work?}
 \label{subsec:waf_work}
-As mentioned before, WAF is placed at the application layer and functions as a two-way protection there. At work, WAF keeps an eye on HTTP or HTTPS traffic entering or leaving a certain web app. When a malicious object is seen in the traffic, WAF activates and destroys it . \\
+As mentioned before, WAF is placed at the application layer and functions as a two-way protection there. At work, WAF keeps an eye on HTTP or HTTPS traffic entering or leaving a certain web app. When a malicious object is seen in the traffic, WAF activates and destroys it. \\
 \begin{figure}[!h]
    
 	\centering
@@ -26,159 +26,141 @@ As mentioned before, WAF is placed at the application layer and functions as a t
   
 \end{figure}
 \\
-To make the process a bit more simplified, WAF predefined what is vindictive and what’s not. WAF follows these rules all through the process. Mainly, WAF analyses the GET and POST part of the HTTP traffic. GET retrieves data from the server while POST is used to guide the data to the server to alter its original condition \footnote{Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}.
+To make the process a bit more simplified, WAF predefined what is vindictive and what’s not. WAF follows these rules all through the process. Mainly, WAF analyses the GET and POST part of the HTTP traffic. GET retrieves data from the server while POST is used to guide the data to the server to alter its original condition\footnote{Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}.
 
-\subsection{Lớp Pooling}
-\label{subsec:lop_pooling}
-	Thông thường, lớp pooling\index{Pooling} được chèn định kỳ giữa các lớp convolution\index{Convolution} liên tiếp trong kiến trúc mạng. Chức năng của nó là giảm dần kích thước không gian của dữ liệu để giảm số lượng tham số và lượng tính toán trong mạng, và do đó cũng có thể kiểm soát việc overfitting\index{Overfitting}\footnote{Overfitting là hiện tượng mạng ghi nhớ thông tin của dữ liệu thay vì học các đặc trưng. Điều này không tốt cho quá trình sử dụng mạng sau này.}. Tuy nhiên, việc sử dụng pooling cũng dẫn đến việc mất mát thông tin, điều này khiến cho mô hình trở nên nhạy cảm với các phép biến đổi trên dữ liệu đầu vào như xoay (rotate) hoặc lật hình (flip). 
+\subsection{WAF vs Firewall}
+\label{subsec:versus}
+The firewall and WAF appear to be similar on the surface. They also share a
+number of characteristics with one another. However, they are not the same. There are some key distinctions. Understanding the differences is crucial if you’re going to put anyone into action. A firewall is a general phrase that refers to a variety of firewalls used to safeguard computer networks. It filters the data packets while it is in use. Based on the security they provide and their delivery method, firewalls can be differentiated from one another. For example, only a small number of firewalls employ packet filtering, whereas others make use of proxies, NGFW, or stateful inspection. In comparison to proxy firewalls, WAF. However, there is a distinction. The system is not protected from assaults that occur on a fundamental level by a firewall. The WAF concentrates on Layer 7 logic.
+
+Web application firewalls, or WAFs, are primarily used to protect web applications from online threats. Work on it starts at the application layer. Therefore, WAF implementation is always done at the application layer, regardless of the strategy\footnote{Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}. 
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/waf3.png}
+		\caption{Comparison between WAF and network firewall}
+	\end{figure}
+
+% \subsection{Receptive field} 
+% \label{subsec:receptive_field}
+% 	Receptive field\index{Receptive field} trong lĩnh vực thị giác máy tính được định nghĩa là vùng trên không gian đầu vào tương ứng cho một đặc trưng được trích xuất ở kết quả đầu ra. Receptive field của một đặc trưng được mô tả bằng điểm chính giữa và kích thước của nó.  Trong một receptive field, điểm ảnh càng gần tâm càng đóng góp nhiều vào đặc trưng đầu ra. Điều đó có nghĩa rằng, một đặc trưng không chỉ nhìn vào một vùng riêng biệt trong ảnh đầu vào mà còn tập trung nhiều vào vùng giữa của receptive field đó. 
 	
-	Lớp pooling hoạt động độc lập từng vùng trên dữ liệu đầu vào và thay đổi kích thước không gian của dữ liệu. Phép max-pooling\index{Max-pooling} là phép toán thường được sử dụng nhất, đặc biệt là max-pooling với filter có kích thước $2\times 2$ và $stride=2$. Khi áp dụng phép max-pooling này, filter sẽ trượt trên dữ liệu đầu vào và lấy giá trị lớn nhất trong mỗi vùng làm giá trị đầu ra, kích thước đầu ra sẽ giảm hai lần cho cả chiều rộng và chiều cao. \autoref{fig:max_pool} mô phỏng cho phép toán này. Ngoài ra cũng có thể sử dụng các phép pooling khác như lấy giá trị trung bình hoặc chuẩn hoá $L2$.
-	\newpage
-	\begin{figure}[h!]
-		\centering
-		\input{figures/max_pool}
-		\caption[Phép toán Max-pooling với kích thước kernel $2\times2$ và stride 2.]{Phép toán Max-pooling với kích thước filter\index{Filter} $2\times2$ và stride\index{Stride} 2 trên ảnh đầu vào có kích thước $4\times4$ cho kết quả đầu ra có kích thước $2\times2$ \sourcefig{\cite{cs231nmaxpool}}.}
-		\label{fig:max_pool}
-	\end{figure}
+% 	\autoref{fig:receptive_field} minh họa receptive field của toán tử convolution có kích thước filter\index{Filter} $3\times3$, stride\index{Stride} là 2 và padding\index{Padding} ``same''. Áp dụng toán tử này trên ảnh đầu vào có kích thước 5$\times$5 cho kết quả đầu ra có kích thước 3$\times$3 (màu xanh). Tiếp tục áp dụng toán tử này trên đầu ra thu được cho kết quả cuối cùng có kích thước 2$\times$2 (màu cam). Vùng màu xám trong hình chính là receptive field của một đặc trưng trên kết quả cuối cùng này.
+% 	\vfill
+% 	\begin{figure}[h!]
+% 		\centering
+% 		\input{figures/receptive_field}
+% 		\caption[Receptive field của phép toán Convolution có kích thước filter $3\times 3$, stride 2 và padding ``same''.]{Receptive field của phép toán convolution\index{Convolution} có kích thước filter\index{Filter} $3\times 3$, stride\index{Stride} 2  và padding\index{Padding} ``same''\sourcefig{\cite{le2017receptive}}.}
+% 		\label{fig:receptive_field}
+% 	\end{figure}
 
-\subsection{Receptive field} 
-\label{subsec:receptive_field}
-	Receptive field\index{Receptive field} trong lĩnh vực thị giác máy tính được định nghĩa là vùng trên không gian đầu vào tương ứng cho một đặc trưng được trích xuất ở kết quả đầu ra. Receptive field của một đặc trưng được mô tả bằng điểm chính giữa và kích thước của nó.  Trong một receptive field, điểm ảnh càng gần tâm càng đóng góp nhiều vào đặc trưng đầu ra. Điều đó có nghĩa rằng, một đặc trưng không chỉ nhìn vào một vùng riêng biệt trong ảnh đầu vào mà còn tập trung nhiều vào vùng giữa của receptive field đó. 
+% \subsection{Lớp Batchnorm}
+% \label{subsec:lop_batchnorm}
+% 	Thông thường chúng ta chuẩn hoá dữ liệu đầu vào bằng cách điều chỉnh và co giãn miền giá trị của chúng để việc học không bị thiên vị về một thuộc tính bất kỳ nào của dữ liệu. Ví dụ, nếu dữ liệu của chúng ta có một thuộc tính với miền giá trị trong khoảng từ 0 đến 1\linebreak và một thuộc tính khác có miền giá trị trong khoảng từ 0 đến 1000 thì chúng ta nên thực hiện bước chuẩn hoá dữ liệu để việc huấn luyện đạt kết quả tốt hơn. Tuy nhiên việc chuẩn hoá này chỉ mới được áp dụng trên dữ liệu đầu vào. Ioffe và Szegedy \cite{ioffe2015batch} đã đề xuất việc chuẩn hoá dữ liệu nên được thực hiện trên cả những lớp ẩn của kiến trúc mạng.
 	
-	\autoref{fig:receptive_field} minh họa receptive field của toán tử convolution có kích thước filter\index{Filter} $3\times3$, stride\index{Stride} là 2 và padding\index{Padding} ``same''. Áp dụng toán tử này trên ảnh đầu vào có kích thước 5$\times$5 cho kết quả đầu ra có kích thước 3$\times$3 (màu xanh). Tiếp tục áp dụng toán tử này trên đầu ra thu được cho kết quả cuối cùng có kích thước 2$\times$2 (màu cam). Vùng màu xám trong hình chính là receptive field của một đặc trưng trên kết quả cuối cùng này.
-	\vfill
-	\begin{figure}[h!]
-		\centering
-		\input{figures/receptive_field}
-		\caption[Receptive field của phép toán Convolution có kích thước filter $3\times 3$, stride 2 và padding ``same''.]{Receptive field của phép toán convolution\index{Convolution} có kích thước filter\index{Filter} $3\times 3$, stride\index{Stride} 2  và padding\index{Padding} ``same''\sourcefig{\cite{le2017receptive}}.}
-		\label{fig:receptive_field}
-	\end{figure}
-
-\subsection{Lớp Batchnorm}
-\label{subsec:lop_batchnorm}
-	Thông thường chúng ta chuẩn hoá dữ liệu đầu vào bằng cách điều chỉnh và co giãn miền giá trị của chúng để việc học không bị thiên vị về một thuộc tính bất kỳ nào của dữ liệu. Ví dụ, nếu dữ liệu của chúng ta có một thuộc tính với miền giá trị trong khoảng từ 0 đến 1\linebreak và một thuộc tính khác có miền giá trị trong khoảng từ 0 đến 1000 thì chúng ta nên thực hiện bước chuẩn hoá dữ liệu để việc huấn luyện đạt kết quả tốt hơn. Tuy nhiên việc chuẩn hoá này chỉ mới được áp dụng trên dữ liệu đầu vào. Ioffe và Szegedy \cite{ioffe2015batch} đã đề xuất việc chuẩn hoá dữ liệu nên được thực hiện trên cả những lớp ẩn của kiến trúc mạng.
+% 	Dữ liệu sẽ được chuẩn hoá nhờ lớp batchnorm\index{Batchnorm} trước khi đi qua một lớp mạng, giúp việc học trên từng lớp mạng có tính độc lập cao hơn, ít bị phụ thuộc bởi giá trị đầu ra của lớp mạng phía trước như trước đây. Đồng thời, việc sử dụng batchnorm cho phép chúng ta sử dụng giá trị learning rate\index{Learning rate} (tốc độ học) lớn hơn vì lớp batchnorm đảm bảo dữ liệu đầu vào của một lớp mạng không quá cao hoặc quá thấp.
 	
-	Dữ liệu sẽ được chuẩn hoá nhờ lớp batchnorm\index{Batchnorm} trước khi đi qua một lớp mạng, giúp việc học trên từng lớp mạng có tính độc lập cao hơn, ít bị phụ thuộc bởi giá trị đầu ra của lớp mạng phía trước như trước đây. Đồng thời, việc sử dụng batchnorm cho phép chúng ta sử dụng giá trị learning rate\index{Learning rate} (tốc độ học) lớn hơn vì lớp batchnorm đảm bảo dữ liệu đầu vào của một lớp mạng không quá cao hoặc quá thấp.
-	
-	Lớp batchnorm thực hiện chuẩn hoá dữ liệu đầu ra của một lớp mạng bằng cách lấy giá trị đầu ra trừ đi giá trị trung bình (mean\index{Mean}) rồi chia cho độ lệch chuẩn (standard deviation) của chính nó. Chi tiết về giải thuật batchnorm được mô tả trong \autoref{fig:batchnorm}.
-	\begin{figure}[h!]
-		\centering
-		\fbox{%
-			\parbox{.6\textwidth}{%
-				\vspace{-4mm}
-				\begin{tabbing}
-					\hspace{2cm}\=\kill
-					\textbf{Input:} \>Values of $x$ over a mini-batch: $\mathcal{B}=\{x_{1...m}\}$;\\
-					\>Parameters to be learned: $\gamma, \beta$\\
-					\textbf{Output:} \>$\{y_i=\text{BN}_{\gamma,\beta}(x_i)\}$
-				\end{tabbing}
-				\begin{tabbing}
-					\hspace{5mm}\=\hspace{6mm}\=\hspace{5mm}\=\hspace{4cm}\=\kill
-					\>$\mu_\mathcal{B}$\>$\leftarrow$\>$\dfrac{1}{m}\sum\limits_{i=1}^{m}x_i$\>//mini-batch mean\\[3mm]
-					\>$\sigma_\mathcal{B}^2$\>$\leftarrow$\> $\dfrac{1}{m}\sum\limits_{i=1}^{m}(x_i-\mu_\mathcal{B})^2$\>//mini-batch variance\\[3mm]
-					\>$\hat{x}_i$\>$\leftarrow$\>$\dfrac{x_i-\mu_\mathcal{B}}{\sqrt{\sigma_\mathcal{B}^2+\epsilon}}$\>// normalize\\[3mm]
-					\>$y_i$\>$\leftarrow$\>$\gamma\hat{x}_i+\beta\equiv\text{BN}_{\gamma, \beta}(x_i)$\>// scale and shift
-				\end{tabbing}
-			}%
-		}
-		\caption[Giải thuật Batchnorm áp dụng lên dữ liệu đầu vào của một mini-batch.]{Giải thuật Batchnorm áp dụng lên dữ liệu đầu vào của một mini-batch trong quá trình huấn luyện \sourcefig{\cite{ioffe2015batch}}.}
-		\label{fig:batchnorm}
-	\end{figure}
+% 	Lớp batchnorm thực hiện chuẩn hoá dữ liệu đầu ra của một lớp mạng bằng cách lấy giá trị đầu ra trừ đi giá trị trung bình (mean\index{Mean}) rồi chia cho độ lệch chuẩn (standard deviation) của chính nó. Chi tiết về giải thuật batchnorm được mô tả trong \autoref{fig:batchnorm}.
+% 	\begin{figure}[h!]
+% 		\centering
+% 		\fbox{%
+% 			\parbox{.6\textwidth}{%
+% 				\vspace{-4mm}
+% 				\begin{tabbing}
+% 					\hspace{2cm}\=\kill
+% 					\textbf{Input:} \>Values of $x$ over a mini-batch: $\mathcal{B}=\{x_{1...m}\}$;\\
+% 					\>Parameters to be learned: $\gamma, \beta$\\
+% 					\textbf{Output:} \>$\{y_i=\text{BN}_{\gamma,\beta}(x_i)\}$
+% 				\end{tabbing}
+% 				\begin{tabbing}
+% 					\hspace{5mm}\=\hspace{6mm}\=\hspace{5mm}\=\hspace{4cm}\=\kill
+% 					\>$\mu_\mathcal{B}$\>$\leftarrow$\>$\dfrac{1}{m}\sum\limits_{i=1}^{m}x_i$\>//mini-batch mean\\[3mm]
+% 					\>$\sigma_\mathcal{B}^2$\>$\leftarrow$\> $\dfrac{1}{m}\sum\limits_{i=1}^{m}(x_i-\mu_\mathcal{B})^2$\>//mini-batch variance\\[3mm]
+% 					\>$\hat{x}_i$\>$\leftarrow$\>$\dfrac{x_i-\mu_\mathcal{B}}{\sqrt{\sigma_\mathcal{B}^2+\epsilon}}$\>// normalize\\[3mm]
+% 					\>$y_i$\>$\leftarrow$\>$\gamma\hat{x}_i+\beta\equiv\text{BN}_{\gamma, \beta}(x_i)$\>// scale and shift
+% 				\end{tabbing}
+% 			}%
+% 		}
+% 		\caption[Giải thuật Batchnorm áp dụng lên dữ liệu đầu vào của một mini-batch.]{Giải thuật Batchnorm áp dụng lên dữ liệu đầu vào của một mini-batch trong quá trình huấn luyện \sourcefig{\cite{ioffe2015batch}}.}
+% 		\label{fig:batchnorm}
+% 	\end{figure}
 
-\newpage
-\subsection{Lớp Sigmoid}
-\label{subsec:lop_sigmoid}
-	Trong toán học, hàm sigmoid\index{Sigmoid} với phương trình toán học như sau
-	\begin{equation}
-	\sigma(x)=\dfrac{1}{1+e^{-x}}
-	\label{eqn:sigmoid}
-	\end{equation}
-	là một hàm số biến một giá trị thực bất kỳ thành một giá trị thực trong phạm vi $(0, 1)$. Một số dương càng lớn sẽ cho ra giá trị gần với 1 và một số âm càng nhỏ sẽ cho ra giá trị gần với 0. Hàm sigmoid có thể được sử dụng sau một lớp convolution\index{Convolution} hoặc là lớp cuối cùng của kiến trúc mạng nhằm mục đích phân loại. Đồ thị biểu diễn hàm sigmoid được mô tả như \autoref{fig:sigmoid}.
-	\begin{figure}[h!]
-		\centering
-		\input{figures/sigmoid}
-		\caption{Đồ thị biểu diễn hàm sigmoid.}
-		\label{fig:sigmoid}
-	\end{figure}
-	\vspace{-6mm}
+% \newpage
+% \subsection{Lớp Sigmoid}
+% \label{subsec:lop_sigmoid}
+% 	Trong toán học, hàm sigmoid\index{Sigmoid} với phương trình toán học như sau
+% 	\begin{equation}
+% 	\sigma(x)=\dfrac{1}{1+e^{-x}}
+% 	\label{eqn:sigmoid}
+% 	\end{equation}
+% 	là một hàm số biến một giá trị thực bất kỳ thành một giá trị thực trong phạm vi $(0, 1)$. Một số dương càng lớn sẽ cho ra giá trị gần với 1 và một số âm càng nhỏ sẽ cho ra giá trị gần với 0. Hàm sigmoid có thể được sử dụng sau một lớp convolution\index{Convolution} hoặc là lớp cuối cùng của kiến trúc mạng nhằm mục đích phân loại. Đồ thị biểu diễn hàm sigmoid được mô tả như \autoref{fig:sigmoid}.
+% 	\begin{figure}[h!]
+% 		\centering
+% 		\input{figures/sigmoid}
+% 		\caption{Đồ thị biểu diễn hàm sigmoid.}
+% 		\label{fig:sigmoid}
+% 	\end{figure}
+% 	\vspace{-6mm}
 
-\subsection{Lớp ReLU}
-\label{subsec:lop_relu}
-	ReLU (Rectified Linear Unit)\index{ReLU} do Mair và Hinton \cite{nair2010rectified} đề xuất với công thức toán học\linebreak như sau 
-	\begin{equation}
-		ReLU(x)=max(0, x),
-		\label{eqn:relu}
-	\end{equation}
-	nghĩa là hàm ReLU đặt một ngưỡng tại 0 chỉ cho những giá trị dương đi qua. So với hàm Sigmoid\index{Sigmoid}, hàm ReLU giúp tăng tốc độ hội tụ khi huấn luyện bằng SGD (Stochastic Gradient Descent)\index{SGD}\nomenclature{SGD}{Stochastic Gradient Descent}. Một ưu điểm nữa của hàm ReLU là trong quá trình lập trình, hàm ReLU có thể hiện thực dễ dàng bằng cách áp một mặt nạ với ngưỡng bằng 0 cho cả quá trình lan truyền xuôi và lan truyền ngược. Tuy nhiên, chính việc áp mặt nạ làm cho gradient bằng $0$ tại một số điểm trong mạng dẫn đến gradient\index{Gradient} từ điểm đó về trước trong quá trình lan truyền ngược bằng $0$ và mạng không học được. Đồ thị biểu diễn hàm ReLU như \autoref{fig:relu}.
-	\begin{figure}[h!]
-		\centering
-		\input{figures/relu}
-		\caption{Đồ thị biểu diễn hàm ReLU.}
-		\label{fig:relu}
-	\end{figure}
+% \subsection{Lớp ReLU}
+% \label{subsec:lop_relu}
+% 	ReLU (Rectified Linear Unit)\index{ReLU} do Mair và Hinton \cite{nair2010rectified} đề xuất với công thức toán học\linebreak như sau 
+% 	\begin{equation}
+% 		ReLU(x)=max(0, x),
+% 		\label{eqn:relu}
+% 	\end{equation}
+% 	nghĩa là hàm ReLU đặt một ngưỡng tại 0 chỉ cho những giá trị dương đi qua. So với hàm Sigmoid\index{Sigmoid}, hàm ReLU giúp tăng tốc độ hội tụ khi huấn luyện bằng SGD (Stochastic Gradient Descent)\index{SGD}\nomenclature{SGD}{Stochastic Gradient Descent}. Một ưu điểm nữa của hàm ReLU là trong quá trình lập trình, hàm ReLU có thể hiện thực dễ dàng bằng cách áp một mặt nạ với ngưỡng bằng 0 cho cả quá trình lan truyền xuôi và lan truyền ngược. Tuy nhiên, chính việc áp mặt nạ làm cho gradient bằng $0$ tại một số điểm trong mạng dẫn đến gradient\index{Gradient} từ điểm đó về trước trong quá trình lan truyền ngược bằng $0$ và mạng không học được. Đồ thị biểu diễn hàm ReLU như \autoref{fig:relu}.
+% 	\begin{figure}[h!]
+% 		\centering
+% 		\input{figures/relu}
+% 		\caption{Đồ thị biểu diễn hàm ReLU.}
+% 		\label{fig:relu}
+% 	\end{figure}
 
-\subsection{Lớp Softmax}
-\label{subsec:lop_softmax}
-	Trong toán học, hàm softmax\index{Softmax} (hay hàm trung bình mũ) là một hàm số biến không gian $K$ chiều với giá trị thực bất kỳ đến không gian $K$ chiều mang giá trị trong phạm vi $(0, 1)$. Phương trình toán học của hàm softmax được biểu diễn như sau
-	\begin{equation}
-	a_i=\dfrac{e^{z_i}}{\sum_{j=1}^{K}e^{z_j}},
-	\label{eqn:softmax}
-	\end{equation}
-	trong đó, $z_i$ là giá trị đầu vào, $K$ là số khả năng khác nhau có thể xảy ra và $a_i$ là giá trị đầu ra của hàm softmax. Hàm softmax là một hàm đồng biến đảm bảo nếu giá trị $z_i$ càng lớn thì xác suất rơi vào khả năng thứ $i$ trong $K$ khả năng càng cao. Đồng thời, hàm này đảm bảo các giá trị đầu ra $a_i$ dương và tổng của chúng bằng $1$. \autoref{fig:softmax} mô tả một số giá trị đầu vào và đầu ra tương ứng của hàm softmax.
-	\begin{figure}[h!]
-		\centering
-		\input{figures/softmax}
-		\caption[Một số ví dụ về đầu vào và đầu ra của hàm Softmax.]{Một số ví dụ về đầu vào và đầu ra của hàm Softmax \sourcefig{\cite{machinelearningcoban}}.}
+% \subsection{Lớp Softmax}
+% \label{subsec:lop_softmax}
+% 	Trong toán học, hàm softmax\index{Softmax} (hay hàm trung bình mũ) là một hàm số biến không gian $K$ chiều với giá trị thực bất kỳ đến không gian $K$ chiều mang giá trị trong phạm vi $(0, 1)$. Phương trình toán học của hàm softmax được biểu diễn như sau
+% 	\begin{equation}
+% 	a_i=\dfrac{e^{z_i}}{\sum_{j=1}^{K}e^{z_j}},
+% 	\label{eqn:softmax}
+% 	\end{equation}
+% 	trong đó, $z_i$ là giá trị đầu vào, $K$ là số khả năng khác nhau có thể xảy ra và $a_i$ là giá trị đầu ra của hàm softmax. Hàm softmax là một hàm đồng biến đảm bảo nếu giá trị $z_i$ càng lớn thì xác suất rơi vào khả năng thứ $i$ trong $K$ khả năng càng cao. Đồng thời, hàm này đảm bảo các giá trị đầu ra $a_i$ dương và tổng của chúng bằng $1$. \autoref{fig:softmax} mô tả một số giá trị đầu vào và đầu ra tương ứng của hàm softmax.
+% 	\begin{figure}[h!]
+% 		\centering
+% 		\input{figures/softmax}
+% 		\caption[Một số ví dụ về đầu vào và đầu ra của hàm Softmax.]{Một số ví dụ về đầu vào và đầu ra của hàm Softmax \sourcefig{\cite{machinelearningcoban}}.}
 		
-		\label{fig:softmax}
-	\end{figure}
+% 		\label{fig:softmax}
+% 	\end{figure}
 	
-	Trong lý thuyết xác suất, giá trị xuất ra của hàm softmax có thể được sử dụng để đại diện cho một loại phân phối -- đó là phân phối xác suất trên $K$ khả năng khác nhau có thể xảy ra.
+% 	Trong lý thuyết xác suất, giá trị xuất ra của hàm softmax có thể được sử dụng để đại diện cho một loại phân phối -- đó là phân phối xác suất trên $K$ khả năng khác nhau có thể xảy ra.
 	
-	Hàm softmax\index{Softmax} được sử dụng trong nhiều phương pháp phân loại đa lớp như hồi quy logistic đa biến, biệt thức tuyến tính phân tích nhiều lớp và mạng nơ-ron. Đặc biệt, trong mạng nơ-ron, lớp softmax được sử dụng làm lớp cuối cùng của kiến trúc mạng để xác định độ chắc chắc trong kết quả dự đoán.
+% 	Hàm softmax\index{Softmax} được sử dụng trong nhiều phương pháp phân loại đa lớp như hồi quy logistic đa biến, biệt thức tuyến tính phân tích nhiều lớp và mạng nơ-ron. Đặc biệt, trong mạng nơ-ron, lớp softmax được sử dụng làm lớp cuối cùng của kiến trúc mạng để xác định độ chắc chắc trong kết quả dự đoán.
 	
 \newpage
-\section{Các toán tử trong xử lý hình ảnh} 
-\label{sec:cac_toan_tu_trong_xu_ly_hinh_anh}
-	Trong mục này, chúng tôi trình bày ba phép toán trong xử lý hình ảnh bao gồm phép toán giãn nở đối tượng dilation, phép toán làm co đối tượng erosion và phép toán trích xuất khung xương đối tượng skeleton. Trong đó, phép toán dilation và phép toán skeleton được chúng tôi sử dụng trong luận văn này.
+\section{Machine Learning Model} 
+\label{sec:machine_model}
+	
+\subsection{Logistic Regression}
+\label{subsec:logistic_regression}
+\subsubsection{Logistic Regression Model}
+Predictive output of Linear Regression:
+\begin{align}
+	f(x) = w^T x
+\end{align}
 
-\subsection{Phép toán Dilation}
-\label{subsec:phep_toan_dilation}
-	Phép toán giãn nở đối tượng dilation\index{Dilation} (thường được biểu diễn bởi ký hiệu $\oplus$) là một trong các toán tử cơ bản thuộc miền toán học hình thái (mathematical morphology) được \citeauthor{weeks1996fundamentals} \cite{weeks1996fundamentals} trình bày trong cuốn \citetitle{weeks1996fundamentals}. Toán tử dilation có tác dụng làm tăng kích thước đối tượng, nối đứt đoạn và lấp lỗ trống. Ban đầu toán tử này được phát triển để sử dụng trên ảnh nhị phân, về sau được mở rộng và áp dụng được cho cả ảnh xám.
-	
-	Trong các phép toán biến đổi hình thái, phép toán dilation thuộc loại toán tử shift-invariant\index{Shift-invariant}\footnote{Shift-invariant là khái niệm chỉ phép trượt một đối tượng trong không gian của nó và giữ nguyên cấu trúc của đối tượng.}. Nó thường sử dụng một thành phần cấu trúc (structuring element) để thăm dò và mở rộng đối tượng chứa trong ảnh đầu vào. Gọi $A$ là tập các điểm thuộc các đối tượng trong ảnh nhị phân, $B$ là một thành phần cấu trúc, khi đó phép toán dilation trên $A$ áp dụng $B$ được định nghĩa là 
-	\begin{equation}
-		A \oplus B = \bigcup_{x\in I^2}\{x|\hat{B}_x\cap A\neq\varnothing\},
-		\label{eqn:dilation}
-	\end{equation}
-	trong đó, $I^2$ là miền không gian hai chiều của ảnh nhị phân, $\hat{B}_x$ là một tịnh tiến của thành phần cấu trúc đối xứng qua góc toạ độ của $B$ theo vec-tơ $x$ thuộc miền $I^2$. \autoref{eqn:dilation} có thể được hiểu như sau. Đầu tiên đối xứng thành phần cấu trúc $B$ qua gốc toạ độ ta được thành phần cấu trúc mới $\hat{B}$, sau đó tịnh tiến $\hat{B}$ theo một vec-tơ $x$ bất kỳ trên ảnh đầu vào sao cho giao của nó và $A$ khác rỗng. Lúc đó, tập tất cả các điểm $x$ chính là kết quả của phép toán dilation.
-	
-	Nếu $B$ có tâm đặt tại gốc toạ độ, lúc đó phép toán dilation trên $A$ áp dụng $B$ được hiểu là quỹ tích các điểm bao phủ bởi $B$ với tâm của $B$ dịch chuyển bên trong $A$ như mô phỏng ở \autoref{fig:dilation}.
-	\begin{figure}[h!]
-		\centering
-		\input{figures/morphology_dilation}
-		\caption[Phép toán Dilation trên $A$ áp dụng thành phần cấu trúc $B$.]{Phép toán Dilation trên $A$ áp dụng thành phần cấu trúc $B$ \sourcefig{\cite{weeks1996fundamentals}}.}
-		\label{fig:dilation}
-	\end{figure}
+\subsubsection{Sigmoid Function}
+Sigmoid function:
+\begin{align}
+    f(s) = \frac{1}{1 + e^{-s}} \triangleq \sigma(s)
+\end{align}
 
-\subsection{Phép toán Erosion}
-\label{subsec:phep_toan_erosion}
-	Phép toán làm co đối tượng erosion\index{Erosion} (thường được biểu diễn bởi ký hiệu $\ominus$) là toán tử cơ bản thứ hai thuộc miền toán học hình thái được giới thiệu bởi \citeauthor{weeks1996fundamentals} \cite{weeks1996fundamentals}. Toán tử erosion có tác dụng làm mảnh đối tượng, xóa bỏ nhiễu và chi tiết thừa. Ban đầu toán tử này được phát triển để sử dụng trên ảnh nhị phân, về sau được mở rộng và áp dụng được cho cả ảnh xám.
-\newpage	
-	Tương tự phép toán dilation, phép toán erosion thuộc loại toán tử shift-invariant\index{Shift-invariant}. Nó cũng sử dụng một thành phần cấu trúc để thăm dò và thu giảm đối tượng chứa trong ảnh đầu vào. Gọi $A$ là tập các điểm thuộc các đối tượng trong ảnh nhị phân, $B$ là một thành phần cấu trúc, khi đó phép toán erosion trên $A$ áp dụng $B$ được định nghĩa là 
-	\begin{equation}
-	A \ominus B = \bigcup_{x\in I^2} \{x|B_x\subseteq A\},
-	\label{eqn:erosion}
-	\end{equation}
-	trong đó, $I^2$ là miền không gian hai chiều của ảnh nhị phân, $B_x$ là một tịnh tiến của $B$ theo vec-tơ $x$ thuộc miền $I^2$. \autoref{eqn:dilation} có thể được hiểu như sau. Tịnh tiến $B$ theo một vec-tơ $x$ bất kỳ trên ảnh đầu vào sao cho nó là một tập con hoặc bằng $A$. Lúc đó, tập tất cả các điểm $x$ chính là kết quả của phép toán erosion. 
-	
-	Nếu $B$ có tâm đặt tại gốc toạ độ, lúc đó phép erosion trên $A$ áp dụng $B$ được hiểu là quỹ tích các điểm bao phủ bởi tâm $B$ với $B$ dịch chuyển bên trong $A$ như mô phỏng ở \autoref{fig:erosion}.
-	\begin{figure}[h!]
-		\centering
-		\input{figures/morphology_erosion}
-		\caption[Phép toán Erosion trên $A$ áp dụng thành phần cấu trúc $B$.]{Phép toán Erosion trên $A$ áp dụng thành phần cấu trúc $B$ \sourcefig{\cite{weeks1996fundamentals}}.}
-		\label{fig:erosion}
-	\end{figure}
+\subsubsection{Optimize loss function}
+The Stochastic Gradient Descent (SGD) algorithm will be used here.
+
+\begin{align}
+    \frac{\partial z}{z(1-z)} = \partial s \newline
+	\Leftrightarrow (\frac{1}{z} + \frac{1}{1 - z})\partial z = \partial s \newline
+\end{align}
 
 \subsection{Phép toán Skeleton}
 \label{subsec:phep_toan_skeleton}
