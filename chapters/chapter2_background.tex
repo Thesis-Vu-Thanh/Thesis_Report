@@ -1,6 +1,6 @@
 \chapter{Backgrounds}
 \label{chap:backgrounds}
-	\textit{introduces the background knowledge of this thesis, including the information about API, Web Application Firewall, Machine Learning Model and Deep Neural Network}
+	\textit{Introduces the background knowledge of this thesis, including the information about Web Application Firewall, Machine Learning Model and Deep Neural Network}
 \minitoc
 
 \section{Web Application Firewall} 
@@ -158,89 +158,157 @@ Sigmoid function:
 The Stochastic Gradient Descent (SGD) algorithm will be used here.
 
 \begin{align}
-    \frac{\partial z}{z(1-z)} = \partial s \newline
-	\Leftrightarrow (\frac{1}{z} + \frac{1}{1 - z})\partial z = \partial s \newline
+    & \frac{\partial z}{z(1-z)} = \partial s \\ 
+	\Leftrightarrow & (\frac{1}{z} + \frac{1}{1 - z})\partial z = \partial s \notag \\  
+	\Leftrightarrow & \log(z) - \log(1 - z) = s \notag \\ 
+	\Leftrightarrow & \log \frac{z}{1 - z} = s \notag \\
+	\Leftrightarrow & \frac{z}{1 - z} = e^s \notag \\
+	\Leftrightarrow & z = e^s (1 - z) \notag \\
+	\Leftrightarrow & z = \frac{e^s}{1 +e^s} = \frac{1}{1 + e^{-s}} = \sigma(s) \notag 
 \end{align}
 
-\subsection{Phép toán Skeleton}
-\label{subsec:phep_toan_skeleton}
-	Phép toán trích xuất khung xương đối tượng skeleton\index{Skeleton} là một trong các phép toán biến đổi hình thái được giới thiệu bởi Fisher và cộng sự \cite{hipr2thining}. Phép toán này được sử dụng để rút trích thành phần chính đại diện cho hình dạng của đối tượng trong ảnh nhị phân. Được ứng dụng trong nhận dạng mẫu (nhận dạng kí tự), nén ảnh, phát hiện lỗi trên sản phẩm công nghiệp (đứt đoạn).
-	
-	Gọi $\{nB\}, n= 0, 1, ...$ là một họ các hình khối với $B$ là một thành phần cấu trúc, ta có
-	\begin{equation}
-		nB = \underbrace{B\oplus \cdots \oplus B}_{n\ \text{lần}}.
-		\label{eqn:skeleton_nb}
-	\end{equation}
-	Khi $n=0$, $nB=\{o\}$ với $o$ biểu diễn cho thành phần cấu trúc ban đầu. Phép toán skeleton lên ảnh nhị phân $A$ được định nghĩa như sau
-	\begin{equation}
-		S(A) = \bigcup_{n = 0}^N (A \ominus nB) - ((A \ominus nB) \ominus B)\oplus B,
-		\label{eqn:skeleton}
-	\end{equation}
-	trong đó, $N$ là số lần lặp lớn nhất trước khi $A$ trở thành tập rỗng. $N$ được xác định theo công thức
-	\begin{equation}
-		N = \text{max}\{k|(A\ominus kB)\neq\varnothing\}.
-	\label{eqn:skeleton_n}
-	\end{equation}
-	
-	\autoref{fig:skeleton2d_apply} là một ví dụ áp dụng phép toán skeleton để rút trích khung xương đối tượng trong ảnh nhị phân.
-	\begin{figure}[h!]
-		\hfill
-		\begin{subfigure}[b]{0.475\textwidth}
-			\centering
-			\input{figures/morphology_skeleton2d_before}
-			\caption{}
-			\label{fig:skeleton2d_apply_before}
-		\end{subfigure}
-		\begin{subfigure}[b]{0.475\textwidth}
-			\centering
-			\input{figures/morphology_skeleton2d_after}
-			\caption{}
-			\label{fig:skeleton2d_apply_after}
-		\end{subfigure}
-		\hfill\null
-		\caption[Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 2D.]{Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 2D. \subref{fig:skeleton2d_apply_before} ảnh nhị phân ban đầu. \subref{fig:skeleton2d_apply_after} ảnh nhị phân sau khi trích xuất khung xương đối tượng. \sourcefig{\cite{hipr2thining}}.}
-		\label{fig:skeleton2d_apply}
-	\end{figure}
-	
-	Trong luận văn này chúng tôi sử dụng kỹ thuật rút trích khung xương đối tượng trong không gian 3D được đề xuất bởi Lee và cộng sự \cite{lee1994building} để tìm đường chính giữa của mạch máu trong \autoref{sec:tim_duong_chinh_giua_va_diem_phan_nhanh}. \autoref{fig:skeleton3d_apply} minh hoạ việc áp dụng phép toán skeleton làm mảnh đối tượng trong không gian 3D.
-	\begin{figure}[h!]
-		\centering
-		\begin{subfigure}[b]{0.49\textwidth}
-			\centering
-			\includegraphics[width=.8\textwidth]{figures/morphology_skeleton3d_before}
-			\caption{}
-			\label{fig:skeleton3d_apply_before}
-		\end{subfigure}
-		\hfill
-		\begin{subfigure}[b]{0.49\textwidth}
-			\centering
-			\includegraphics[width=.6\textwidth]{figures/morphology_skeleton3d_after}
-			\caption{}
-			\label{fig:skeleton3d_apply_after}
-		\end{subfigure}%
-		\caption[Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 3D.]{Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 3D. \subref{fig:skeleton3d_apply_before} đối tượng ban đầu. \subref{fig:skeleton3d_apply_after} khung xương được tạo ra từ phép toán skeleton. \sourcefig{\cite{lee1994building}}.}
-		\label{fig:skeleton3d_apply}
-	\end{figure}
+\subsubsection{Updated math formula for logistic sigmoid regression}
+\begin{align}
+    \frac{\partial J(\mathbf{w}; \mathbf{x}_i, y_i)}{\partial \mathbf{w}} = (z_i - y_i)\mathbf{x}_i
+\end{align}
+    
+The updated formula (according to the SGD algorithm) for logistic regression:
 
-\section{Thư viện và công cụ} 
-\label{sec:thu_vien_va_cong_cu}
-	Trong mục này, chúng tôi giới thiệu các thư viện và công cụ mà chúng tôi đã sử dụng trong quá trình thực hiện Luận văn này, bao gồm nền tảng PyTorch, thư viện VTK và ứng dụng Slicer.
+\begin{align}
+    \mathbf{w} = \mathbf{w} + \eta(y_i - z_i)\mathbf{x}_i
+\end{align}
+% \label{subsec:phep_toan_skeleton}
+% 	Phép toán trích xuất khung xương đối tượng skeleton\index{Skeleton} là một trong các phép toán biến đổi hình thái được giới thiệu bởi Fisher và cộng sự \cite{hipr2thining}. Phép toán này được sử dụng để rút trích thành phần chính đại diện cho hình dạng của đối tượng trong ảnh nhị phân. Được ứng dụng trong nhận dạng mẫu (nhận dạng kí tự), nén ảnh, phát hiện lỗi trên sản phẩm công nghiệp (đứt đoạn).
+	
+% 	Gọi $\{nB\}, n= 0, 1, ...$ là một họ các hình khối với $B$ là một thành phần cấu trúc, ta có
+% 	\begin{equation}
+% 		nB = \underbrace{B\oplus \cdots \oplus B}_{n\ \text{lần}}.
+% 		\label{eqn:skeleton_nb}
+% 	\end{equation}
+% 	Khi $n=0$, $nB=\{o\}$ với $o$ biểu diễn cho thành phần cấu trúc ban đầu. Phép toán skeleton lên ảnh nhị phân $A$ được định nghĩa như sau
+% 	\begin{equation}
+% 		S(A) = \bigcup_{n = 0}^N (A \ominus nB) - ((A \ominus nB) \ominus B)\oplus B,
+% 		\label{eqn:skeleton}
+% 	\end{equation}
+% 	trong đó, $N$ là số lần lặp lớn nhất trước khi $A$ trở thành tập rỗng. $N$ được xác định theo công thức
+% 	\begin{equation}
+% 		N = \text{max}\{k|(A\ominus kB)\neq\varnothing\}.
+% 	\label{eqn:skeleton_n}
+% 	\end{equation}
+	
+% 	\autoref{fig:skeleton2d_apply} là một ví dụ áp dụng phép toán skeleton để rút trích khung xương đối tượng trong ảnh nhị phân.
+% 	\begin{figure}[h!]
+% 		\hfill
+% 		\begin{subfigure}[b]{0.475\textwidth}
+% 			\centering
+% 			\input{figures/morphology_skeleton2d_before}
+% 			\caption{}
+% 			\label{fig:skeleton2d_apply_before}
+% 		\end{subfigure}
+% 		\begin{subfigure}[b]{0.475\textwidth}
+% 			\centering
+% 			\input{figures/morphology_skeleton2d_after}
+% 			\caption{}
+% 			\label{fig:skeleton2d_apply_after}
+% 		\end{subfigure}
+% 		\hfill\null
+% 		\caption[Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 2D.]{Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 2D. \subref{fig:skeleton2d_apply_before} ảnh nhị phân ban đầu. \subref{fig:skeleton2d_apply_after} ảnh nhị phân sau khi trích xuất khung xương đối tượng. \sourcefig{\cite{hipr2thining}}.}
+% 		\label{fig:skeleton2d_apply}
+% 	\end{figure}
+	
+% 	Trong luận văn này chúng tôi sử dụng kỹ thuật rút trích khung xương đối tượng trong không gian 3D được đề xuất bởi Lee và cộng sự \cite{lee1994building} để tìm đường chính giữa của mạch máu trong \autoref{sec:tim_duong_chinh_giua_va_diem_phan_nhanh}. \autoref{fig:skeleton3d_apply} minh hoạ việc áp dụng phép toán skeleton làm mảnh đối tượng trong không gian 3D.
+% 	\begin{figure}[h!]
+% 		\centering
+% 		\begin{subfigure}[b]{0.49\textwidth}
+% 			\centering
+% 			\includegraphics[width=.8\textwidth]{figures/morphology_skeleton3d_before}
+% 			\caption{}
+% 			\label{fig:skeleton3d_apply_before}
+% 		\end{subfigure}
+% 		\hfill
+% 		\begin{subfigure}[b]{0.49\textwidth}
+% 			\centering
+% 			\includegraphics[width=.6\textwidth]{figures/morphology_skeleton3d_after}
+% 			\caption{}
+% 			\label{fig:skeleton3d_apply_after}
+% 		\end{subfigure}%
+% 		\caption[Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 3D.]{Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 3D. \subref{fig:skeleton3d_apply_before} đối tượng ban đầu. \subref{fig:skeleton3d_apply_after} khung xương được tạo ra từ phép toán skeleton. \sourcefig{\cite{lee1994building}}.}
+% 		\label{fig:skeleton3d_apply}
+% 	\end{figure}
 
-\subsection{Nền tảng PyTorch}
-\label{subsec:nen_tang_pytorch}
-	\index{PyTorch}PyTorch\footnote{\url{https://pytorch.org}}là một nền tảng mã nguồn mở được phát triển và duy trì bởi nhóm nghiên cứu về trí thông minh nhân tạo của Facebook. PyTorch có khả năng tự động ghi lại các toán tử đã xử lý vào một đồ thị tính toán trong bước forward\index{Forward} (lan truyền xuôi) và sau đó tái thực thi các toán tử này để tính toán gradient\index{Gradient} một cách nhanh chóng ở bước backward\index{Backward} (lan truyền ngược). Kỹ thuật này giúp PyTorch trở nên hiệu quả trong việc xây dựng một mạng nơ-ron vì nó giúp tiết kiệm thời gian nhờ vào việc tính toán đạo hàm các tham số trước khi thực hiện bước forward. Với phiên bản mới nhất của PyTorch (phiên bản 1.0.1, xem \cite{Soumith2019}), các nhà phát triển có thể chuyển từ giai đoạn nghiên cứu sang giai đoạn triển khai sản phẩm một cách dễ dàng, biến PyTorch trở thành một nền tảng học sâu vô cùng mạch mẽ. PyTorch được viết bằng ngôn ngữ C++, CUDA\nomenclature{CUDA}{Compute Unified Device Architecture} và Python và được tối ưu hoá hoàn toàn cho các tác vụ học sâu trên cả CPU\nomenclature{CPU}{Central Processing Unit} và GPU như xử lý hình ảnh, huấn luyện các mạng học sâu với khả năng huấn luyện song song trên nhiều GPU, v.v.
-	
-	Với các tính năng phong phú và sự năng động của cộng đồng hỗ trợ và phát triển, chúng tôi chọn PyTorch làm nền tảng xây dựng và phát triển hệ thống trong luận văn này.
-	
+\section{Deep Neural Network}
+\label{sec:deep_neural_network}
+With their excellent results, broad applicability, and vast potential for growth, neural networks are currently the most advanced advancement in artificial intelligence.
+Feedforward Neural Networks (FNN) and Convolution Neural Networks (CNN) are widely used to make predictions with independent data input. In CNN (Figure 2.3), each input image is passed through a series of convolutional layers (Filters, Pooling, and Fully-connected layers) to extract features before being classified using Softmax function\footnote{Softmax function:$ \sigma (\overrightarrow{z})_i \: = \: (e^{z_i})/ \sum_{j=1}^{K} e^z_i  $}.
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/CNN.png}
+	\caption{CNN Architecture}
+\end{figure}	
+
+\emph{Layers} are the building components of deep neural networks such as CNN and others. A \emph{layer} is a broad phrase that refers to a group of 'nodes' that function together at a given level within a neural network. \emph{Layers} are classified into three types: \emph{input layer},\emph{ hidden layers}, and \emph{output layers}.
+
+The \emph{input layer} contains raw data (each variable as a ‘node’) \\
+At neural networks, the black magic happens in the \emph{hidden layer}(s). By minimizing an error/cost function, each layer attempts to learn different elements of the data. The context of 'image recognition,' such as a face, is the most intuitive way to understand these levels. The first layer may learn edge detection, the second eyes, the third a nose, and so on. This isn't exactly what's going on, but the idea is to split the problem down into components that different levels of abstraction can piece together, much to how our own brains work (hence the name neural networks).
+
+The \emph{output layer} is the simplest, usually consisting of a single output for classification problems. Despite the fact that it is a single 'node,' it is nevertheless regarded a layer in a neural network because it might contain numerous nodes. We use six types of layers given by the TensorFlow framework in this thesis: \textbf{Embedding} layer, \textbf{Conv1D} layer, \textbf{MaxPooling1D} layer, \textbf{Dropout} layer, \textbf{Flatten} layer, and \textbf{Dense} layer.
 \newpage
-\subsection{Thư viện VTK}
-\label{subsec:thu_vien_vtk}
-	\nomenclature{VTK}{The Visualization Toolkit}\index{VTK}VTK (The Visualization Toolkit)\footnote{\url{https://pypi.org/project/vtk/}}là một thư viện mã nguồn mở cung cấp cho các nhà phát triển một bộ công cụ đa dạng phục vụ cho đồ hoạ máy tính trong không gian ba chiều, xử lý hình ảnh và trực quan hoá. Thư viện này được hiện thực từ nhiều ngôn ngữ khác nhau như C++, Java và Python. Nó hỗ trợ nhiều giải thuật trực quan hoá bao gồm phương pháp vô hướng, phương pháp vec-tơ, phương pháp kết cấu và thể tích. Đặc biệt, thư viện này còn hỗ trợ các kỹ thuật mô hình hoá nâng cao như mô hình ẩn, thu giảm đa giác, làm mịn bề mặt, tạo đường viền và tam giác phân Delaunay.
-	
-	Trong luận văn này, chúng tôi sử dụng thư viện VTK trên ngôn ngữ Python nhằm trích xuất và làm mịn lưới bề mặt hệ thống mạch máu cũng như đường chính giữa mạch máu và các điểm phân nhánh từ kết quả dự đoán, phục vụ quá trình trực quan hoá sẽ được đề cập tới trong \autoref{sec:truc_quan_hoa_ket_qua_thi_nghiem}.
+\subsection{Gradient descent}
+\label{subsec:gradient_descent}
+\emph{Gradient descent} is an optimization algorithm that is used to minimize a function by iteratively traveling in the direction of the steepest descent as defined by the gradient's negative. Gradient descent is used in machine learning to update the parameters of our model, especially and weights in neural networks.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/gradient descent.png}
+   \caption{Gradient descent demonstration}
+\end{figure}
+\subsection{Learning Rate}
+\label{subsec:learning_rate}
+The learning rate is the size of each step in each gradient descent cycle. We can cover more territory per step with a high learning rate, but we risk overshooting the lowest spot because the slope of the hill is continually changing. We may reliably go in the direction of the negative gradient with a very low learning rate because we are recalculating it so frequently. A low learning rate is more exact, but calculating the gradient takes time, therefore we will take a long time to reach the bottom. An example of learning rate is shown in Figure 2.5.
+\newpage
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/learning rate.png}
+   \caption{Learning ate}
+\end{figure}
 
-\subsection{Phần mềm Slicer}
-\label{subsec:pham_mem_Slicer}
-	\index{Slicer}Slicer\footnote{\url{https://www.slicer.org/}}là ứng dụng mã nguồn mở phục vụ cho tin học về hình ảnh y tế, xử lý hình ảnh y khoa và trực quan hoá trong không gian ba chiều. Được xây dựng trong hơn hai thập kỷ qua với sự hỗ trợ của các viện y tế quốc gia (National Institutes of Health) và cộng đồng các nhà phát triển trên toàn thế giới, trong đó phải kể đến sự đóng góp của cộng đồng quốc tế các nhà khoa học, bao gồm cả kỹ thuật và y sinh. Slicer mang đến các công cụ xử lý đa nền tảng miễn phí, mạnh mẽ cho các bác sĩ, các nhà nghiên cứu và cộng đồng.
+\subsection{Loss Function}
+\label{subsec:loss_function}
+A Loss Function (or cost function) indicates how well the model predicts for a given set of parameters. Index of the cost function The loss function has its own curve and gradients. The slope of this curve indicates how we should adjust our parameters to improve the model's accuracy. If the cost ever rises, we must reduce the value of the learning rate; if the cost falls slowly, we must increase the value of the learning rate. Figure 2.6 shows examples of loss function behavior based on learning rate.
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/loss function DL.png}
+   \caption{Loss function behaviour with different learning rate}
+\end{figure}
+
+\subsection{Gradient descent optimizer}
+\label{gradient_optimizer}
+A method that computes adaptive learning rates for each parameter is Adaptive Moment Estimation (Adam). Adam, like Adadelta and RMSprop, preserves an exponentially decaying average of past squared gradients $v_t$ in addition to an exponentially decaying average of past gradients $m_t$. Whereas momentum can be thought of as a ball rolling down a hill, Adam behaves more like a heavy ball with friction, preferring flat minima on the error surface. The decaying averages of past and past squared gradients, $m_t$ and $v_t$, are computed as follows:
+\begin{align}
+    m_t \: = \: \beta_1 m_{t-1} \: + \: (1-\beta_1)g_{t}\\
+    v_t \: = \: \beta_2 v_{t-1} \: + \: (1-\beta_2)g^2_t
+\end{align}
+
+
+$m_t$ and $v_t$ are estimates of the first moment (the mean) and the second moment (the uncentered variance) of the gradients respectively, hence the name of the method. As $m_t$ and $v_t$ are initialized as vectors of 0's, the authors of Adam observe that they are biased towards zero, especially during the initial time steps, and especially when the decay rates are small.
+\begin{align}
+    \hat{m}_t \: = \: \frac{m_t}{1\:-\:\beta^t_1} \\
+ \hat{v}_t \: = \: \frac{v_t}{1\: - \: \beta^t_2}
+\end{align}
+
+
+
+They then use these to update the parameters:
+\begin{align}
+\theta_{t+1} \: = \: \theta_t \: - \: \frac{\eta}{\sqrt{\hat{v}_t} \: +\: \epsilon} \hat{m}_t 
+\end{align}
+% \subsection{Thư viện VTK}
+% \label{subsec:thu_vien_vtk}
+% 	\nomenclature{VTK}{The Visualization Toolkit}\index{VTK}VTK (The Visualization Toolkit)\footnote{\url{https://pypi.org/project/vtk/}}là một thư viện mã nguồn mở cung cấp cho các nhà phát triển một bộ công cụ đa dạng phục vụ cho đồ hoạ máy tính trong không gian ba chiều, xử lý hình ảnh và trực quan hoá. Thư viện này được hiện thực từ nhiều ngôn ngữ khác nhau như C++, Java và Python. Nó hỗ trợ nhiều giải thuật trực quan hoá bao gồm phương pháp vô hướng, phương pháp vec-tơ, phương pháp kết cấu và thể tích. Đặc biệt, thư viện này còn hỗ trợ các kỹ thuật mô hình hoá nâng cao như mô hình ẩn, thu giảm đa giác, làm mịn bề mặt, tạo đường viền và tam giác phân Delaunay.
 	
-	Trong luận văn này, chúng tôi sử dụng ứng dụng Slicer để trực quan hoá kết quả thu được từ hệ thống, nhằm đưa ra những nhận xét mang tính định tính chất lượng, giúp kết quả đánh giá được toàn diện hơn. Chúng tôi sẽ đề cập rõ hơn trong \autoref{sec:truc_quan_hoa_ket_qua_thi_nghiem}.
+% 	Trong luận văn này, chúng tôi sử dụng thư viện VTK trên ngôn ngữ Python nhằm trích xuất và làm mịn lưới bề mặt hệ thống mạch máu cũng như đường chính giữa mạch máu và các điểm phân nhánh từ kết quả dự đoán, phục vụ quá trình trực quan hoá sẽ được đề cập tới trong \autoref{sec:truc_quan_hoa_ket_qua_thi_nghiem}.
+
+% \subsection{Phần mềm Slicer}
+% \label{subsec:pham_mem_Slicer}
+% 	\index{Slicer}Slicer\footnote{\url{https://www.slicer.org/}}là ứng dụng mã nguồn mở phục vụ cho tin học về hình ảnh y tế, xử lý hình ảnh y khoa và trực quan hoá trong không gian ba chiều. Được xây dựng trong hơn hai thập kỷ qua với sự hỗ trợ của các viện y tế quốc gia (National Institutes of Health) và cộng đồng các nhà phát triển trên toàn thế giới, trong đó phải kể đến sự đóng góp của cộng đồng quốc tế các nhà khoa học, bao gồm cả kỹ thuật và y sinh. Slicer mang đến các công cụ xử lý đa nền tảng miễn phí, mạnh mẽ cho các bác sĩ, các nhà nghiên cứu và cộng đồng.
+	
+% 	Trong luận văn này, chúng tôi sử dụng ứng dụng Slicer để trực quan hoá kết quả thu được từ hệ thống, nhằm đưa ra những nhận xét mang tính định tính chất lượng, giúp kết quả đánh giá được toàn diện hơn. Chúng tôi sẽ đề cập rõ hơn trong \autoref{sec:truc_quan_hoa_ket_qua_thi_nghiem}.
