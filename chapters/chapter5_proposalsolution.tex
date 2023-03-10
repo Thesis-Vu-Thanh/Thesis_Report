@@ -3,88 +3,215 @@
 	\textit{Trong chương này, chúng tôi mô tả chi tiết bài toán trước khi bắt tay vào hiện thực.\linebreak Sau đó, chúng tôi đề xuất kiến trúc mạng và các hàm lỗi sẽ sử dụng. Cuối cùng, chúng tôi đề xuất phương pháp tìm đường chính giữa và điểm phân nhánh của mạch máu.}
 \minitoc
 
-\section{Nội dung bài toán} 
-\label{sec:noi_dung_bai_toan}
-	Sau quá trình tìm hiểu và tổng hợp các kiến thức trong lĩnh vực Xử lý hình ảnh nói chung và Phân đoạn hình ảnh y khoa nói riêng, chúng tôi đưa ra bài toán để giải quyết đó là \textit{Phát hiện và xây dựng hệ thống mạch máu của gan từ ảnh chụp cắt lớp vi tính.}
-	
-	Hệ thống nhằm mục đích trực quan hoá hệ thống mạch máu bên trong cơ quan gan. Đồng thời thể hiện đường chính giữa mạch máu và các điểm phân nhánh, giúp xác định vị trí tương quan giữa các phân thuỳ gan, hỗ trợ công tác giải phẫu được tiến hành nhanh chóng và an toàn hơn.
-	
-	\textbf{Thông tin đầu vào (Input):} dữ liệu đầu vào của bài toán gồm hai phần: phần thứ nhất là các lớp ảnh CT cơ quan gan của một bệnh nhân bất kỳ, phần thứ hai là nhãn phân đoạn cơ quan gan tương ứng cho bộ ảnh CT đó.
-	
-	\textbf{Kết quả đầu ra (Output):} kết quả đầu ra của bài toán này bao gồm ba phần: phần thứ nhất là kết quả phân đoạn hệ thống mạch máu trong cơ quan gan từ khối ảnh CT, phần thứ hai là đường chính giữa của các mạch máu trong hệ thống mạch máu có được từ kết quả phân đoạn, phần cuối cùng là các điểm phân nhánh của mạch máu.
-	
-	Sau khi xác định thông tin đầu vào và kết quả đầu ra của bài toán, chúng tôi đề xuất phương án thiết kế hệ thống với những tham khảo từ các công trình liên quan được trình bày trong phần tiếp theo.
+WAFs, as previously indicated, are frequently used, however they suffer from high FP. Our aim is to enhance the accuracy of WAFs, using the help of machine learning rather than the rule-based approachs.  \\
+Because WAFs only cover the Application Layer, the network requests are the model's input (mostly HTTP requests). Our methodology produces the same result as WAFs: whether the request is malicious or not.\\
+With its nature, WAF is obligated to have fast processing speed in deciding whether an incoming request is reliable or not. For user experiences, we can't examine the request's veracity for minutes before granting or denying access. Our system's time constraint must be in milliseconds.\\
+\section{API security problems}
+\label{API problems}
+Here are the most common vulnerabilities \footnote{Vaadata.\textit{How to strengthen the security of your APIs to counter the most common attacks?}. April 2022.
+\url{https://www.vaadata.com/blog/how-to-strengthen-the-security-of-your-apis-to-counter-the-most-common-attacks/}}:
+\begin{itemize}
+    \item \textbf{Lack of rate limiting, DoS and brute force attacks on APIs}
+    \begin{itemize}
+        \item \textit{Principle and functioning of DoS attacks}
+        \newline
+        An assault known as \textbf{a denial of service (DoS)} aims to render services unavailable. In fact, a DoS attack functions by depleting a resource that an API requires to respond to valid requests. By overloading an API with erroneous requests, its resources are only able to reply to the ones that were submitted.
 
-\section{Kiến trúc mạng và hàm lỗi} 
-\label{sec:kien_truc_mang_va_ham_loi}
-	Trong mục này, chúng tôi trình bày những kiến trúc mạng sẽ được sử dụng trong quá trình thí nghiệm và đánh giá. Những kiến trúc này bao gồm các kiến trúc được đề xuất trong các công trình liên quan và những cải tiến do chúng tôi đề xuất. Cuối cùng, chúng tôi đề xuất những hàm lỗi sẽ được sử dụng trong quá trình huấn luyện.
-	
-\subsection{Kiến trúc mạng} 
-\label{subsec:kien_truc_mạng}
-	Kiến trúc mạng chúng tôi sử dụng để thí nghiệm và đánh giá hệ thống trong đề tài này bao gồm mô hình DeepVesselNet và mô hình U-Net*.
-	
-	\textbf{DeepVesselNet}: đối với mô hình DeepVesselNet, chúng tôi hiện thực lại kiến trúc đã được đề xuất trong \cite{tetteh2018deepvesselnet}. Ngoài ra, chúng tôi đề xuất bổ sung lớp batchnorm\index{Batchnorm} trước các lớp ReLU trong kiến trúc này để đánh giá, so sánh.
-	
-	\textbf{U-Net*}: kiến trúc này được chúng tôi hiện thực dựa trên ý tưởng của mô hình U-Net đã được giới thiệu trong bài báo \cite{ronneberger2015u} cùng với những thay đổi cần thiết. Thay đổi đầu tiên được chúng tôi thực hiện là sử dụng các lớp convolution 3D thay cho các lớp convolution 2D. Lý do cho sự thay đổi này đến từ tính chất của tập dữ liệu. Khác với tập dữ liệu được sử dụng trong bài báo là những hình ảnh rời rạc về tế bào, trong đề tài này, chúng tôi sử dụng ảnh CT làm dữ liệu đầu vào với mỗi bộ ảnh là tập các hình ảnh thu được từ các lớp cắt liên tiếp nhau trên một phần cơ thể. Những lớp cắt này có mối liên hệ với nhau về mặt không gian. Ví dụ, tại một điểm trên một lớp cắt xuất hiện mạch máu thì xác suất xuất hiện mạch máu ở những vị trí lân cận trên các lớp liền kề là rất cao. Chúng tôi sử dụng lớp convolution 3D nhằm giúp mô hình có thể khai thác tốt hơn những đặc trưng từ dữ liệu dạng này. 
-	
-	Thay đổi tiếp theo được chúng tôi thực hiện trong quá trình hiện thực mô hình U-Net* liên quan đến độ sâu của kiến trúc mạng. Nhận thấy rằng kích thước đối tượng cần phân đoạn là mạch máu nhỏ hơn rất nhiều so với kích thước tế bào trong dữ liệu của bài báo và càng xuống sâu trong mô hình U-Net, kích thước dữ liệu càng bị thu giảm. Để những đặc trưng của mạch máu không bị mất đi cần thiết phải có sự điều chỉnh phù hợp trong độ sâu của mô hình. Chúng tôi tiến hành xác định kích thước mạch máu cần phân đoạn và tính toán receptive field cho mỗi lớp mạng của mô hình U-Net để chọn ra một độ sâu phù hợp nhất.
-	
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=.3\textwidth]{figures/portal_vein}
-		\caption{Tĩnh mạch cửa trong cơ quan gan.}
-		\label{fig:portal_vein}
-	\end{figure}
-	Về kích thước của mạch máu, theo tài liệu \cite{covey2004incidence}, tĩnh mạch cửa là mạch máu có đường kính lớn nhất trong cơ quan gan (\autoref{fig:portal_vein}) với độ lớn đường kính trong khoảng 15 -- 18mm. Đối chiếu với kích thước nội suy dữ liệu cho mỗi điểm ảnh 1mm(W)$\times$1mm(H)$\times$1mm(D) sẽ được trình bày trong \autoref{subsec:noi_suy_du_lieu}, đường kính tĩnh mạch cửa sẽ nằm trong khoảng\linebreak 15 -- 18 điểm ảnh. Độ lớn kích thước receptive field của mô hình phải phù hợp với ngưỡng\linebreak giá trị này.
-	
-	\begin{table}[h!]
-		\centering
-		\caption{Kích thước receptive field qua mỗi lớp mạng trên nhánh trái kiến trúc U-Net.}
-		\label{tab:unet_receptive_field}
-		\begin{tabular}{crrr}
-			\toprule
-			\textbf{Tầng} & \multicolumn{1}{l}{\textbf{Convolution 1}} & \multicolumn{1}{l}{\textbf{Convolution 2}} & \multicolumn{1}{l}{\textbf{Max-pooling}} \\ \midrule
-			1 & 3 & 5 & 6 \\[1mm]
-			2 & 10 & 14 & 16 \\[1mm]
-			3 & 24 & 32 & 36 \\[1mm]
-			4 & 52 & 68 & 76 \\[1mm]
-			5 & 108 & 140 &  \_\\ \bottomrule
-		\end{tabular}
-	\end{table}
-	Về kích thước receptive field\index{Receptive field}, chúng tôi tiến hành tính toán trên mỗi lớp mạng ở nhánh trái của mô hình U-Net (nhánh phải đối xứng thông qua sử dụng phép copy và concat) và thu được kết quả như \autoref{tab:unet_receptive_field}. Từ số liệu thu được, chúng tôi nhận thấy kích thước receptive field ở tầng 4 và 5 lớn hơn rất nhiều so với kích thước mạch máu đã nêu ở trên, chúng tôi đề xuất độ sâu của mô hình U-Net* là 3 tầng thay vì 5 tầng như trong kiến trúc U-Net. Tính hiệu quả của mô hình trước và sau thay đổi số tầng được chúng tôi trình bày trong \autoref{sec:ket_qua_thi_nghiem}.
+        The objective of DoS attacks is not to alter, delete or steal data. The aim is simply to damage the operation of a web service or the reputation of a company offering such services.
 
-	\begin{figure}[h!]
-		\hspace*{-1.5mm}\input{figures/model_unet_star.tex}
-		\caption{Kiến trúc mô hình U-Net*.}
-		\label{fig:model_unet_star}
-	\end{figure}
-	Và tương tự như DeepVesselNet, chúng tôi đề xuất bổ sung lớp batchnorm trước các lớp ReLU trong kiến trúc này để đánh giá, so sánh. \autoref{fig:model_unet_star} mô tả chi tiết kiến trúc mô hình U-Net* với độ sâu kiến trúc là 3, sử dụng convolution 3D và tuỳ chọn bổ sung các lớp batchnorm.
-	
-	Bên cạnh các đề xuất đã nêu ở trên, do hiểu được ưu điểm của các mạng như DenseNet và ResNet, chúng tôi đề xuất kết hợp các mô hình này vào các mô hình đang có để tiến hành thí nghiệm và so sánh, đánh giá. Kết quả thí nghiệm được chúng tôi trình bày\linebreak trong \autoref{sec:ket_qua_thi_nghiem}.
+        It is obvious that slowing down or even blocking their services for a few minutes could lead to significant financial losses and alter users’ trust. It is therefore necessary to find solutions to protect against this, including request verification, traffic monitoring, the implementation of rules and rate limiting, etc. Similarly, during an API or web application pentest, DoS tests should be included to assess the resistance of the services to this type of attack.
+        \item \textit{Brute force attacks on APIs}
+        \newline
+        In a brute force attack, an attacker use tools to send a steady stream of requests to an application or API in an effort to try every combination of a parameter in the hopes of making the right guesses. The goals can vary: brute-forcing an authentication form to steal an account, brute-forcing a login to retrieve private information, etc.
 
-\subsection{Hàm lỗi} 
-\label{subsec:ham_loi}
-	Chúng tôi sử dụng hai hàm lỗi trong huấn luyện hệ thống. Hàm thứ nhất là cross entropy cải tiến như trong \autoref{eqn:crossentropy_fpcorrection}. Hàm lỗi thứ hai chúng tôi đề xuất sử dụng hàm lỗi Dice. Đây là hàm lỗi thường được sử dụng cho các bài toán mất cân bằng lớp.
-	
-	Hàm lỗi Dice lần đầu tiên được đề xuất bởi Milletari và cộng sự \cite{milletari2016v} dựa trên hệ số Dice. Bằng cách này, chúng ta có thể giải quyết các trường hợp mà sự mất cân bằng giữa foreground\index{Foreground} và background\index{Background} quá lớn. Công thức hàm lỗi Dice được mô tả như sau
-	\begin{equation}
-		Diceloss = 1 - 2\dfrac{\sum_{i=1}^{N} Y_i * P_i + 1}{\sum_{i=1}^{N} (Y_i + P_i) + 1},
-		\label{eqn:diceloss}
-	\end{equation}
-	trong đó, $N$ là tổng số điểm ảnh, $Y_i$ và $P_i$ là giá trị nhãn thực sự và giá trị dự đoán của điểm ảnh thứ $i$, với $Y_i \in \{0, 1\}$ và $P_i \in [0, 1]$.
+        This is a “trivial” attack method, easy to perform, but still very effective and widely used by attackers.
+        \item \textit{Implement rate limiting mechanisms to counter DoS and brute force attacks}
+        \newline
+        Securing APIs against DoS or brute force attacks requires the implementation of rate limiting mechanisms. These mechanisms protect APIs and other services from excessive and abusive use, in order to ensure their availability.
 
+        Rate restriction works on a pretty straightforward principle. It entails making requests in advance of when one or more clients—systems—might utilize more than their "fair" share of a resource. Additionally, one can lessen the danger of DoS or brute force attacks by restricting the number of requests that a specific user is permitted to send in a given window of time.
+
+        For example, after a user has been authenticated, your API or application may apply quotas that restrict what they are allowed to do, including the limit of requests they can send.  For example, you can limit each user to a certain number of API requests per hour, to prevent them from flooding the system with too many requests.
+
+        Similar to this, you can set limitations before authenticating a user to lower the overall number of requests, or just those coming from a specific IP address or time period. Therefore, if rate limitation is enabled, your API will monitor the volume of requests and reject those that are greater than the permitted threshold. Additionally, rules can be applied to totally shut off connections when the limit is reached or to sluggish down request processing. This action is referred to as "throttling."
+        
+        In short, Rate Limiting prevents resource depletion by managing rules and quotas.  There are different techniques for applying rate limiting, each with its own specificities: Token bucket, Leaky bucket, Fixed window and Sliding window.
+    \end{itemize}
+    \item \textbf{Lack of user input validation and injection attacks}
+    \begin{itemize}
+        \item \textit{Code injections}
+        \newline
+        Code injection is one of the most common types of injection attacks. If attackers know the programming language used by an application or API, they can inject code through text input fields to force the web server to execute the desired instructions.
+        \item \textit{SQL injections (SQLi)}
+        \newline
+        Injections represent a significant part of the vulnerabilities encountered in applications and APIs. The best known and most dangerous is SQL injection.
+
+        In an SQL injection attack, an attacker injects data to manipulate SQL commands, thereby interacting with the database through unintended queries. These flaws can lead to theft, deletion or manipulation of stored data. Worse still: if the rights are too permissive, this can even lead to a compromise of the server. 
+
+        Let’s look at this in more detail with a concrete example:
+        
+        One can imagine an API endpoint that returns the information of a country based on its “CountryCode”.\\
+        \begin{figure}[!h]
+         \centering
+         \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/ex1.PNG}
+         \caption{Returned information}
+        \end{figure}
+
+        \newpage
+        To perform the desired action, the query interacts with a database. Below is the SQL query that the server must run on the database.
+        \begin{figure}[!h]
+         \centering
+         \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/ex2.PNG}
+         \caption{Compulsory query}
+        \end{figure}
+        \newpage
+        Example of a vulnerable PHP code:
+        \begin{figure}[!h]
+         \centering
+         \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/ex3.PNG}
+         \caption{Vulnerable PHP Code}
+        \end{figure}
+        
+        As we can see, the CC parameter that is controlled by the user is directly concatenated to the query.
+
+        Now, let’s assume that on this same database, there is a ‘users’ table that contains the email addresses and passwords of the users registered on the application. Let’s look at what happens if an attacker makes the following query:
+        \begin{figure}[!h]
+         \centering
+         \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/ex4.PNG}
+         \caption{The hacker's query and result}
+        \end{figure}
+        \newpage
+        In addition to the country name, this query retrieves all users and their password hashes.
+
+        This SQL injection flaw was discovered. A  flaw that enables an attacker to "pervert" the SQL query the program generates. The attacker may be able to view or even change the database's data with this behavior. Evidently, if an API or online application penetration test were conducted, this significant vulnerability would be discovered and disclosed.
+        
+        \item \textit{Validate user input to prevent injection attacks}
+        \newline
+        The strongest defense against SQL and code injections is validating user input. In theory, it should be recognized that data received by an application or API cannot be deemed "always" safe. In order to prevent such vulnerabilities, it is necessary to put in place methods to verify that user input meets the anticipated parameters.
+
+        The most effective method of protecting against SQL injections is the use of prepared statements, which separate the SQL commands from the data sent by a user.
+
+        The fix is to use prepared queries. On the PHP documentation we can see the following information:
+        \begin{itemize}
+            \item The query can be run multiple times with the same or different parameters after only one analysis (or preparation). The database will parse, construct, and optimize its plan to execute the query once it is prepared. If you have to repeat the same query multiple times with various parameters, this procedure can be very time-consuming for sophisticated queries, which will slow down your apps. You can avoid repeating the cycle of analysis, compilation, and optimization by using prepared statements. In short, prepared queries execute more quickly and with fewer resources.
+            \item You don't need to surround query parameters in quotes; the driver takes care of it. If your application only employs prepared statements, you can be certain that SQL injection is not a possibility (however, if you build other parts of the statement based on user input, you are still taking a risk).
+        \end{itemize}
+        Thus, the following code is correctly protected against SQL injections:
+        \begin{figure}[!h]
+         \centering
+         \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/ex5.PNG}
+         \caption{The code is protected against SQL injections}
+        \end{figure}
+        
+        As we can see, the difference with the vulnerable code is that the parameters coming from a user are no longer concatenated with the query, but directly provided at query execution. This also shows that a prepared statement can still be vulnerable to SQL injection if the data is concatenated. Because in the vulnerable example it was already a prepared statement that was used.
+    \end{itemize}
+    \item \textbf{Lack of data encryption and Man In The Middle attacks}
+    \begin{itemize}
+        \item \textit{Man In The Middle attacks}
+        \newline
+        An attack known as a "Man in the Middle" occurs when a hostile person intrudes on a communication or data transfer taking place between a client and a server, a server and a server, or a client and a client. Its goals might vary, from merely intercepting sensitive data—such as passwords, financial information, personal information, and sensitive documents—to manipulating communication in order to, for instance, implant malware.
+
+        This type of attack is possible if and only if the communications are not encrypted. It is therefore quite easy to protect against it.
+        \item \textit{Encrypting data with TLS to counter Man In The Middle attacks}
+        \newline
+        One of the most fundamental components of guaranteeing the security of an API or service is encryption. Indeed, the encryption protocol TLS (the successor to SSL) ensures safe communications over a computer network. Connections between a client and a server that are TLS-secured include one or more of the following characteristics:
+        \begin{itemize}
+            \item The connection is private (i.e. secure) because the data transmitted is encrypted. 
+            \item The encryption keys are uniquely generated for each connection and are based on a shared secret negotiated at the beginning of the session.
+            \item The connection guarantees integrity because each transmitted message includes a signature verification of the integrity of the message, thus avoiding any undetected loss or alteration of the data during transmission.
+        \end{itemize}
+    \end{itemize}
+    The use of this encryption protocol therefore reduces or even eliminates the risks of Man In The Middle attacks. Furthermore, to reinforce security, we recommend implementing the HSTS (http Strict Transport Security) header on your servers in order to force a browser to use HTTPS secure connections. Without this setting, you run the risk of users accessing your domain without the HTTPS protocol, which can lead to a breach in communications. 
+    
+\end{itemize}
+\section{Designs}
+\label{design}
+To summary, numerous strategies for identifying malicious URLs have been proposed. Most of these solutions utilize supervised-based machine learning techniques for classification. This technique can detect irregularities between requests, but it cannot extract these abnormalities into human-readable form in order to reconstruct the WAF. Relying solely on machine learning eventhough brought higher accuracy like in \cite{s22093373}, WAFs need to be time-efficient. We can not compromise accuracy for speed, hence these methods don't work for WAFs.\\
+We come to the approach is to categorize the incoming request and analyze its structure, with moderate reliability, then combining the result of these two process to achieve the high precision yet does not expending an excessive amount of time
+\subsection{Architecture}
+\label{architecture design}
+\subsubsection{Data exploration and Sanitization}
+\label{data preprocessed}
+Our goal is to classify request supplied as inputs in order to determine whether they are harmful or inoffensive. The sample of request data consists of different categories including: 
+\begin{itemize}
+    \item \emph{Plain text:} request that contains data but does not trigger any machine execution, typically in the form of HTML, JSON, XML, and CSV, etc.
+    \item \emph{Client-side script:} request in form of programming languages or scripts that can be executed on client's machine
+    \item \emph{Server-side script:} request in the form of programming languages (mostly back-end programming languages like PHP, JAVA, PYTHON, and so on) that can change the behavior of the application or web
+    \item \emph{Shell script:} request in the form of shell scripts that can run jobs on the server or change the server's or operating system's behavior
+    \item \emph{SQL script:} request that in form of SQL, can be used to query data from the database.
+\end{itemize}
+ The textual data acquired in the previous phase is going to be cleaned and standardized. To minimize feature complexity and improve classification performance, the request was preprocessed by eliminating symbols and punctuation. The text data collected will be transformed to lower case and then normalized. The goals of the normalization procedure were dual. First, the text must be converted from unstructured data to a structured word vector. Second, by deleting unneeded words and decreasing the number of words by roots them to their originals, we may reduce the scarcity of feature vectors.
+However, malicious attacker usually use methods like slight modification to make an imposter URL or request looks legitimate, we skip severals step in conventional Natural Language Processing: 
+\begin{itemize}
+    \item Removing stop word
+    \item Stemming (the process of reducing infected words to their stem)
+    \item Lemmatization (returning to the base form of the words...)
+
+\end{itemize}
+\subsubsection{Model Selection and applying Natural language processing}
+\label{NLP}
+Because four of the five categories are structured languages, we must first create a special tokenizer to map the request into a defined set of keywords (client-side script, server- side script, and SQL script).
+To convert the words (the tokens) to their numerical equivalents, a corpus containing a list of unique tokens based on their frequency of occurrence in each class was created. To put it in more formal mathematical terms, the TF-IDF score for the word t in the document d from the document set D is calculated as follows:
+\begin{align}
+    tf\:idf(t,\: d,\: D)\; =\; tf (t,\: d) \; . \; idf (t.\: D)
+\end{align}
+Where: 
+\begin{align}
+    tf(t,\: d)\; =\; 1 \: + \: log(freq(t,\: d)) \: \: \\
+    idf(t, \:D)\; = \; log(\frac{N}{count (d \: \in D :t \in d)})\:  \:
+\end{align}
+The statistical-based text representation, TF-IDF, was then computed using the following equation: 
+\begin{align}
+    tf\; \_ \; idf \;=\; tf\:.\:log(\frac{N}{df})
+\end{align}
+ where $tf$ is the term frequency of the word in a specific instance, $df$ is the document frequency for the word, $N$ is the number of samples in the dataset. The term frequency $tf$ is the number of times a word has occurred in the sample while the inverse document frequency $idf$ refers to the inverse number of documents where the word has occurred. The higher the $tf \_ idf$ of a word in a document, the more relevant the document. The output of this phase was three numerical vectors for each sample.
+\subsubsection{Distinguishing request }
+\label{distinguishing request}
+We present a hypothesis: all normal server requests fall into the same category. A static web request, for example, may only contain plain text, whereas API server requests are mostly in JSON format, incoming database queries are SQL, and online compilers use programming language-format requests. A malicious request must be classified differently than normal requests, such as a script request to a static web server or API server, which can be classified as code injection \footnote{Code injection is the exploitation of a computer bug that is caused by processing invalid data. The Injection is used by an attacker to introduce code into a vulnerable computer program and change the course of execution.}  or command injection \footnote{Command injection is an attack in which the goal is the execution of arbitrary commands on the host operating system via a vulnerable application.}. SQL requests to an API server can be classified as SQLi, and script requests to a database can be classified as command injection or stored XSS attacks. We can determine whether a request is 'normal' to a server by comparing the types of incoming sketchy requests to the average categories of normal requests. If the similarity is low, we can consider that the origin of the incoming request is unusual. For example, if a typical request to a secured server is in JSON format (plain text), but a suspicious request is in JavaScript (client-side script), we can conclude that the incoming request is malicious. If a suspicious request is in XML format (plain text), we can safely assume that the user made a mistake and the alert was false.\newline
+From the hypothesis, We can create a CNN model to detect the type of request. Then we compare the incoming requests with the "normal" corresponding category and decide whether the requests is malicious or not using Logistic regression.\newline
+Logistic Regression is used when the dependent variable(target) is categorical.\newline
+For example, in our case: 
+\begin{itemize}
+    \item  To predict whether a request is malicious or not.
+\end{itemize}
+Our architecture is described in the below figure (Figure 13). Suggest a reasonable decision model for the combined 
+\begin{figure}[!h]
+   
+     \centering
+     \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/architecture.jpg}
+   \caption{Malicious request validator architecture}
+\end{figure}
+result: When two prediction is the same, the result is straight forward. When the logistic regression model decided that the request is malicious, but the CNN model predicted the request is nornal, the CNN is favored. Otherwise, the Regression model classified the request as valid but the CNN predicted as abnormal, we'll favor the Regression. The desicion model can be expressed in a decision table:
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{||c c c ||} 
+ \hline
+ Regression & CNN & Result  \\ [0.5ex] 
+ \hline\hline
+ Valid & Normal & Valid \\ 
+ 
+ Valid & Abnormal & Valid  \\
+
+ Invalid & Normal & Valid  \\
+ 
+ Invalid & Abnormal & Invalid  \\ [1ex] 
+\hline
+\end{tabular}
+\end{center}
+\caption{\label{demo-table}Table 4.1}
+\end{table}
+
+The CNN validator will run for a set period of time (usually one or two weeks) to collect the familiar category of incoming requests and assign a threshold (which can be the mean or maximum (if we are optimistic) distance between each request vector in the observing stage and the sum vector). The same will also happened with the Regression model. After that training phase, the module will run on 'active phase', parallel with the WAF. 
+\begin{itemize}
+    \item  To predict whether a request is malicious or not.
+\end{itemize}
+Our architecture is described in Figure 14 below, suggest a reasonable decision model for the combination of CNN and the Regression model
+\begin{figure}[!h]
+     \centering
+     \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/architecture 2.drawio.png}
+   \caption{Decision model for the combination of CNN and the Regression model}
+\end{figure}
 \newpage
-\section{Tìm đường chính giữa và điểm phân nhánh} 
-\label{sec:tim_duong_chinh_giua_va_diem_phan_nhanh}
-	Hai nhiệm vụ chúng tôi sẽ thực hiện sau khi xây dựng hệ thống mạch máu đó là tìm đường chính giữa và xác định điểm phân nhánh. Điều này có ý nghĩa rất quan trọng trong việc xác định vị trí tương quan giữa các phân thuỳ gan, giúp công tác giải phẫu có thể tiến hành nhanh chóng và an toàn hơn.
-	
-	Đối với tìm đường chính giữa của mạch máu, chúng tôi áp dụng phép toán skeleton để trích xuất khung xương đối tượng trong không gian 3D như đã trình bày trong \autoref{subsec:phep_toan_skeleton}.\linebreak Trong luận văn này chúng tôi thực hiện phép toán skeleton thông qua hàm \verb/skeletonize_3d/ trong gói \verb/morphology/ của thư viện \verb/skimage/ trên ngôn ngữ Python..
-	
-	Đối với xác định điểm phân nhánh, chúng tôi xem xét số lượng điểm ảnh liền kề thuộc khung xương của từng điểm ảnh trong khung xương mạch máu. Một điểm ảnh là điểm phân nhánh khi và chỉ khi số lượng điểm ảnh thuộc khung xương liền kề nó lớn hơn hoặc bằng 3. \autoref{fig:post_processing_branching_point} minh hoạ việc xác định điểm phân nhánh trên khung xương mạch máu. Trong đó, các điểm được tô màu mô tả khung xương mạch máu và điểm màu cam là các điểm phân nhánh trên khung xương đó.
-	\begin{figure}[h!]
-		\centering
-		\input{figures/post_processing_branching_point}
-		\caption[Phương pháp xác định điểm phân nhánh mạch máu.]{Phương pháp xác định điểm phân nhánh mạch máu. Các điểm được tô màu mô phỏng khung xương mạch máu. Con số trên mỗi điểm là số lượng điểm ảnh kế cận thuộc khung xương của điểm đó. Các điểm tô màu cam là các điểm phân nhánh.}
-		\label{fig:post_processing_branching_point}
-	\end{figure}
-
+The request is routed through the module, which predicts the category. The category of suspicious request is then compared with the common category. Then the Regression model will determined whether the request is good or bad, combining with the normal or abnormal status to decide the result. 
