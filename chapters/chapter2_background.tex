@@ -1,6 +1,6 @@
 \chapter{Backgrounds}
 \label{chap:backgrounds}
-	\textit{Introduces the background knowledge of this thesis, including the information about Web Application Firewall, Machine Learning Model and Deep Neural Network}
+	\textit{Introduces the background knowledge of this thesis, including the information about Web Application Firewall, Machine Learning Models and Deep Neural Network}
 \minitoc
 
 \section{Web Application Firewall} 
@@ -17,7 +17,7 @@ It can be utilized either alone or in conjunction with other applications. WAF m
 
 \subsection{How does WAF work?}
 \label{subsec:waf_work}
-As mentioned before, WAF is placed at the application layer and functions as a two-way protection there. At work, WAF keeps an eye on HTTP or HTTPS traffic entering or leaving a certain web app. When a malicious object is seen in the traffic, WAF activates and destroys it. \\
+As previously stated, WAF is deployed at the application layer and serves as a two-way firewall. At work, WAF monitors HTTP or HTTPS traffic entering or exiting a specific web app. When WAF detects a malicious object in the traffic, it activates and destroys it. \\
 \begin{figure}[!h]
    
 	\centering
@@ -26,14 +26,14 @@ As mentioned before, WAF is placed at the application layer and functions as a t
   
 \end{figure}
 \\
-To make the process a bit more simplified, WAF predefined what is vindictive and what’s not. WAF follows these rules all through the process. Mainly, WAF analyses the GET and POST part of the HTTP traffic. GET retrieves data from the server while POST is used to guide the data to the server to alter its original condition\footnote{Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}.
+WAF predefined what is malicious and what is not to make the process easier. WAF adheres to these guidelines throughout the process. WAF primarily analyzes the GET and POST portions of HTTP traffic. GET retrieves data from the server, whereas POST directs data to the server in order to change its original state\footnote{Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}.
 
 \subsection{WAF vs Firewall}
 \label{subsec:versus}
-The firewall and WAF appear to be similar on the surface. They also share a
-number of characteristics with one another. However, they are not the same. There are some key distinctions. Understanding the differences is crucial if you’re going to put anyone into action. A firewall is a general phrase that refers to a variety of firewalls used to safeguard computer networks. It filters the data packets while it is in use. Based on the security they provide and their delivery method, firewalls can be differentiated from one another. For example, only a small number of firewalls employ packet filtering, whereas others make use of proxies, NGFW, or stateful inspection. In comparison to proxy firewalls, WAF. However, there is a distinction. The system is not protected from assaults that occur on a fundamental level by a firewall. The WAF concentrates on Layer 7 logic.
+On the surface, the firewall and WAF have seemed to be the same. They also share several characteristics. They are not, however, the same. There are some key differences. Understanding the distinctions is critical when attempting to put anyone into action. A firewall is a catch-all term for a variety of firewalls used to protect computer networks. While in use, it filters data packets. Firewalls can be distinguished from one another based on the level of security they provide and the method by which they are delivered. Only a few firewalls, for example, use packet filtering, whereas others use proxies, NGFW, or stateful inspection. WAF is better compared to proxy firewalls. There is, however, a distinction. The system is not protected from assaults that occur on a fundamental level by a firewall. The WAF concentrates on Layer 7 logic.
 
 Web application firewalls, or WAFs, are primarily used to protect web applications from online threats. Work on it starts at the application layer. Therefore, WAF implementation is always done at the application layer, regardless of the strategy\footnote{Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}. 
+
 	\begin{figure}[h!]
 		\centering
 		\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/waf3.png}
