@@ -1,6 +1,6 @@
 \chapter{Backgrounds}
 \label{chap:backgrounds}
-	\textit{Introduces the background knowledge of this thesis, including the information about Web Application Firewall, Machine Learning Models and Deep Neural Network}
+	\textit{Introduces the background knowledge of this thesis, including information about Web Application Firewalls, Machine Learning Models and Deep Neural Networks}
 \minitoc
 
 \section{Web Application Firewall} 
@@ -26,7 +26,7 @@ As previously stated, WAF is deployed at the application layer and serves as a t
   
 \end{figure}
 \\
-WAF predefined what is malicious and what is not to make the process easier. WAF adheres to these guidelines throughout the process. WAF primarily analyzes the GET and POST portions of HTTP traffic. GET retrieves data from the server, whereas POST directs data to the server in order to change its original state\footnote{Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}.
+WAF predefined what is malicious and what is not to make the process easier. WAF adheres to these guidelines throughout the process. WAF primarily analyzes the GET and POST portions of HTTP traffic. GET retrieves data from the server, whereas POST directs data to the server to change its original state\footnote{Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}.
 
 \subsection{WAF vs Firewall}
 \label{subsec:versus}
@@ -263,7 +263,7 @@ The \emph{output layer} is the simplest, usually consisting of a single output f
 \end{figure}
 \subsection{Learning Rate}
 \label{subsec:learning_rate}
-The learning rate is the size of each step in each gradient descent cycle. We can cover more territory per step with a high learning rate, but we risk overshooting the lowest spot because the slope of the hill is continually changing. We may reliably go in the direction of the negative gradient with a very low learning rate because we are recalculating it so frequently. A low learning rate is more exact, but calculating the gradient takes time, therefore we will take a long time to reach the bottom. An example of the learning rate is shown in Figure 2.5.
+The learning rate is the size of each step in each gradient descent cycle. We can cover more territory per step with a high learning rate, but we risk overshooting the lowest spot because the slope of the hill is continually changing. We may reliably go in the direction of the negative gradient with a very low learning rate because we are recalculating it so frequently. A low learning rate is more exact, but calculating the gradient takes time, so we will take a long time to reach the bottom. An example of the learning rate is shown in Figure 2.5.
 \newpage
 \begin{figure}[!h]
 	\centering
@@ -289,7 +289,7 @@ A method that computes adaptive learning rates for each parameter is Adaptive Mo
 \end{align}
 
 
-$m_t$ and $v_t$ are estimates of the first moment (the mean) and the second moment (the uncentered variance) of the gradients respectively, hence the name of the method. As $m_t$ and $v_t$ are initialized as vectors of 0's, the authors of Adam observe that they are biased towards zero, especially during the initial time steps, and especially when the decay rates are small.
+$m_t$ and $v_t$ are estimates of the first moment (the mean) and the second moment (the uncentered variance) of the gradients respectively, hence the name of the method. As $m_t$ and $v_t$ are initialized as vectors of 0's, the authors of Adam observe that they are biased towards zero, especially during the initial time steps, especially when the decay rates are small.
 \begin{align}
     \hat{m}_t \: = \: \frac{m_t}{1\:-\:\beta^t_1} \\
  \hat{v}_t \: = \: \frac{v_t}{1\: - \: \beta^t_2}
