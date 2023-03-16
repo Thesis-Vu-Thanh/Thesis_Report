@@ -175,21 +175,11 @@
 
 \renewcommand{\minitoc}{
 	\vfill
-	\ifnum\value{chapter}>3  
-		{\large\bfseries Table of Contents}
-		\noindent\rule{\textwidth}{0.4pt}
-		\adjustmtc
-		\oldminitoc
-		\noindent\rule{\textwidth}{0.4pt}
-	\else 
-		\ifnum\value{chapter}<3
-			{\large\bfseries Table of Contents}
-			\noindent\rule{\textwidth}{0.4pt}
-			\adjustmtc
-			\oldminitoc
-			\noindent\rule{\textwidth}{0.4pt}
-		\fi
-	\fi
+	{\large\bfseries Table of Contents}
+	\noindent\rule{\textwidth}{0.4pt}
+	\adjustmtc
+	\oldminitoc
+	\noindent\rule{\textwidth}{0.4pt}
 	\newpage
 }
 
