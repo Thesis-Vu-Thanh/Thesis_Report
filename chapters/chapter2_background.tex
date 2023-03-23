@@ -12,33 +12,44 @@ WAF stands for \textbf{Web Application Firewall}. This firewall solution commonl
 
 The WAF tool can be distributed using network-based, cloud-based, or host-based architectures. It needs a reverse proxy to make sure that one or more web apps are in front of it while facing forward. 
 
-It can be utilized either alone or in conjunction with other applications. WAF may function at a lower level or a higher level depending on the requirement\footnote{Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}.
+It can be utilized either alone or in conjunction with other applications. WAF may function at a lower level or a higher level depending on the requirement\footnote{\label{wallarm} Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}.
 
 
 \subsection{How does WAF work?}
 \label{subsec:waf_work}
-As previously stated, WAF is deployed at the application layer and serves as a two-way firewall. At work, WAF monitors HTTP or HTTPS traffic entering or exiting a specific web app. When WAF detects a malicious object in the traffic, it activates and destroys it. \\
+As previously stated, WAF is deployed at the application layer and serves as a two-way firewall. At work, WAF monitors HTTP or HTTPS traffic entering or exiting a specific web app. When WAF detects a malicious object in the traffic, it activates and destroys it. Figure 2.1 demonstrates how WAF works, normal users (top-left and bottom-left) are permitted access to the server with a WAF enabled, but attackers (middle-left) are prevented from doing so.
 \begin{figure}[!h]
    
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/WAF.JPG}
-	\caption{Normal users (top-left and bottom-left) are permitted access to the server with a WAF enabled, but attackers (middle-left) are prevented from doing so.}\label{Fig:Data1}
+	\caption{How does WAF work.}\label{Fig:Data1}
   
 \end{figure}
 \\
-WAF predefined what is malicious and what is not to make the process easier. WAF adheres to these guidelines throughout the process. WAF primarily analyzes the GET and POST portions of HTTP traffic. GET retrieves data from the server, whereas POST directs data to the server to change its original state\footnote{Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}.
+WAF predefined what is malicious and what is not to make the process easier. WAF adheres to these guidelines throughout the process. WAF primarily analyzes the GET and POST portions of HTTP traffic. GET retrieves data from the server, whereas POST directs data to the server to change its original state\footnoteref{wallarm}.
+% {Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}.
 
 \subsection{WAF vs Firewall}
 \label{subsec:versus}
-On the surface, the firewall and WAF have seemed to be the same. They also share several characteristics. They are not, however, the same. There are some key differences. Understanding the distinctions is critical when attempting to put anyone into action. A firewall is a catch-all term for a variety of firewalls used to protect computer networks. While in use, it filters data packets. Firewalls can be distinguished from one another based on the level of security they provide and the method by which they are delivered. Only a few firewalls, for example, use packet filtering, whereas others use proxies, NGFW, or stateful inspection. WAF is better compared to proxy firewalls. There is, however, a distinction. The system is not protected from assaults that occur on a fundamental level by a firewall. The WAF concentrates on Layer 7 logic.
+In the modern era of sophisticated cyberattacks and digital innovation, it is essential for organizations to understand the threats they face and what their security measures protect them from. Understanding the value of and distinctions between WAF security and network firewall security is vital for preventing online attacks and other types of network intrusions\footnote{Fortinet. \textit{WAF vs. Firewall: Web Application and Network Firewalls}. 
+\url{https://www.fortinet.com/resources/cyberglossary/waf-vs-firewall}}.
 
-Web application firewalls, or WAFs, are primarily used to protect web applications from online threats. Work on it starts at the application layer. Therefore, WAF implementation is always done at the application layer, regardless of the strategy\footnote{Wallarm. \textit{WAF Meaning}. \url{https://www.wallarm.com/what/waf-meaning}}. 
+A web application firewall (WAF) protects web applications by intercepting Hypertext Transfer Protocol (HTTP) traffic. This is distinct from a traditional firewall, which acts as a wall between external and internal network traffic.
 
-	\begin{figure}[h!]
-		\centering
-		\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/waf3.png}
-		\caption{Comparison between WAF and network firewall}
-	\end{figure}
+A WAF stands between external users and web applications to track all HTTP traffic. It then identifies and stops harmful requests from entering users or apps on the web. As a result, WAFs protect key company online applications and servers from zero-day threats and other application-layer attacks. This becomes highly critical as firms invest in new digital efforts, which could expose new web apps and APIs to attacks.
+
+A network firewall guards a secure local-area network against unwanted access to reduce the risk of assaults. Its goal is to distinguish a safe zone from a less secure zone and to control communication between the two. Without it, every device that has a public IP address is exposed to the outside network and potentially vulnerable to attack.
+
+The layer of security that WAF and network-level firewalls operate on is the primary technological distinction between them. Attacks at OSI model Layer 7, or the application level, are protected by WAFs. This covers URL assaults, cookie manipulation, SQL injection, and attacks against JavaScript, ActiveX, and Ajax applications. They also target HTTP and HTTPS, the web application protocols that link web browsers and web servers. Network firewalls secure data transfer and network traffic at OSI model Layers 3 and 4. This covers assaults on the Domain Name System (DNS) and File Transfer Protocol (FTP), as well as Telnet, Secure Shell (SSH), and Simple Mail Transfer Protocol (SMTP). Figure 2.2 displays the attacks which can be blocked by network firewall and WAF.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/waf3.png}
+	\caption{Comparison between WAF and network firewall}
+\end{figure}
+\newpage
+
+It's critical to pick a suitable network firewall or WAF to protect against all of the risks that may be present. Businesses cannot be protected from web page attacks by a network firewall alone; WAF capabilities are the sole means of defense. Business organizations risk leaving their larger network vulnerable to attack due to web application vulnerabilities without an application firewall. A WAF cannot protect from attacks at the network layer, so it should supplement a network firewall rather than replace it. Network-based and web-based solutions operate at several layers and protect from multiple types of traffic. As a result, they perform best together rather than against one another. A network firewall usually protects a wider range of traffic types, but a WAF deals with a specific threat that a conventional strategy cannot handle. Having both options is therefore advisable, especially if a company's operating systems and the web interact frequently.
 
 % \subsection{Receptive field} 
 % \label{subsec:receptive_field}

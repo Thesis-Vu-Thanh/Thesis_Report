@@ -340,9 +340,10 @@
 }
 \makeatletter
 \@newctr{footnote}[page]
+\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
 \makeatother
 \renewcommand{\thefootnote}{\arabic{footnote}}
-\deffootnote{3em}{0em}{\thefootnotemark\hspace{3mm}}
+\deffootnote{3em}{0em}{\thefootnotemark\hspace{2mm}}
 
 %%% Figure environment--------------------------
 \let\oldfigure\figure
