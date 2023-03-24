@@ -2059,11 +2059,11 @@ OUTPUT report.mtc
 INPUT ./report.mtc6
 INPUT report.mtc6
 INPUT report.mtc6
-INPUT ./figures/WAF.JPG
-INPUT ./figures/WAF.JPG
-INPUT figures/WAF.JPG
-INPUT ./figures/WAF.JPG
-INPUT ./figures/WAF.JPG
+INPUT ./figures/wallarmwaf.png
+INPUT ./figures/wallarmwaf.png
+INPUT figures/wallarmwaf.png
+INPUT ./figures/wallarmwaf.png
+INPUT ./figures/wallarmwaf.png
 INPUT ./figures/waf3.png
 INPUT ./figures/waf3.png
 INPUT figures/waf3.png
