@@ -3,12 +3,12 @@
 	\textit{This chapter displays the problems as well as the malicious request validator's input and output. Then we offer the design and architecture of the problem's solutions.}
 \minitoc
 
-\section{API security problems}
-\label{API problems}
-WAFs, as previously indicated, are frequently used, however they suffer from high FP. Our aim is to enhance the accuracy of WAFs, using the help of machine learning rather than the rule-based approachs.  \\
+\section{Cyber security problems}
+\label{Cyber problems}
+WAFs, as previously indicated, are frequently used, however, they suffer from high FP. We aim to enhance the accuracy of WAFs, using the help of machine learning rather than rule-based approaches.  \\
 Because WAFs only cover the Application Layer, the network requests are the model's input (mostly HTTP requests). Our methodology produces the same result as WAFs: whether the request is malicious or not.\\
 With its nature, WAF is obligated to have fast processing speed in deciding whether an incoming request is reliable or not. For user experiences, we can't examine the request's veracity for minutes before granting or denying access. Our system's time constraint must be in milliseconds.\\
-Here are the most common vulnerabilities\footnote{Vaadata.\textit{How to strengthen the security of your APIs to counter the most common attacks?}. April 2022.
+Here are the most common vulnerabilities which may enable the attackers to conduct cyber crimes, according to Vaadata\footnote{Vaadata.\textit{How to strengthen the security of your APIs to counter the most common attacks?}. April 2022.
 \url{https://www.vaadata.com/blog/how-to-strengthen-the-security-of-your-apis-to-counter-the-most-common-attacks/}}:
 \begin{itemize}
     \item \textbf{Lack of rate limiting, DoS and brute force attacks on APIs}

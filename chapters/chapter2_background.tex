@@ -1,6 +1,6 @@
 \chapter{Backgrounds}
 \label{chap:backgrounds}
-	\textit{This chapter introduces the background knowledge of this thesis, including information about Web Application Firewalls, Machine Learning Models and Deep Neural Networks}
+	\textit{This chapter introduces the background knowledge of this thesis, including information about Web Application Firewalls, Machine Learning Models and Deep Neural Networks.}
 \minitoc
 
 \section{Web Application Firewall} 
@@ -17,7 +17,7 @@ It can be utilized either alone or in conjunction with other applications. WAF m
 
 \subsection{How does WAF work?}
 \label{subsec:waf_work}
-As previously stated, WAF is deployed at the application layer and serves as a two-way firewall. At work, WAF monitors HTTP or HTTPS traffic entering or exiting a specific web app. When WAF detects a malicious object in the traffic, it activates and destroys it. Figure 2.1 demonstrates how WAF works, normal users (top-left and bottom-left) are permitted access to the server with a WAF enabled, but attackers (middle-left) are prevented from doing so.
+As previously stated, WAF is deployed at the application layer and serves as a two-way firewall. At work, WAF monitors HTTP or HTTPS traffic entering or exiting a specific web app. When WAF detects a malicious object in the traffic, it activates and destroys it. Figure 2.1 demonstrates how WAF works, legitimate users (top-left and bottom-left) are permitted access to the server with a WAF enabled, but attackers (middle-left) are prevented from doing so.
 \begin{figure}[!h]
    
 	\centering
@@ -51,102 +51,6 @@ The layer of security that WAF and network-level firewalls operate on is the pri
 
 It's critical to pick a suitable network firewall or WAF to protect against all of the risks that may be present. Businesses cannot be protected from web page attacks by a network firewall alone; WAF capabilities are the sole means of defense. Business organizations risk leaving their larger network vulnerable to attack due to web application vulnerabilities without an application firewall. A WAF cannot protect from attacks at the network layer, so it should supplement a network firewall rather than replace it. Network-based and web-based solutions operate at several layers and protect from multiple types of traffic. As a result, they perform best together rather than against one another. A network firewall usually protects a wider range of traffic types, but a WAF deals with a specific threat that a conventional strategy cannot handle. Having both options is therefore advisable, especially if a company's operating systems and the web interact frequently.
 
-% \subsection{Receptive field} 
-% \label{subsec:receptive_field}
-% 	Receptive field\index{Receptive field} trong lĩnh vực thị giác máy tính được định nghĩa là vùng trên không gian đầu vào tương ứng cho một đặc trưng được trích xuất ở kết quả đầu ra. Receptive field của một đặc trưng được mô tả bằng điểm chính giữa và kích thước của nó.  Trong một receptive field, điểm ảnh càng gần tâm càng đóng góp nhiều vào đặc trưng đầu ra. Điều đó có nghĩa rằng, một đặc trưng không chỉ nhìn vào một vùng riêng biệt trong ảnh đầu vào mà còn tập trung nhiều vào vùng giữa của receptive field đó. 
-	
-% 	\autoref{fig:receptive_field} minh họa receptive field của toán tử convolution có kích thước filter\index{Filter} $3\times3$, stride\index{Stride} là 2 và padding\index{Padding} ``same''. Áp dụng toán tử này trên ảnh đầu vào có kích thước 5$\times$5 cho kết quả đầu ra có kích thước 3$\times$3 (màu xanh). Tiếp tục áp dụng toán tử này trên đầu ra thu được cho kết quả cuối cùng có kích thước 2$\times$2 (màu cam). Vùng màu xám trong hình chính là receptive field của một đặc trưng trên kết quả cuối cùng này.
-% 	\vfill
-% 	\begin{figure}[h!]
-% 		\centering
-% 		\input{figures/receptive_field}
-% 		\caption[Receptive field của phép toán Convolution có kích thước filter $3\times 3$, stride 2 và padding ``same''.]{Receptive field của phép toán convolution\index{Convolution} có kích thước filter\index{Filter} $3\times 3$, stride\index{Stride} 2  và padding\index{Padding} ``same''\sourcefig{\cite{le2017receptive}}.}
-% 		\label{fig:receptive_field}
-% 	\end{figure}
-
-% \subsection{Lớp Batchnorm}
-% \label{subsec:lop_batchnorm}
-% 	Thông thường chúng ta chuẩn hoá dữ liệu đầu vào bằng cách điều chỉnh và co giãn miền giá trị của chúng để việc học không bị thiên vị về một thuộc tính bất kỳ nào của dữ liệu. Ví dụ, nếu dữ liệu của chúng ta có một thuộc tính với miền giá trị trong khoảng từ 0 đến 1\linebreak và một thuộc tính khác có miền giá trị trong khoảng từ 0 đến 1000 thì chúng ta nên thực hiện bước chuẩn hoá dữ liệu để việc huấn luyện đạt kết quả tốt hơn. Tuy nhiên việc chuẩn hoá này chỉ mới được áp dụng trên dữ liệu đầu vào. Ioffe và Szegedy \cite{ioffe2015batch} đã đề xuất việc chuẩn hoá dữ liệu nên được thực hiện trên cả những lớp ẩn của kiến trúc mạng.
-	
-% 	Dữ liệu sẽ được chuẩn hoá nhờ lớp batchnorm\index{Batchnorm} trước khi đi qua một lớp mạng, giúp việc học trên từng lớp mạng có tính độc lập cao hơn, ít bị phụ thuộc bởi giá trị đầu ra của lớp mạng phía trước như trước đây. Đồng thời, việc sử dụng batchnorm cho phép chúng ta sử dụng giá trị learning rate\index{Learning rate} (tốc độ học) lớn hơn vì lớp batchnorm đảm bảo dữ liệu đầu vào của một lớp mạng không quá cao hoặc quá thấp.
-	
-% 	Lớp batchnorm thực hiện chuẩn hoá dữ liệu đầu ra của một lớp mạng bằng cách lấy giá trị đầu ra trừ đi giá trị trung bình (mean\index{Mean}) rồi chia cho độ lệch chuẩn (standard deviation) của chính nó. Chi tiết về giải thuật batchnorm được mô tả trong \autoref{fig:batchnorm}.
-% 	\begin{figure}[h!]
-% 		\centering
-% 		\fbox{%
-% 			\parbox{.6\textwidth}{%
-% 				\vspace{-4mm}
-% 				\begin{tabbing}
-% 					\hspace{2cm}\=\kill
-% 					\textbf{Input:} \>Values of $x$ over a mini-batch: $\mathcal{B}=\{x_{1...m}\}$;\\
-% 					\>Parameters to be learned: $\gamma, \beta$\\
-% 					\textbf{Output:} \>$\{y_i=\text{BN}_{\gamma,\beta}(x_i)\}$
-% 				\end{tabbing}
-% 				\begin{tabbing}
-% 					\hspace{5mm}\=\hspace{6mm}\=\hspace{5mm}\=\hspace{4cm}\=\kill
-% 					\>$\mu_\mathcal{B}$\>$\leftarrow$\>$\dfrac{1}{m}\sum\limits_{i=1}^{m}x_i$\>//mini-batch mean\\[3mm]
-% 					\>$\sigma_\mathcal{B}^2$\>$\leftarrow$\> $\dfrac{1}{m}\sum\limits_{i=1}^{m}(x_i-\mu_\mathcal{B})^2$\>//mini-batch variance\\[3mm]
-% 					\>$\hat{x}_i$\>$\leftarrow$\>$\dfrac{x_i-\mu_\mathcal{B}}{\sqrt{\sigma_\mathcal{B}^2+\epsilon}}$\>// normalize\\[3mm]
-% 					\>$y_i$\>$\leftarrow$\>$\gamma\hat{x}_i+\beta\equiv\text{BN}_{\gamma, \beta}(x_i)$\>// scale and shift
-% 				\end{tabbing}
-% 			}%
-% 		}
-% 		\caption[Giải thuật Batchnorm áp dụng lên dữ liệu đầu vào của một mini-batch.]{Giải thuật Batchnorm áp dụng lên dữ liệu đầu vào của một mini-batch trong quá trình huấn luyện \sourcefig{\cite{ioffe2015batch}}.}
-% 		\label{fig:batchnorm}
-% 	\end{figure}
-
-% \newpage
-% \subsection{Lớp Sigmoid}
-% \label{subsec:lop_sigmoid}
-% 	Trong toán học, hàm sigmoid\index{Sigmoid} với phương trình toán học như sau
-% 	\begin{equation}
-% 	\sigma(x)=\dfrac{1}{1+e^{-x}}
-% 	\label{eqn:sigmoid}
-% 	\end{equation}
-% 	là một hàm số biến một giá trị thực bất kỳ thành một giá trị thực trong phạm vi $(0, 1)$. Một số dương càng lớn sẽ cho ra giá trị gần với 1 và một số âm càng nhỏ sẽ cho ra giá trị gần với 0. Hàm sigmoid có thể được sử dụng sau một lớp convolution\index{Convolution} hoặc là lớp cuối cùng của kiến trúc mạng nhằm mục đích phân loại. Đồ thị biểu diễn hàm sigmoid được mô tả như \autoref{fig:sigmoid}.
-% 	\begin{figure}[h!]
-% 		\centering
-% 		\input{figures/sigmoid}
-% 		\caption{Đồ thị biểu diễn hàm sigmoid.}
-% 		\label{fig:sigmoid}
-% 	\end{figure}
-% 	\vspace{-6mm}
-
-% \subsection{Lớp ReLU}
-% \label{subsec:lop_relu}
-% 	ReLU (Rectified Linear Unit)\index{ReLU} do Mair và Hinton \cite{nair2010rectified} đề xuất với công thức toán học\linebreak như sau 
-% 	\begin{equation}
-% 		ReLU(x)=max(0, x),
-% 		\label{eqn:relu}
-% 	\end{equation}
-% 	nghĩa là hàm ReLU đặt một ngưỡng tại 0 chỉ cho những giá trị dương đi qua. So với hàm Sigmoid\index{Sigmoid}, hàm ReLU giúp tăng tốc độ hội tụ khi huấn luyện bằng SGD (Stochastic Gradient Descent)\index{SGD}\nomenclature{SGD}{Stochastic Gradient Descent}. Một ưu điểm nữa của hàm ReLU là trong quá trình lập trình, hàm ReLU có thể hiện thực dễ dàng bằng cách áp một mặt nạ với ngưỡng bằng 0 cho cả quá trình lan truyền xuôi và lan truyền ngược. Tuy nhiên, chính việc áp mặt nạ làm cho gradient bằng $0$ tại một số điểm trong mạng dẫn đến gradient\index{Gradient} từ điểm đó về trước trong quá trình lan truyền ngược bằng $0$ và mạng không học được. Đồ thị biểu diễn hàm ReLU như \autoref{fig:relu}.
-% 	\begin{figure}[h!]
-% 		\centering
-% 		\input{figures/relu}
-% 		\caption{Đồ thị biểu diễn hàm ReLU.}
-% 		\label{fig:relu}
-% 	\end{figure}
-
-% \subsection{Lớp Softmax}
-% \label{subsec:lop_softmax}
-% 	Trong toán học, hàm softmax\index{Softmax} (hay hàm trung bình mũ) là một hàm số biến không gian $K$ chiều với giá trị thực bất kỳ đến không gian $K$ chiều mang giá trị trong phạm vi $(0, 1)$. Phương trình toán học của hàm softmax được biểu diễn như sau
-% 	\begin{equation}
-% 	a_i=\dfrac{e^{z_i}}{\sum_{j=1}^{K}e^{z_j}},
-% 	\label{eqn:softmax}
-% 	\end{equation}
-% 	trong đó, $z_i$ là giá trị đầu vào, $K$ là số khả năng khác nhau có thể xảy ra và $a_i$ là giá trị đầu ra của hàm softmax. Hàm softmax là một hàm đồng biến đảm bảo nếu giá trị $z_i$ càng lớn thì xác suất rơi vào khả năng thứ $i$ trong $K$ khả năng càng cao. Đồng thời, hàm này đảm bảo các giá trị đầu ra $a_i$ dương và tổng của chúng bằng $1$. \autoref{fig:softmax} mô tả một số giá trị đầu vào và đầu ra tương ứng của hàm softmax.
-% 	\begin{figure}[h!]
-% 		\centering
-% 		\input{figures/softmax}
-% 		\caption[Một số ví dụ về đầu vào và đầu ra của hàm Softmax.]{Một số ví dụ về đầu vào và đầu ra của hàm Softmax \sourcefig{\cite{machinelearningcoban}}.}
-		
-% 		\label{fig:softmax}
-% 	\end{figure}
-	
-% 	Trong lý thuyết xác suất, giá trị xuất ra của hàm softmax có thể được sử dụng để đại diện cho một loại phân phối -- đó là phân phối xác suất trên $K$ khả năng khác nhau có thể xảy ra.
-	
-% 	Hàm softmax\index{Softmax} được sử dụng trong nhiều phương pháp phân loại đa lớp như hồi quy logistic đa biến, biệt thức tuyến tính phân tích nhiều lớp và mạng nơ-ron. Đặc biệt, trong mạng nơ-ron, lớp softmax được sử dụng làm lớp cuối cùng của kiến trúc mạng để xác định độ chắc chắc trong kết quả dự đoán.
-	
 \newpage
 \section{Machine Learning Model} 
 \label{sec:machine_model}
@@ -188,81 +92,22 @@ The updated formula (according to the SGD algorithm) for logistic regression:
 \begin{align}
     \mathbf{w} = \mathbf{w} + \eta(y_i - z_i)\mathbf{x}_i
 \end{align}
-% \label{subsec:phep_toan_skeleton}
-% 	Phép toán trích xuất khung xương đối tượng skeleton\index{Skeleton} là một trong các phép toán biến đổi hình thái được giới thiệu bởi Fisher và cộng sự \cite{hipr2thining}. Phép toán này được sử dụng để rút trích thành phần chính đại diện cho hình dạng của đối tượng trong ảnh nhị phân. Được ứng dụng trong nhận dạng mẫu (nhận dạng kí tự), nén ảnh, phát hiện lỗi trên sản phẩm công nghiệp (đứt đoạn).
-	
-% 	Gọi $\{nB\}, n= 0, 1, ...$ là một họ các hình khối với $B$ là một thành phần cấu trúc, ta có
-% 	\begin{equation}
-% 		nB = \underbrace{B\oplus \cdots \oplus B}_{n\ \text{lần}}.
-% 		\label{eqn:skeleton_nb}
-% 	\end{equation}
-% 	Khi $n=0$, $nB=\{o\}$ với $o$ biểu diễn cho thành phần cấu trúc ban đầu. Phép toán skeleton lên ảnh nhị phân $A$ được định nghĩa như sau
-% 	\begin{equation}
-% 		S(A) = \bigcup_{n = 0}^N (A \ominus nB) - ((A \ominus nB) \ominus B)\oplus B,
-% 		\label{eqn:skeleton}
-% 	\end{equation}
-% 	trong đó, $N$ là số lần lặp lớn nhất trước khi $A$ trở thành tập rỗng. $N$ được xác định theo công thức
-% 	\begin{equation}
-% 		N = \text{max}\{k|(A\ominus kB)\neq\varnothing\}.
-% 	\label{eqn:skeleton_n}
-% 	\end{equation}
-	
-% 	\autoref{fig:skeleton2d_apply} là một ví dụ áp dụng phép toán skeleton để rút trích khung xương đối tượng trong ảnh nhị phân.
-% 	\begin{figure}[h!]
-% 		\hfill
-% 		\begin{subfigure}[b]{0.475\textwidth}
-% 			\centering
-% 			\input{figures/morphology_skeleton2d_before}
-% 			\caption{}
-% 			\label{fig:skeleton2d_apply_before}
-% 		\end{subfigure}
-% 		\begin{subfigure}[b]{0.475\textwidth}
-% 			\centering
-% 			\input{figures/morphology_skeleton2d_after}
-% 			\caption{}
-% 			\label{fig:skeleton2d_apply_after}
-% 		\end{subfigure}
-% 		\hfill\null
-% 		\caption[Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 2D.]{Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 2D. \subref{fig:skeleton2d_apply_before} ảnh nhị phân ban đầu. \subref{fig:skeleton2d_apply_after} ảnh nhị phân sau khi trích xuất khung xương đối tượng. \sourcefig{\cite{hipr2thining}}.}
-% 		\label{fig:skeleton2d_apply}
-% 	\end{figure}
-	
-% 	Trong luận văn này chúng tôi sử dụng kỹ thuật rút trích khung xương đối tượng trong không gian 3D được đề xuất bởi Lee và cộng sự \cite{lee1994building} để tìm đường chính giữa của mạch máu trong \autoref{sec:tim_duong_chinh_giua_va_diem_phan_nhanh}. \autoref{fig:skeleton3d_apply} minh hoạ việc áp dụng phép toán skeleton làm mảnh đối tượng trong không gian 3D.
-% 	\begin{figure}[h!]
-% 		\centering
-% 		\begin{subfigure}[b]{0.49\textwidth}
-% 			\centering
-% 			\includegraphics[width=.8\textwidth]{figures/morphology_skeleton3d_before}
-% 			\caption{}
-% 			\label{fig:skeleton3d_apply_before}
-% 		\end{subfigure}
-% 		\hfill
-% 		\begin{subfigure}[b]{0.49\textwidth}
-% 			\centering
-% 			\includegraphics[width=.6\textwidth]{figures/morphology_skeleton3d_after}
-% 			\caption{}
-% 			\label{fig:skeleton3d_apply_after}
-% 		\end{subfigure}%
-% 		\caption[Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 3D.]{Áp dụng phép toán Skeleton để rút trích khung xương đối tượng trong không gian 3D. \subref{fig:skeleton3d_apply_before} đối tượng ban đầu. \subref{fig:skeleton3d_apply_after} khung xương được tạo ra từ phép toán skeleton. \sourcefig{\cite{lee1994building}}.}
-% 		\label{fig:skeleton3d_apply}
-% 	\end{figure}
 
 \section{Deep Neural Network}
 \label{sec:deep_neural_network}
-With their excellent results, broad applicability, and vast growth potential, neural networks are currently the most advanced advancement in artificial intelligence.
-Feedforward Neural Networks (FNN) and Convolution Neural Networks (CNN) are widely used to make predictions with independent data input. In CNN (Figure 2.3), each input image is passed through a series of convolutional layers (Filters, Pooling, and Fully-connected layers) to extract features before being classified using the Softmax function\footnote{Softmax function:$ \sigma (\overrightarrow{z})_i \: = \: (e^{z_i})/ \sum_{j=1}^{K} e^z_i  $}.
+With their excellent results, broad applicability, and vast growth potential, neural networks are currently the most advanced advancement in artificial intelligence. Feedforward Neural Networks (FNN) and Convolution Neural Networks (CNN) are widely used to make predictions with independent data input. In CNN (Figure 2.3), each input image is passed through convolutional layers (Filters, Pooling, and Fully-connected layers) to extract features before being classified using the Softmax function\footnote{Softmax function:$ \sigma (\overrightarrow{z})_i \: = \: (e^{z_i})/ \sum_{j=1}^{K} e^z_i  $}.
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/CNN.png}
 	\caption{CNN Architecture}
 \end{figure}	
 
-\emph{Layers} are the building components of deep neural networks such as CNN and others. A \emph{layer} is a broad phrase that refers to a group of 'nodes' that function together at a given level within a neural network. \emph{Layers} are classified into three types: \emph{input layer},\emph{ hidden layers}, and \emph{output layers}.
+\emph{Layers} are the building components of deep neural networks such as CNN and others. A \emph{layer} is a broad phrase that refers to a group of "nodes" that function together at a given level within a neural network. \emph{Layers} are classified into three types: \emph{input layer},\emph{ hidden layers}, and \emph{output layers}.
 
-The \emph{input layer} contains raw data (each variable as a ‘node’) \\
-In neural networks, black magic happens in the \emph{hidden layer}(s). By minimizing an error/cost function, each layer attempts to learn different elements of the data. The context of 'image recognition', such as a face, is the most intuitive way to understand these levels. The first layer may learn edge detection, the second eye, the third nose, and so on. This isn't exactly what's going on, but the idea is to split the problem down into components that different levels of abstraction can piece together, much to how our own brains work (hence the name neural networks).
+The \emph{input layer} contains raw data (each variable as a "node") \\
+In neural networks, black magic happens in the \emph{hidden layer}(s). By minimizing an error/cost function, each layer attempts to learn different elements of the data. The context of "image recognition", such as a face, is the most intuitive way to understand these levels. The first layer may learn edge detection, the second eye, the third nose, and so on. This isn't exactly what's going on, but the idea is to split the problem down into components that different levels of abstraction can piece together, much to how our own brains work (hence the name neural networks).
 
-The \emph{output layer} is the simplest, usually consisting of a single output for classification problems. Even though it is a single 'node,' it is nevertheless regarded as a layer in a neural network because it might contain numerous nodes. We use six types of layers given by the TensorFlow framework in this thesis: \textbf{Embedding} layer, \textbf{Conv1D} layer, \textbf{MaxPooling1D} layer, \textbf{Dropout} layer, \textbf{Flatten} layer, and \textbf{Dense} layer.
+The \emph{output layer} is the simplest, usually consisting of a single output for classification problems. Even though it is a single "node", it is nevertheless regarded as a layer in a neural network because it might contain numerous nodes. We use six types of layers given by the TensorFlow framework in this thesis: \textbf{Embedding} layer, \textbf{Conv1D} layer, \textbf{MaxPooling1D} layer, \textbf{Dropout} layer, \textbf{Flatten} layer, and \textbf{Dense} layer.
 \newpage
 \subsection{Gradient descent}
 \label{subsec:gradient_descent}
@@ -274,7 +119,7 @@ The \emph{output layer} is the simplest, usually consisting of a single output f
 \end{figure}
 \subsection{Learning Rate}
 \label{subsec:learning_rate}
-The learning rate is the size of each step in each gradient descent cycle. We can cover more territory per step with a high learning rate, but we risk overshooting the lowest spot because the slope of the hill is continually changing. We may reliably go in the direction of the negative gradient with a very low learning rate because we are recalculating it so frequently. A low learning rate is more exact, but calculating the gradient takes time, so we will take a long time to reach the bottom. An example of the learning rate is shown in Figure 2.5.
+The learning rate is the size of each step in each gradient descent cycle. We can cover more territory per step with a high learning rate, but we risk overshooting the lowest spot because the slope of the hill is continually changing. We may reliably go in the direction of the negative gradient with a very low learning rate because we are recalculating it so frequently. A low learning rate is more exact, but calculating the gradient takes time, so we will take a long time to reach the bottom. An example of the learning rate is in Figure 2.5.
 \newpage
 \begin{figure}[!h]
 	\centering
@@ -312,14 +157,3 @@ They then use these to update the parameters:
 \begin{align}
 \theta_{t+1} \: = \: \theta_t \: - \: \frac{\eta}{\sqrt{\hat{v}_t} \: +\: \epsilon} \hat{m}_t 
 \end{align}
-% \subsection{Thư viện VTK}
-% \label{subsec:thu_vien_vtk}
-% 	\nomenclature{VTK}{The Visualization Toolkit}\index{VTK}VTK (The Visualization Toolkit)\footnote{\url{https://pypi.org/project/vtk/}}là một thư viện mã nguồn mở cung cấp cho các nhà phát triển một bộ công cụ đa dạng phục vụ cho đồ hoạ máy tính trong không gian ba chiều, xử lý hình ảnh và trực quan hoá. Thư viện này được hiện thực từ nhiều ngôn ngữ khác nhau như C++, Java và Python. Nó hỗ trợ nhiều giải thuật trực quan hoá bao gồm phương pháp vô hướng, phương pháp vec-tơ, phương pháp kết cấu và thể tích. Đặc biệt, thư viện này còn hỗ trợ các kỹ thuật mô hình hoá nâng cao như mô hình ẩn, thu giảm đa giác, làm mịn bề mặt, tạo đường viền và tam giác phân Delaunay.
-	
-% 	Trong luận văn này, chúng tôi sử dụng thư viện VTK trên ngôn ngữ Python nhằm trích xuất và làm mịn lưới bề mặt hệ thống mạch máu cũng như đường chính giữa mạch máu và các điểm phân nhánh từ kết quả dự đoán, phục vụ quá trình trực quan hoá sẽ được đề cập tới trong \autoref{sec:truc_quan_hoa_ket_qua_thi_nghiem}.
-
-% \subsection{Phần mềm Slicer}
-% \label{subsec:pham_mem_Slicer}
-% 	\index{Slicer}Slicer\footnote{\url{https://www.slicer.org/}}là ứng dụng mã nguồn mở phục vụ cho tin học về hình ảnh y tế, xử lý hình ảnh y khoa và trực quan hoá trong không gian ba chiều. Được xây dựng trong hơn hai thập kỷ qua với sự hỗ trợ của các viện y tế quốc gia (National Institutes of Health) và cộng đồng các nhà phát triển trên toàn thế giới, trong đó phải kể đến sự đóng góp của cộng đồng quốc tế các nhà khoa học, bao gồm cả kỹ thuật và y sinh. Slicer mang đến các công cụ xử lý đa nền tảng miễn phí, mạnh mẽ cho các bác sĩ, các nhà nghiên cứu và cộng đồng.
-	
-% 	Trong luận văn này, chúng tôi sử dụng ứng dụng Slicer để trực quan hoá kết quả thu được từ hệ thống, nhằm đưa ra những nhận xét mang tính định tính chất lượng, giúp kết quả đánh giá được toàn diện hơn. Chúng tôi sẽ đề cập rõ hơn trong \autoref{sec:truc_quan_hoa_ket_qua_thi_nghiem}.
