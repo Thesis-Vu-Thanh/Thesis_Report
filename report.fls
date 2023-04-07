@@ -2044,6 +2044,7 @@ INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vntt10.tfm
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
+INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm
 INPUT ./chapters/chapter2_background.tex
 INPUT chapters/chapter2_background.tex
 INPUT ./chapters/chapter2_background.tex
@@ -2158,7 +2159,6 @@ OUTPUT report.mtc
 INPUT ./report.mtc9
 INPUT report.mtc9
 INPUT report.mtc9
-INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm
 INPUT ./figures/ex1.PNG
 INPUT ./figures/ex1.PNG
 INPUT figures/ex1.PNG

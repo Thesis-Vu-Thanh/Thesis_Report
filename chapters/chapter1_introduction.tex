@@ -19,12 +19,17 @@ From the above situation, we can see that tools like Firewalls play a crucial ro
 \label{sec:objectives}
 Cybersecurity needs to be enhanced because of the potential repercussions that cybercriminals could have. We aim to improve the capabilities of web application firewalls given the current need for cybersecurity. So, we decide to build a firewall add-on. This thesis will focus on recognizing malicious requests that get past the firewall. We want to use machine learning to help the WAF process a massive volume of requests per second quickly and effectively. The created module ought to be able to validate the request and determine whether it's an attack or not.
 
-A false positive (FP) in web application security occurs when a scanner claims that your website has a vulnerability, such as SQL injection or cross-site scripting (XSS) when there is nothing to repair. To eliminate the high FP, an inherent weakness of rule-based WAF, and assure the speed of the WAF, which must react nearly instantly to deliver a consistent customer experience, the module will use two fast and simple machine learning models. Each model will run independently to generate an output, then combined the result to achieve an accuracy of at least 95\% as well as low latency of 5 milliseconds\footnote{Abdalslam. \textit{Web Application Firewalls (WAF) Statistics, Trends And Facts 2023}. 
+To eliminate the high false positive (FP) rate, an inherent weakness of rule-based WAF, and assure the speed of the WAF, which must react nearly instantly to deliver a consistent customer experience, the module will use two fast and simple machine learning models. Each model will run independently to generate an output, then combined the result to achieve an accuracy of at least 95\% as well as low latency of 5 milliseconds\footnote{Abdalslam. \textit{Web Application Firewalls (WAF) Statistics, Trends And Facts 2023}. 
 \url{https://abdalslam.com/web-application-firewalls-waf-statistics}}for the WAF.
 
 \section{Challenges}
 \label{sec:challenges}
 In this topic, we have encountered some problems such as:
+\begin{itemize}
+	\item The datasets of requests tend to be confidential because they might include personal user information. Therefore, there are not many freely accessible datasets. Additionally, labeling these datasets is an expensive job that calls for specialized knowledge.
+	\item The datasets of requests is randomly generated, thus may not be practical and may not display the complexity of network request.
+\end{itemize}
+\newpage
 \section{Tentative structure of the thesis}
 \label{sec:structure}
 	\newcommand\nextintro{\\[4mm]}
