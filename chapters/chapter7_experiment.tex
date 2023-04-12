@@ -3,8 +3,8 @@
 	\textit{This chapter discusses the division of the data set before training, assessment techniques, and experimental results. Compare the outcomes of the experiments we suggest to the reference experiments from relevant works.}
 \minitoc
 
-\section{Chuẩn bị dữ liệu} 
-\label{sec:chuan_bi_du_lieu}
+\section{Data preparation} 
+\label{sec:data_preparation}
 	Đối với các giải thuật học máy nói chung cũng như mạng học sâu nói riêng, việc chuẩn bị dữ liệu là vô cùng quan trọng. Nếu sử dụng mô hình đã huấn luyện để dự đoán trên tập dữ liệu không cùng phân bố với tập dữ liệu được sử dụng để huấn luyện mô hình trước đó thì kết quả dự đoán không thể chính xác. Do đó, phân chia dữ liệu sao cho phân bố trên các tập đồng đều với nhau là một trong những yếu tố quan trọng quyết định tới mức hiệu quả của mạng học sâu. 
 	
 	Sau khi khảo sát các ảnh chụp CT của 20 bệnh nhân, chúng tôi nhận thấy sự xuất hiện các khối u có ảnh đưởng đến phân phối mức sáng của các điểm ảnh trong cơ quan gan. Do đó, chúng tôi chia các bệnh nhân ra 03 nhóm: bệnh nhân không có khối u trong gan, bệnh nhân có một khối u trong gan và bệnh nhân có nhiều khối u trong gan. Chúng tôi chia tập dữ liệu thành ba tập dữ liệu bao gồm tập huấn luyện, tập kiểm thử và tập kiểm tra sao cho mỗi tập đều có bệnh nhân không có u, bệnh nhân có một khối u và bệnh nhân có nhiều khối u. Chi tiết các tập dữ liệu được chúng tôi trình bày trong \autoref{tab:3d_ircadb_01_division}.
@@ -22,8 +22,8 @@
 		\end{tabular}
 	\end{table}
 
-\section{Phương pháp đánh giá} 
-\label{sec:phuong_phap_danh_gia}
+\section{Evaluation methods} 
+\label{sec:evaluation}
 	Quá trình đánh giá một mô hình phân đoạn hình ảnh y khoa liên quan đến việc đánh giá độ chính xác của kết quả dự đoán. Hai hoạt động cơ bản cần được tiến hành để đánh giá một cách toàn diện một mô hình là đánh giá định tính và đánh giá định lượng. Đánh giá định lượng cho biết một cách tổng quát độ tốt của mô hình, trong khi đó đánh giá định tính cho biết mức độ ổn định của mô hình trong quá trình làm việc (trong trường hợp xấu nhất, trung bình và tốt nhất). Trong phần này, chúng tôi trình bày 4 độ đo có liên quan bao gồm Precision, Recall, IoU và Dice. Trong đó, IoU và Dice được chúng tôi sử dụng để đánh giá kết quả dự đoán của các mô hình.
 \newpage
 	Ta quy ước,
@@ -56,8 +56,8 @@
 
 	
 \newpage
-\section{Kết quả thí nghiệm} 
-\label{sec:ket_qua_thi_nghiem}
+\section{Experiment results} 
+\label{sec:exp_results}
 	Trước khi tiến hành các thí nghiệm để đánh giá hệ thống, chúng tôi thực hiện kiểm chứng tính hiệu quả của đề xuất cắt giảm độ sâu trong mô hình U-Net, để từ đó chọn ra mô hình tốt hơn phục vụ cho các thí nghiệm về sau. \autoref{tab:dac_ta_sieu_tham_so_thi_nghiem_unet_va_unet_star} đặc tả thông số chi tiết của các thí nghiệm dùng để so sánh tính hiệu quả trước và sau điều chỉnh số tầng ở mô hình U-Net sử dụng convolution 3D.
 	\begin{table}[h!]
 		\caption{Thông số các thí nghiệm so sánh tính hiệu quả trước và sau điều chỉnh số tầng ở mô hình U-Net sử dụng convolution 3D.}

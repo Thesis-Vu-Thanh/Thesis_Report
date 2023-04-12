@@ -4,8 +4,8 @@
 	\textit{This chapter summarizes the results for the thesis until now. Finally, we want to present a working plan to improve the thesis.}
 \minitoc
 
-\section{Kết quả đạt được}
-\label{sec:ket_qua_dat_duoc}
+\section{Results}
+\label{sec:results}
 	Kết thúc giai đoạn Luận văn tốt nghiệp, chúng tôi đã được trang bị thêm các kiến thức trong lĩnh vực Xử lý ảnh nói chung, cũng như các phương pháp tiếp cận trong lĩnh vực Phân đoạn hình ảnh y khoa nói riêng. Chúng tôi đã hiện thực được một hệ thống xây dựng hệ thống mạch máu của cơ quan gan từ ảnh chụp CT.
 	
 	Hệ thống mà chúng tôi xây dựng đã đáp ứng được đầy đủ các yêu cầu trong bài toán đặt ra, bao gồm:
@@ -24,16 +24,16 @@
 	 Với những kết quả có được của luận văn này, chúng tôi hy vọng có thể đóng góp một phần vào các công trình nghiên cứu trong lĩnh vực Phân đoạn hình ảnh y khoa về sau. Sớm đưa được các công trình nghiên cứu vào ứng dụng thực tiễn giúp cải thiện chất lượng trong công tác y tế cũng như cuộc sống xã hội.
 
 \newpage
-\section{Hạn chế và hướng phát triển}
-\label{sec:han_che_va_huong_phat_trien}
-	\textbf{Hạn chế.\hspace{5mm}} Bên cạnh các kết quả đạt được, chúng tôi cũng gặp các khó khăn trong quá trình hiện thực hệ thống. Nếu các vấn đề này sớm được khắc phục rất có thể kết quả hệ thống sẽ tốt hơn nữa.
+\section{Limitations and development plan}
+\label{sec:limits_and_plan}
+	\textbf{Limitations.\hspace{3mm}} Bên cạnh các kết quả đạt được, chúng tôi cũng gặp các khó khăn trong quá trình hiện thực hệ thống. Nếu các vấn đề này sớm được khắc phục rất có thể kết quả hệ thống sẽ tốt hơn nữa.
 	\begin{itemize}
 		\item Tập dữ liệu quá nhỏ dẫn tới quá trình huấn luyện không thực sự tốt. Trong nhiều trường hợp hệ thống nhanh chóng rơi vào overfitting\index{Overfitting} trong khi chưa học được toàn diện các đặc trưng của hệ thống mạch máu trong ảnh CT.
 		\item Hệ thống vẫn phải đặt trên giả thiết nhãn phân đoạn cơ quan gan đã được cung cấp do nhãn phân đoạn động mạch ở bên ngoài cơ quan gan không được cung cấp ở một số bệnh nhân trong bộ dữ liệu.
 		\item Hệ thống chưa thực sự dễ sử dụng. Các công đoạn của hệ thống vẫn phải thực hiện một cách riêng lẻ thông qua sự điều khiển, chưa xây dựng được một ứng dụng end-to-end\footnote{End-to-end là khái niệm dùng để chỉ một hệ thống có khả năng tiếp nhận dữ liệu thô ở đầu vào và cho ra kết quả cuối cùng ở đầu ra, mọi công đoạn trung gian được thực hiện một cách tự động.}.
 	\end{itemize}
 
-	\textbf{Hướng phát triển.\hspace{5mm}} Không thể nào phủ nhận sự cần thiết của một hệ thống chẩn đoán thông minh trong lĩnh vực y tế, đặc biệt là một hệ thống cho phép cải thiện khả năng nhìn và phán đoán về hình ảnh y khoa. Chính vì vậy, việc mở rộng và phát triển hệ thống mà chúng tôi đã xây dựng mở ra nhiều hướng mới trong tương lai. Do giới hạn về thời gian thực hiện luận văn nên nhiều ý tưởng chúng tôi vẫn chưa thực hiện được.
+	\textbf{Development plan.\hspace{3mm}} Không thể nào phủ nhận sự cần thiết của một hệ thống chẩn đoán thông minh trong lĩnh vực y tế, đặc biệt là một hệ thống cho phép cải thiện khả năng nhìn và phán đoán về hình ảnh y khoa. Chính vì vậy, việc mở rộng và phát triển hệ thống mà chúng tôi đã xây dựng mở ra nhiều hướng mới trong tương lai. Do giới hạn về thời gian thực hiện luận văn nên nhiều ý tưởng chúng tôi vẫn chưa thực hiện được.
 	
 	Thứ nhất, chúng tôi muốn phát triển hệ thống để có thể phân đoạn hệ thống mạch máu trên toàn ảnh CT. Xây dựng hệ thống mạch máu một cách toàn diện không chỉ giúp nhìn thấy hệ thống mạch máu bên trong cơ quan gan mà còn thấy được sự tương quan của cơ quan gan và các cơ quan khác trong cơ thể.
 	

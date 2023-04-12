@@ -8,126 +8,49 @@
 WAFs, as previously indicated, are frequently used, however, they suffer from high FP. We aim to enhance the accuracy of WAFs, using the help of machine learning rather than rule-based approaches.  \\
 Because WAFs only cover the Application Layer, the network requests are the model's input (mostly HTTP requests). Our methodology produces the same result as WAFs: whether the request is malicious or not.\\
 With its nature, WAF is obligated to have fast processing speed in deciding whether an incoming request is reliable or not. For user experiences, we can't examine the request's veracity for minutes before granting or denying access. Our system's time constraint must be in milliseconds.\\
-Here are the most common vulnerabilities which may enable the attackers to conduct cyber crimes, according to Vaadata\footnote{Vaadata.\textit{How to strengthen the security of your APIs to counter the most common attacks?}. April 2022.
-\url{https://www.vaadata.com/blog/how-to-strengthen-the-security-of-your-apis-to-counter-the-most-common-attacks/}}:
+Any flaw in an organization's internal controls, system procedures, or information systems is known as a vulnerability in cyber security. Cybercriminals may target these vulnerabilities and exploit them through the points of vulnerability.
+These hackers can enter the networks without authorization and seriously harm data privacy. As a result, it is crucial to constantly check for cybersecurity vulnerabilities because flaws in a network could lead to a complete compromise of an organization's systems.
+Let's take a look at some common cybersecurity vulnerabilities\footnote{
+    Intellipaat. \textit{What is Vulnerability in Cyber Security? Types and Definition}.
+    Mar 2023.
+    \url{https://intellipaat.com/blog/vulnerability-in-cyber-security/}
+}:
 \begin{itemize}
-    \item \textbf{Lack of rate limiting, DoS and brute force attacks on APIs}
-    \begin{itemize}
-        \item \textit{Principle and functioning of DoS attacks}
-        \newline
-        An assault known as \textbf{a denial of service (DoS)} aims to render services unavailable. In fact, a DoS attack functions by depleting a resource that an API requires to respond to valid requests. By overloading an API with erroneous requests, its resources are only able to reply to the ones that were submitted.
+    \item \textbf{Zero-day vulnerabilities}
+    Zero-day vulnerabilities are specific software flaws that the attackers are aware of but that a company or user hasn't yet discovered.
+    Since the vulnerability has not yet been identified or reported by the system manufacturer, there are no known remedies or solutions in these situations. These are particularly risky because there is no protection against them before an attack occurs. To reduce the risk of zero-day attacks, it is crucial to exercise caution and constantly check systems for vulnerabilities.
+    \item \textbf{Poor Encryption}
+    If a network has weak or nonexistent encryption, it will be easier for attackers to intercept system communications and compromise them. Cybercriminals may obtain crucial information and introduce misleading information onto a server when there is weak or unencrypted data. This may result in regulatory body fines and adversely jeopardize an organization's efforts to comply with cyber security regulations.
+    \item \textbf{System misconfigurations}
+    System failures can be caused by network assets with inappropriate security settings or restrictions. Networks are frequently searched for system errors and vulnerable spots by cyber criminals. Network misconfigurations are increasing as a result of the quick digital revolution. Working with knowledgeable security professionals is crucial when implementing new technology.
 
-        The objective of DoS attacks is not to alter, delete or steal data. The aim is simply to damage the operation of a web service or the reputation of a company offering such services.
-
-        It is obvious that slowing down or even blocking their services for a few minutes could lead to significant financial losses and alter users’ trust. It is therefore necessary to find solutions to protect against this, including request verification, traffic monitoring, the implementation of rules and rate limiting, etc. Similarly, during an API or web application pentest, DoS tests should be included to assess the resistance of the services to this type of attack.
-        \item \textit{Brute force attacks on APIs}
-        \newline
-        In a brute force attack, an attacker use tools to send a steady stream of requests to an application or API in an effort to try every combination of a parameter in the hopes of making the right guesses. The goals can vary: brute-forcing an authentication form to steal an account, brute-forcing a login to retrieve private information, etc.
-
-        This is a “trivial” attack method, easy to perform, but still very effective and widely used by attackers.
-        \item \textit{Implement rate limiting mechanisms to counter DoS and brute force attacks}
-        \newline
-        Securing APIs against DoS or brute force attacks requires the implementation of rate limiting mechanisms. These mechanisms protect APIs and other services from excessive and abusive use, in order to ensure their availability.
-
-        Rate restriction works on a pretty straightforward principle. It entails making requests in advance of when one or more clients—systems—might utilize more than their "fair" share of a resource. Additionally, one can lessen the danger of DoS or brute force attacks by restricting the number of requests that a specific user is permitted to send in a given window of time.
-
-        For example, after a user has been authenticated, your API or application may apply quotas that restrict what they are allowed to do, including the limit of requests they can send.  For example, you can limit each user to a certain number of API requests per hour, to prevent them from flooding the system with too many requests.
-
-        Similar to this, you can set limitations before authenticating a user to lower the overall number of requests, or just those coming from a specific IP address or time period. Therefore, if rate limitation is enabled, your API will monitor the volume of requests and reject those that are greater than the permitted threshold. Additionally, rules can be applied to totally shut off connections when the limit is reached or to sluggish down request processing. This action is referred to as "throttling."
-        
-        In short, Rate Limiting prevents resource depletion by managing rules and quotas.  There are different techniques for applying rate limiting, each with its own specificities: Token bucket, Leaky bucket, Fixed window and Sliding window.
-    \end{itemize}
-    \item \textbf{Lack of user input validation and injection attacks}
-    \begin{itemize}
-        \item \textit{Code injections}
-        \newline
-        Code injection is one of the most common types of injection attacks. If attackers know the programming language used by an application or API, they can inject code through text input fields to force the web server to execute the desired instructions.
-        \item \textit{SQL injections (SQLi)}
-        \newline
-        Injections represent a significant part of the vulnerabilities encountered in applications and APIs. The best known and most dangerous is SQL injection.
-
-        In an SQL injection attack, an attacker injects data to manipulate SQL commands, thereby interacting with the database through unintended queries. These flaws can lead to theft, deletion or manipulation of stored data. Worse still: if the rights are too permissive, this can even lead to a compromise of the server. 
-
-        Let’s look at this in more detail with a concrete example:
-        
-        One can imagine an API endpoint that returns the information of a country based on its “CountryCode”.\\
-        \begin{figure}[!h]
-         \centering
-         \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/ex1.PNG}
-         \caption{Returned information}
-        \end{figure}
-
-        \newpage
-        To perform the desired action, the query interacts with a database. Below is the SQL query that the server must run on the database.
-        \begin{figure}[!h]
-         \centering
-         \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/ex2.PNG}
-         \caption{Compulsory query}
-        \end{figure}
-        \newpage
-        Example of a vulnerable PHP code:
-        \begin{figure}[!h]
-         \centering
-         \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/ex3.PNG}
-         \caption{Vulnerable PHP Code}
-        \end{figure}
-        
-        As we can see, the CC parameter that is controlled by the user is directly concatenated to the query.
-
-        Now, let’s assume that on this same database, there is a ‘users’ table that contains the email addresses and passwords of the users registered on the application. Let’s look at what happens if an attacker makes the following query:
-        \begin{figure}[!h]
-         \centering
-         \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/ex4.PNG}
-         \caption{The hacker's query and result}
-        \end{figure}
-        \newpage
-        In addition to the country name, this query retrieves all users and their password hashes.
-
-        This SQL injection flaw was discovered. A  flaw that enables an attacker to "pervert" the SQL query the program generates. The attacker may be able to view or even change the database's data with this behavior. Evidently, if an API or online application penetration test were conducted, this significant vulnerability would be discovered and disclosed.
-        
-        \item \textit{Validate user input to prevent injection attacks}
-        \newline
-        The strongest defense against SQL and code injections is validating user input. In theory, it should be recognized that data received by an application or API cannot be deemed "always" safe. In order to prevent such vulnerabilities, it is necessary to put in place methods to verify that user input meets the anticipated parameters.
-
-        The most effective method of protecting against SQL injections is the use of prepared statements, which separate the SQL commands from the data sent by a user.
-
-        The fix is to use prepared queries. On the PHP documentation we can see the following information:
-        \begin{itemize}
-            \item The query can be run multiple times with the same or different parameters after only one analysis (or preparation). The database will parse, construct, and optimize its plan to execute the query once it is prepared. If you have to repeat the same query multiple times with various parameters, this procedure can be very time-consuming for sophisticated queries, which will slow down your apps. You can avoid repeating the cycle of analysis, compilation, and optimization by using prepared statements. In short, prepared queries execute more quickly and with fewer resources.
-            \item You don't need to surround query parameters in quotes; the driver takes care of it. If your application only employs prepared statements, you can be certain that SQL injection is not a possibility (however, if you build other parts of the statement based on user input, you are still taking a risk).
-        \end{itemize}
-        Thus, the following code is correctly protected against SQL injections:
-        \begin{figure}[!h]
-         \centering
-         \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/ex5.PNG}
-         \caption{The code is protected against SQL injections}
-        \end{figure}
-        
-        As we can see, the difference with the vulnerable code is that the parameters coming from a user are no longer concatenated with the query, but directly provided at query execution. This also shows that a prepared statement can still be vulnerable to SQL injection if the data is concatenated. Because in the vulnerable example it was already a prepared statement that was used.
-    \end{itemize}
-    \item \textbf{Lack of data encryption and Man In The Middle attacks}
-    \begin{itemize}
-        \item \textit{Man In The Middle attacks}
-        \newline
-        An attack known as a "Man in the Middle" occurs when a hostile person intrudes on a communication or data transfer taking place between a client and a server, a server and a server, or a client and a client. Its goals might vary, from merely intercepting sensitive data—such as passwords, financial information, personal information, and sensitive documents—to manipulating communication in order to, for instance, implant malware.
-
-        This type of attack is possible if and only if the communications are not encrypted. It is therefore quite easy to protect against it.
-        \item \textit{Encrypting data with TLS to counter Man In The Middle attacks}
-        \newline
-        One of the most fundamental components of guaranteeing the security of an API or service is encryption. Indeed, the encryption protocol TLS (the successor to SSL) ensures safe communications over a computer network. Connections between a client and a server that are TLS-secured include one or more of the following characteristics:
-        \begin{itemize}
-            \item The connection is private (i.e. secure) because the data transmitted is encrypted. 
-            \item The encryption keys are uniquely generated for each connection and are based on a shared secret negotiated at the beginning of the session.
-            \item The connection guarantees integrity because each transmitted message includes a signature verification of the integrity of the message, thus avoiding any undetected loss or alteration of the data during transmission.
-        \end{itemize}
-    \end{itemize}
-    The use of this encryption protocol therefore reduces or even eliminates the risks of Man In The Middle attacks. Furthermore, to reinforce security, we recommend implementing the HSTS (http Strict Transport Security) header on your servers in order to force a browser to use HTTPS secure connections. Without this setting, you run the risk of users accessing your domain without the HTTPS protocol, which can lead to a breach in communications. 
-    
 \end{itemize}
 \section{Designs}
 \label{design}
 To summary, numerous strategies for identifying malicious URLs have been proposed. Most of these solutions utilize supervised-based machine learning techniques for classification. This technique can detect irregularities between requests, but it cannot extract these abnormalities into human-readable form in order to reconstruct the WAF. Relying solely on machine learning eventhough brought higher accuracy like in \cite{s22093373}, WAFs need to be time-efficient. We can not compromise accuracy for speed, hence these methods don't work for WAFs.\\
-We come to the approach is to categorize the incoming request and analyze its structure, with moderate reliability, then combining the result of these two process to achieve the high precision yet does not expending an excessive amount of time
+We come to the approach is to categorize the incoming request and analyze its structure, with moderate reliability, then combining the result of these two process to achieve the high precision yet does not expending an excessive amount of time.
+
+We have some theses to prove why we decide to design in this way: \\
+\textbf{Thesis 1}
+In his 1996 paper, The Lack of A Priori Distinctions Between Learning Algorithms, D. H. Wolpert introduced the No Free Lunch theorem for supervised machine learning and stated a quote at the beginning of his paper. The theorem states that given a noise-free dataset, “for any two machine learning algorithms A and B, the average performance of A and B will be the same across all possible problem instances drawn from a uniform probability distribution.” This means  “an algorithm may perform very well for one problem, but that gives us no reason to believe it will do just as well on a different problem where the same assumptions may not work.” \\
+\textbf{Thesis 2}
+Moreover, simpler models like logistic regression have more bias and tend to underfit, while more complex models like neural networks have more variance and tend to overfit. \\
+\textbf{Strengths and Weaknesses of Logistic Regression:} 
+Let's take a look at some advantages provided by Logistic Regression. Firstly, it's easy to deploy, and it calculates accurately and fasts with big data. Secondly, it can handle both continuous and discrete data. Next, it's suitable for binary or multiclass classification problems. Finally, it allows us to determine the importance of input features. Besides the strengths, this model also has some weaknesses.
+First, this model cannot deal with data that is non-linear or has complex linear relationships. Second, it is sensitive to noise and outliers in data. Next, it can only be applied to classification problems, not to unsupervised learning algorithms. Lastly, it is prone to overfitting when the number of features is larger than the number of training samples.
+
+\textbf{Strengths and Weaknesses of CNN:} 
+CNN model combined with word2vec is a widely used method in Machine Learning to perform natural languages processing tasks such as text classification or machine translation. Below is a detailed analysis of the strengths and weaknesses of the CNN model combined with word2vec.
+Let's look at some of the CNN model's benefits. First, it can handle ordered data, including long data strings. Second, it can remember past information and apply it to future decisions. Next, it helps machine learning models understand the meaning of words and sentences in natural language. Another advantage, this model is capable of learning common features from texts, resulting in better prediction results with never-before-seen new text. Finally, CNN is faster by design compared to RNN - the more fitting model to categorize text. This machine learning model also has some weaknesses. The first one is that the CNN model requires a lot of computational resources to train due to many parameters. The following disadvantage is that sometimes it is not effective for problems with complex structured data such as images. Next, it is necessary to use appropriate dictionaries to represent words in vector space. Eventually, it is difficult for it to deal with words that are not in the user dictionary. 
+
+\textbf{Thesis 3}
+Ensemble learning is an approach that combines diverse models to improve performance. The idea behind integrating different models is logical: each model has unique abilities, and when combined, they may excel in multiple tasks or subtasks. When these models are appropriately merged, they create a potent training algorithm capable of enhancing overall performance compared to using individual models alone.
+Ensemble learning reduces variance and bias, improving predictions of the developed model. Technically speaking, it helps avoid overfitting.
+
+This problem classifies the input data as yes/no. It needs accuracy and the data set is not large, needs high accuracy. So we decided to combine logistic regression and CNN model.
+
+
+
 \subsection{Architecture}
 \label{architecture design}
 \subsubsection{Data exploration and Sanitization}
