@@ -25,16 +25,15 @@ Let's take a look at some common cybersecurity vulnerabilities\footnote{
     System failures can be caused by network assets with inappropriate security settings or restrictions. Networks are frequently searched for system errors and vulnerable spots by cyber criminals. Network misconfigurations are increasing as a result of the quick digital revolution. Working with knowledgeable security professionals is crucial when implementing new technology.
 
 \end{itemize}
-\section{Designs}
-\label{design}
+
+\section{Ratiocination}
+\label{ratio}
 To summary, numerous strategies for identifying malicious URLs have been proposed. Most of these solutions utilize supervised-based machine learning techniques for classification. This technique can detect irregularities between requests, but it cannot extract these abnormalities into human-readable form in order to reconstruct the WAF. Relying solely on machine learning eventhough brought higher accuracy like in \cite{s22093373}, WAFs need to be time-efficient. We can not compromise accuracy for speed, hence these methods don't work for WAFs.\\
 We come to the approach is to categorize the incoming request and analyze its structure, with moderate reliability, then combining the result of these two process to achieve the high precision yet does not expending an excessive amount of time.
 
-We have some theses to prove why we decide to design in this way: \\
-\textbf{Thesis 1}
-In his 1996 paper, The Lack of A Priori Distinctions Between Learning Algorithms, D. H. Wolpert introduced the No Free Lunch theorem for supervised machine learning and stated a quote at the beginning of his paper. The theorem states that given a noise-free dataset, “for any two machine learning algorithms A and B, the average performance of A and B will be the same across all possible problem instances drawn from a uniform probability distribution.” This means  “an algorithm may perform very well for one problem, but that gives us no reason to believe it will do just as well on a different problem where the same assumptions may not work.” \\
-\textbf{Thesis 2}
-Moreover, simpler models like logistic regression have more bias and tend to underfit, while more complex models like neural networks have more variance and tend to overfit. \\
+We have some theoretical points to prove why we decide to design in this way: \\
+\textbf{First point,} in his 1996 paper, The Lack of A Priori Distinctions Between Learning Algorithms, D. H. Wolpert introduced the No Free Lunch theorem for supervised machine learning and stated a quote at the beginning of his paper. The theorem states that given a noise-free dataset, “for any two machine learning algorithms A and B, the average performance of A and B will be the same across all possible problem instances drawn from a uniform probability distribution.” This means  “an algorithm may perform very well for one problem, but that gives us no reason to believe it will do just as well on a different problem where the same assumptions may not work.” \\
+\textbf{Second point,} moreover, simpler models like logistic regression have more bias and tend to underfit, while more complex models like neural networks have more variance and tend to overfit. \\
 \textbf{Strengths and Weaknesses of Logistic Regression:} 
 Let's take a look at some advantages provided by Logistic Regression. Firstly, it's easy to deploy, and it calculates accurately and fasts with big data. Secondly, it can handle both continuous and discrete data. Next, it's suitable for binary or multiclass classification problems. Finally, it allows us to determine the importance of input features. Besides the strengths, this model also has some weaknesses.
 First, this model cannot deal with data that is non-linear or has complex linear relationships. Second, it is sensitive to noise and outliers in data. Next, it can only be applied to classification problems, not to unsupervised learning algorithms. Lastly, it is prone to overfitting when the number of features is larger than the number of training samples.
@@ -43,60 +42,45 @@ First, this model cannot deal with data that is non-linear or has complex linear
 CNN model combined with word2vec is a widely used method in Machine Learning to perform natural languages processing tasks such as text classification or machine translation. Below is a detailed analysis of the strengths and weaknesses of the CNN model combined with word2vec.
 Let's look at some of the CNN model's benefits. First, it can handle ordered data, including long data strings. Second, it can remember past information and apply it to future decisions. Next, it helps machine learning models understand the meaning of words and sentences in natural language. Another advantage, this model is capable of learning common features from texts, resulting in better prediction results with never-before-seen new text. Finally, CNN is faster by design compared to RNN - the more fitting model to categorize text. This machine learning model also has some weaknesses. The first one is that the CNN model requires a lot of computational resources to train due to many parameters. The following disadvantage is that sometimes it is not effective for problems with complex structured data such as images. Next, it is necessary to use appropriate dictionaries to represent words in vector space. Eventually, it is difficult for it to deal with words that are not in the user dictionary. 
 
-\textbf{Thesis 3}
+\textbf{Last point,}
 Ensemble learning is an approach that combines diverse models to improve performance. The idea behind integrating different models is logical: each model has unique abilities, and when combined, they may excel in multiple tasks or subtasks. When these models are appropriately merged, they create a potent training algorithm capable of enhancing overall performance compared to using individual models alone.
 Ensemble learning reduces variance and bias, improving predictions of the developed model. Technically speaking, it helps avoid overfitting.
 
 This problem classifies the input data as yes/no. It needs accuracy and the data set is not large, needs high accuracy. So we decided to combine logistic regression and CNN model.
 
 
+\section{Designs}
+\label{design}
+There are many efforts spent on this topic, as mentioned in section (Literature review).But there are two significant literatures about detecting malicious requests that inspired us: \\
+1. Mohammed Alsaedi et al\cite{s22093373} proposed an approach to detect malicious URLs using ensemble learning. They extracted features using N-Gram and then use TF-IDF to represent them. After that, the model applied Rain Forest Ensemble-Based for prediction and an artificial neural network (ANN) classifier was constructed for decision making. Results show that this approach significantly improved the detection performance, achieving 96.80\% compared with the best 90.4\% achieved by the URL-based features. The false-positive rate was significantly decreased to 3.1\% compared with 12\% performed by the URL-based model. This work is proven to be promising, but time is not the focus of this approach. \\
+2. Khoi. Le et al\cite{Khoi} suggested an approach of extracting WAF rules and trained a machine learning with the decision model independent from the rules themselves. This makes the model more self-reliant and the overall result more neutral. The module has been tested, and though it is not completed yet, it shows potential. We aim to finalize this module but combine it with another machine learning model to specialize it for the goal of determining incoming requests independent of the WAF rule.
 
-\subsection{Architecture}
+Our proposed approach is explained as follow:
+
+It is already obvious that when attackers attempt to breach a system, they must try to execute or inject something executable onto the system. Malicious requests must therefore be script-based or written in computer languages. Most standard online applications and services, particularly API applications, appear to accept just plain text queries, i.e. requests in JSON or XML. 
+In the event of a website service that accepts scripted input, certain malicious requests may have the same category or language as the normal request; for example, the attacker may alter the SQL database account using SQL queries ('normal' database server category). However, the content of the malicious request seems to have a similar pattern. Moreover, to gain access to executing queries, attackers must try various methods to penetrate the server (reconnaissance scan, code injection, or command injection on the back-end servers and database servers). Then we only need to detect one malicious request to block all the attack session. Of course, WAF cannot protect systems from high-level methods, for example, attackers gain access by acquiring admin accounts from social engineering.
+
+Our goal is to classify request supplied as inputs in order to determine whether they are harmful or inoffensive. The sample of request data consists of different categories including:
+\begin{itemize}
+    \item \emph{Plain text}: request that contains data but does not trigger any machine execution, typically in the form of HTML, JSON, XML, and CSV, etc.
+    \item \emph{Client-side script}: request in form of programming languages or scripts that can be executed on client's machine.
+    \item \emph{Server-side script}: request in the form of programming languages (mostly back-end programming languages like PHP, JAVA, PYTHON, and so on) that can change the behavior of the application or web.
+    \item \emph{Shell script}: request in the form of shell scripts that can run jobs on the server or change the server's or operating system's behavior.
+    \item \emph{SQL script}: request that in form of SQL, can be used to query data from the database.
+\end{itemize}
+
+Then we introduce the first hypothesis: normal requests to a server have the same category. For example, a static web request may only contain plain text, API server requests are mostly in JSON format, incoming queries to a database are SQL or online compilers use programming language-format requests. A malicious request must be in different category with the normal requests, like a script request to a static web server or API server can be considered code injection or command injection, SQL requests to an API server may be SQLi, or script requests to a database is command injection or stored XSS attacks. We can determine if a request is 'normal' to a server by comparing the types of incoming suspicious requests to the average categories of regular requests. If the resemblance is low, we might presume that the origin of the inbound request is unusual. For instance, if a typical request to a secured server is in JSON format (plain text), but a suspicious request is in JavaScript (client-side script), we can deduce that the incoming request is malicious. If a suspicious request is in XML format (plain text), we may assume that the user made a mistake and the alarm was false.
+
+
+
+The second hypothesis can be presented as all regular requests will have a similar pattern, the same goes for malicious requests. For example, a request with a URL ending in.exe or.php is frequently malicious, and a request with work like "SELECT", "DROP", or "TABLE" is unquestionably a SQLi. We can implement Logistic Regression to identify if an incoming request is normal or abnormal by analyzing its content.
+
+From the hypothesises, We can create a CNN model to detect the type of request. Then we compare the incoming requests with the "normal" corresponding category and decide whether the requests is malicious or not using Logistic regression.
+
+
+\section{Architecture}
 \label{architecture design}
-\subsubsection{Data exploration and Sanitization}
-\label{data preprocessed}
-Our goal is to classify request supplied as inputs in order to determine whether they are harmful or inoffensive. The sample of request data consists of different categories including: 
-\begin{itemize}
-    \item \emph{Plain text:} request that contains data but does not trigger any machine execution, typically in the form of HTML, JSON, XML, and CSV, etc.
-    \item \emph{Client-side script:} request in form of programming languages or scripts that can be executed on client's machine
-    \item \emph{Server-side script:} request in the form of programming languages (mostly back-end programming languages like PHP, JAVA, PYTHON, and so on) that can change the behavior of the application or web
-    \item \emph{Shell script:} request in the form of shell scripts that can run jobs on the server or change the server's or operating system's behavior
-    \item \emph{SQL script:} request that in form of SQL, can be used to query data from the database.
-\end{itemize}
- The textual data acquired in the previous phase is going to be cleaned and standardized. To minimize feature complexity and improve classification performance, the request was preprocessed by eliminating symbols and punctuation. The text data collected will be transformed to lower case and then normalized. The goals of the normalization procedure were dual. First, the text must be converted from unstructured data to a structured word vector. Second, by deleting unneeded words and decreasing the number of words by roots them to their originals, we may reduce the scarcity of feature vectors.
-However, malicious attacker usually use methods like slight modification to make an imposter URL or request looks legitimate, we skip severals step in conventional Natural Language Processing: 
-\begin{itemize}
-    \item Removing stop word
-    \item Stemming (the process of reducing infected words to their stem)
-    \item Lemmatization (returning to the base form of the words...)
 
-\end{itemize}
-\subsubsection{Model Selection and applying Natural language processing}
-\label{NLP}
-Because four of the five categories are structured languages, we must first create a special tokenizer to map the request into a defined set of keywords (client-side script, server- side script, and SQL script).
-To convert the words (the tokens) to their numerical equivalents, a corpus containing a list of unique tokens based on their frequency of occurrence in each class was created. To put it in more formal mathematical terms, the TF-IDF score for the word t in the document d from the document set D is calculated as follows:
-\begin{align}
-    tf\:idf(t,\: d,\: D)\; =\; tf (t,\: d) \; . \; idf (t.\: D)
-\end{align}
-Where: 
-\begin{align}
-    tf(t,\: d)\; =\; 1 \: + \: log(freq(t,\: d)) \: \: \\
-    idf(t, \:D)\; = \; log(\frac{N}{count (d \: \in D :t \in d)})\:  \:
-\end{align}
-The statistical-based text representation, TF-IDF, was then computed using the following equation: 
-\begin{align}
-    tf\; \_ \; idf \;=\; tf\:.\:log(\frac{N}{df})
-\end{align}
- where $tf$ is the term frequency of the word in a specific instance, $df$ is the document frequency for the word, $N$ is the number of samples in the dataset. The term frequency $tf$ is the number of times a word has occurred in the sample while the inverse document frequency $idf$ refers to the inverse number of documents where the word has occurred. The higher the $tf \_ idf$ of a word in a document, the more relevant the document. The output of this phase was three numerical vectors for each sample.
-\subsubsection{Distinguishing request}
-\label{distinguishing request}
-We present a hypothesis: all normal server requests fall into the same category. A static web request, for example, may only contain plain text, whereas API server requests are mostly in JSON format, incoming database queries are SQL, and online compilers use programming language-format requests. A malicious request must be classified differently than normal requests, such as a script request to a static web server or API server, which can be classified as code injection\footnote{Code injection is the exploitation of a computer bug that is caused by processing invalid data. The Injection is used by an attacker to introduce code into a vulnerable computer program and change the course of execution.}or command injection\footnote{Command injection is an attack in which the goal is the execution of arbitrary commands on the host operating system via a vulnerable application.}. SQL requests to an API server can be classified as SQLi, and script requests to a database can be classified as command injection or stored XSS attacks. We can determine whether a request is 'normal' to a server by comparing the types of incoming sketchy requests to the average categories of normal requests. If the similarity is low, we can consider that the origin of the incoming request is unusual. For example, if a typical request to a secured server is in JSON format (plain text), but a suspicious request is in JavaScript (client-side script), we can conclude that the incoming request is malicious. If a suspicious request is in XML format (plain text), we can safely assume that the user made a mistake and the alert was false.\newline
-From the hypothesis, We can create a CNN model to detect the type of request. Then we compare the incoming requests with the "normal" corresponding category and decide whether the requests is malicious or not using Logistic regression.\newline
-Logistic Regression is used when the dependent variable(target) is categorical.\newline
-For example, in our case: 
-\begin{itemize}
-    \item  To predict whether a request is malicious or not.
-\end{itemize}
 Our architecture is described in the below figure (Figure 13). Suggest a reasonable decision model for the combined 
 \begin{figure}[!h]
    
@@ -104,10 +88,9 @@ Our architecture is described in the below figure (Figure 13). Suggest a reasona
      \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/architecture.jpg}
    \caption{Malicious request validator architecture}
 \end{figure}
-result: When two prediction is the same, the result is straight forward. When the logistic regression model decided that the request is malicious, but the CNN model predicted the request is nornal, the CNN is favored. Otherwise, the Regression model classified the request as valid but the CNN predicted as abnormal, we'll favor the Regression. The desicion model can be expressed in a decision table:
+result: When two prediction is the same, the result is straight forward. When the logistic regression model decided that the request is malicious, but the CNN model predicted the request is nornal, the CNN is favored. Otherwise, the Regression model classified the request as valid but the CNN predicted as abnormal, we'll favor the Regression. The desicion model can be expressed in a decision table: \\
 
-
-\begin{table}
+\begin{table}[h]
 \begin{center}
 \begin{tabular}{||c c c ||} 
  \hline
@@ -127,14 +110,11 @@ result: When two prediction is the same, the result is straight forward. When th
 \end{table}
 
 The CNN validator will run for a set period of time (usually one or two weeks) to collect the familiar category of incoming requests and assign a threshold (which can be the mean or maximum (if we are optimistic) distance between each request vector in the observing stage and the sum vector). The same will also happened with the Regression model. After that training phase, the module will run on 'active phase', parallel with the WAF. 
-\begin{itemize}
-    \item  To predict whether a request is malicious or not.
-\end{itemize}
-Our architecture is described in Figure 14 below, suggest a reasonable decision model for the combination of CNN and the Regression model
+
 \begin{figure}[!h]
      \centering
      \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/architecture 2.drawio.png}
    \caption{Decision model for the combination of CNN and the Regression model}
 \end{figure}
-\newpage
+
 The request is routed through the module, which predicts the category. The category of suspicious request is then compared with the common category. Then the Regression model will determined whether the request is good or bad, combining with the normal or abnormal status to decide the result. 
