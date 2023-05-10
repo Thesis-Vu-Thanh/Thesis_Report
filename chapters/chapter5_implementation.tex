@@ -1,0 +1,89 @@
+\chapter{Implementation}
+\label{chap:implementation}
+	\textit{This chapter describes the implementation steps of the systems including system frame- works.}
+\minitoc
+
+
+\section{Framework}
+\label{sec:framework}
+In this thesis, our module is built on Python. The framework is presented in the following figure: 
+
+\subsection{Logistic Regression Model}
+In the prediction process, we train a Logistic Regression model to determine whether an incoming request is malicious or not.
+\subsubsection{Data Processing}
+The data acquired, however, wasn't always in the format required for this project, i.e. just the input string. For instance, some of the data were in HTTP, GET, and POST queries. The data was converted into a format appropriate for this purpose to a CSV\footnote{A comma-separated values (CSV) file is a delimited text file that uses a comma to separate values. Each line of the file is a data record.} file using Python scripts.
+\subsubsection{Feature engineering}
+The first part is tokenizing the data. Since our input do not only contain only words and punctuation like normal sentences, we must have an efficient way to tokenize our data:
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/implement1.png}
+  \caption{The way to tokenize data}
+\end{figure} 
+
+We also eliminate redundant tokens and remove frequently appearing words that are not relevant to the detection process of malicious requests, such as "localhost", ".com", etc.
+
+Learning algorithms work with numerical features, so we need to convert words into numerical vectors. How does it work? The first entry technique mentioned is called "Bag of Words."\footnote{Bag of words is a Natural Language Processing technique of text modelling.}
+A competent classifier in Bag of Words recognizes patterns in word distribution, which words appear, and how many times for each type of text. However, counting words is not always the best idea. As previously established, a request URL might be exceedingly long, adding bias to our predictions. We used TF-IDF scores instead of the "Bag of Words" classification since there are words in URLs that are more important than other words e.g. 'DROP', 'script', 'param' etc. Then apply Logistic Regression.
+
+\section{CNN Classifier}
+\label{sec:cnn_classfier}
+
+\subsection{Framework}
+The framework of classifier is presented in Figure:
+
+The request classifier consists of three parts: tokenizer, vectorizer, and CNN. The whole categorizer is built on Python.
+
+The tokenizer formats the request by utilizing regular expression to format white spaces and messages and a predetermined set of keywords (symbol table).
+
+The vectorizer vectorizes the request using a small word2vec model built by gensim\footnote{Gensim is a Python library for topic modelling, document indexing and similarity retrieval with large corpora. Target audience is the natural language processing (NLP) and information retrieval (IR) community.}. The structured language dataset is used to train the model. The output of the vectorizer is a list of vectors (with height 150) representing each word of tokens.
+
+The embedded vector is then sent into a trained CNN to forecast the request's categorization.
+
+% \begin{figure}[!h]
+% 	\centering
+% 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/implement2.png}
+%   \caption{The way to tokenize data}
+% \end{figure} 
+
+\begin{table}[!h]
+	\begin{tabular}{lrr}
+	\hline
+	\textbf{Layer (type)}             & \textbf{Output Shape} & \textbf{Amount of parameters} \\ \hline
+	embedding (Embedding)             & (None, 100, 150)      & 172447200                     \\
+	conv1d (Conv1D)                   & (None, 92, 512)       & 691712                        \\
+	max\_pooling1d (MaxPooling1D)     & (None, 18, 512)       & 0                             \\
+	conv1d\_1 (Conv1D)                & (None, 10, 512)       & 2359808                       \\
+	max\_pooling1d\_1 (MaxPooling1D ) & (None, 10, 512)       & 0                             \\
+	dropout (Dropout)                 & (None, 10, 512)       & 0                             \\
+	flatten (Flatten)                 & (None, 5120)          & 0                             \\
+	dense (Dense)                     & (None, 128)           & 655488                        \\
+	dense\_1 (Dense)                  & (None, 1)             & 129                           \\ \hline
+	\multicolumn{3}{l}{Total parameters: 176,154,337}                                         \\
+	\multicolumn{3}{l}{Trainable parameters: 3,707,137}                                       \\
+	\multicolumn{3}{l}{Non-trainable parameters: 172,447,200}                                 \\ \hline
+	\end{tabular}
+	\caption{\label{demo-table} Architecture specifiations of malicious request validator model.}
+\end{table}
+
+
+
+The model can be explained as follow: 
+
+\textbf{Input data}: The input data of the model is from word2vec model. The data is then embedded using the previous vectorizer with height 150, making the output of the layer is a 100 x 150 neuron matrix. The 3,707,137 parameters of this layer are the embeddings of the word2vec itself, then we have already trained these parameters in the previous vectorizer. This layer is frozen the the CNN train start with the next layer. 
+
+\textbf{First 1D CNN layer}: The first layer defines a filter (also called feature detector) of height 9 (also called kernel size). Only defining one filter would allow the neural network to learn one single feature in the first layer. It might not be sufficient, so we will define 512 filters. It allows us to train 512 different features on the first layer of the network. The output of the first neural network layer is a 100 x 512 neuron matrix. Each column of the output matrix holds the weights of one single filter. With the defined kernel size and considering the length of the input matrix, each filter will contain 100 weights. 
+
+\textbf{First Max pooling layer}: A pooling layer is often used after a CNN layer to reduce the complexity of the output and prevent overfitting of the data. In the thesis, we chose a size of five. It means that the size of the output matrix of this layer is only one-fifth of the input matrix. 
+
+\textbf{Second 1D CNN layer}: Another sequence of 1D CNN layers follows to learn higher-level features. The output matrix after those two layers is an 18 x 512 matrix. 
+Second Max pooling layer: one more pooling layer to further avoid overfitting. The output matrix has a size of 10 x 512 neurons. For each feature detector, ten weights remain in the neural network on this layer. 
+
+\textbf{Dropout layer}: The dropout layer will randomly assign 0 weights to the neurons in the network. Since we chose a rate of 0.3, 30\% of the neurons will receive a zero weight. With this operation, the network becomes less sensitive to react to smaller variations in the data. Therefore it should further increase our accuracy on unseen data. The output of this layer is still a 10 x 512 matrix of neurons. 
+
+\textbf{Flatten layer}: This layer will compress the 4 x 512 matrix from the previous layer into one vector with height 5120, prepare for the classification phase. 
+
+\textbf{Fivefully connected layers}: Five final layers will force the vector of height 5120 to a vector of 5 since we have five classes (plain text, client-side script, server-side script, shell script, and SQL). This reduction is made by matrix multiplications. Since the gap between the two vectors is too large (5120 and 5), we need five layers. The first two layers reduce the height from 2048 to 64 and 16, respectively, using ReLU 5 as the activation function. The final layer reduces from size 16 to 5. Softmax is used as the activation function. It forces all three outputs of the neural network to sum up to one. The output value will therefore represent the probability for each of the three classes.
+
+The CNN focuses on identifying typical requests (plain text) to decrease the FP of rule-based techniques. Then the model is converted to plain text using class weights. The weight for plain text is 5, whereas for others is 1. As a two-label loss function, the training method employs the Mean squared error six loss function. Because others are programming languages, their predicted distributions are similar. When the loss function is cross-entropy 7, which has a harsh punishment for classification errors, the model may constantly alternate the prediction of these two labels. As indicated by [5, None], Adam is used as the model optimizer with learning rates of 0.005, 1 = 0.9, 2 = 0.999, and $\varepsilon$ = 1. We are focused on the precision of the model, hence we are using precision as an assessment parameter rather than accuracy.
+
