@@ -41,11 +41,14 @@
 %-List of abbreviations-------------------------
 \phantomsection
 \addcontentsline{toc}{chapter}{List of Abbreviations}
-\printnomenclature[2cm]
+\input{chapters/abbreviations.tex}
+% \phantomsection
+% \addcontentsline{toc}{chapter}{List of Abbreviations}
+% \printnomenclature[2cm]
 \cleardoublepage
 
 %-Table of contents-----------------------------
-\listofcontents
+\listofcontents  
 \cleardoublepage
 
 \pagenumbering{arabic}
@@ -54,8 +57,8 @@
 \input{chapters/chapter1_introduction.tex}
 \input{chapters/chapter2_background.tex}
 \input{chapters/chapter3_relatedworks.tex}
-\input{chapters/chapter4_dataset.tex}
-\input{chapters/chapter5_proposalsolution.tex}
+\input{chapters/chapter4_proposalsolution.tex}
+\input{chapters/chapter5_dataset.tex}
 \input{chapters/chapter6_implementation.tex}
 \input{chapters/chapter7_experiment.tex}
 \input{chapters/chapter8_conclusion.tex}
@@ -73,5 +76,5 @@
 \phantomsection
 \addcontentsline{toc}{chapter}{List of Keywords}
 \printindex
-
+% \input{chapters/keywords.tex}  
 \end{document}

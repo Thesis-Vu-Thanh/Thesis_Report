@@ -1,0 +1,85 @@
+\chapter{Dataset}
+\label{chap:dataset}
+	\textit{This chapter introduces the data set used to evaluate the system. We then discuss the issues that must be addressed before this dataset can be used.}
+\minitoc
+
+In this chapter, we want to describe the datasets which we use to train and evaluate the Logistics Regression module and CNN\index{CNN} categorize module, with the problems of datasets and pre-processing details. 
+\section{Logistics Regression Dataset}
+\label{sec:logistic_dataset}
+\subsection{CSIC 2010 dataset}
+The HTTP dataset CSIC 2010\footnote{Available at \url{https://www.isi.csic.es/dataset/}} contains web requests automatically generated, both normal and abnormal. It can be used for the testing of web attack protection systems. It was developed at the "Information Security Institute" of CSIC (Spanish Research National Council). The HTTP dataset CSIC 2010\index{CSIC 2010} contains the generated trac targeted to an e- Commerce web application developed at their department. In this web application, users can buy items using a shopping cart and register by providing some personal information. As it is a web application in Spanish, the data set contains some Latin characters. A request from the dataset is presented in the following figure:
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/dataset1.png}
+  \caption{A sample request of the dataset}
+\end{figure} 
+
+The dataset is consisted of 36,000 normal requests and 25,063 anomalous requests. The HTTP requests are labeled as normal or abnormal and the dataset includes attacks such as SQL injection, buffer overflow, information gathering, files disclosure, CRLF injection, XSS\index{XSS}, server side include, parameter tampering and so on. 
+According to the authors, the dataset is generated using the following steps: \\ 
+1.	Real data are collected for all the parameters of the web application. All the data (names, surnames, addresses, etc.) are extracted from real databases. These values are stored in two databases: one for the normal values and other for the anomalous ones. Additionally, all the public available pages of the web application are listed. \\
+2.	Normal and anomalous requests are generated for every web page. In the case that normal requests have parameters, the parameter values are filled out with data taken from the normal database randomly. The process is analogous for anomalous requests, where the values of the parameters are taken from the anomalous database. 
+
+In this dataset, three types of anomalous requests were considered: 
+\begin{itemize}
+	\item Static attacks try to request hidden (or non-existent) resources. These requests include obsolete files, configuration files, default files, etc. 
+	\item Dynamic attacks modify valid request arguments: SQLi\index{SQLi}, CRLF injection, XSS\index{XSS}, buffer overflows, etc.
+	\item Unintentional illegal requests. These requests do not have malicious intention, how- ever they do not follow the normal behavior of the web application and do not have the same structure as normal parameter values.
+\end{itemize}
+
+This dataset is rather outdated and randomly generated.  It comprises a complete HTTP request with various components such as request URL, request method, pragma, and so on. During the course of our research, we observed that the majority of the indicators of a malicious request may be located in the URL portion of the request. For example, a SQLi will have a route that includes a string such as: \textit{2\&nombre=Jam\%F3n+Ib\%E9rico\&precio=85 \\ \&cantidad=\%27\%3B+  DROP +TABLE+usuarios\%3B+SELECT+*+FROM+datos+ \\ WHERE+nombre+LIKE+\%27\%25\&B1=A\%F1adir+al+carrito}.
+
+Consequently, we will solely concentrate on the URL and Method parts of each http request in order to detect fraudulent requests.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/dataset2.png}
+  \caption{A sample request of the dataset}
+\end{figure}
+
+\newpage
+\subsection{Malicious and Non-Malicious URL}
+
+We opted to utilize this extra dataset from Kaggle, with extremely basic structure, because using only data from the CSIC 2010\index{CSIC 2010} set is not dependable enough for our model to have a high level of reliability. Include just URLs and their labels. It consists of over 400,000 unique already labeled urls:
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/dataset3.png}
+  \caption{A set of labeled URLs}
+\end{figure}
+
+One other thing to mention is the requests datasets generally are confidential, as they may contains sensitive data of users. There are not much open dataset available. Also, labeling these datasets are costly task, as it requires expertise in the field. 
+
+\section{CNN classification Module}
+\label{sec:CNN_module}
+\subsection{GitHub Code Snippets}
+The malicious request validator module detect the category of requests. As the categories are mostly structured languages (four out of five categories), we need to obtain a dataset of structured language and its category, as proposed in propose approach.
+This dataset contains over 97,000,000 snippets of code from various GitHub repositories with more than 10,000 stars.The repositories included in this dataset were the results of searching for repositories with greater than 10,000 stars. For each repository, we created snippets from the default branch by going through each text file and extracting 5-line chunks of text every 5 lines. The dataset used file extensions to associate snippets with the programming language they most likely represent. For snippets for which it could not infer the language from the file extension, it use the value UNKNOWN in the language column.
+This dataset is a very large data set, stored in a SQLite database, and includes many different languages, so data preprocessing is very critical. We use a python script to extract randomly 400,000 snippet of code from the database, and only from the languages relevant to our classification in propose approach.
+
+The list consist of: 
+\begin{itemize}
+	\item Plain text: JSON, HTML, YAML
+	\item Client-side script: JavaScript
+	\item Server-side script: PhP, Go, Python, C, C++
+	\item Shell script: Shell
+	\item SQL script: SQL 
+\end{itemize}
+
+The shorten dataset is presented in figure:
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/dataset4.png}
+  \caption{The shorten dataset}
+\end{figure}
+
+\newpage
+The quantity of each language is shown in figure: 
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/dataset5.png}
+  \caption{The quantity of every language in the dataset}
+\end{figure}
+
+
+
