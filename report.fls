@@ -1041,6 +1041,18 @@ INPUT d:/Images/texlive/2022/texmf-dist/tex/generic/uniquecounter/uniquecounter.
 INPUT d:/Images/texlive/2022/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 INPUT d:/Images/texlive/2022/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 INPUT d:/Images/texlive/2022/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/xurl/xurl.sty
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/xurl/xurl.sty
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/xurl/xurl.sty
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/xurl/xurl.sty
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/xurl/xurl.sty
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/xurl/xurl.sty
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/xurl/xurl.sty
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/xurl/xurl.sty
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/xurl/xurl.sty
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/xurl/xurl.sty
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/xurl/xurl.sty
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/url/url.sty
 INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/geometry/geometry.sty
 INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/geometry/geometry.sty
 INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/geometry/geometry.sty
@@ -1970,22 +1982,6 @@ INPUT chapters/preface.tex
 INPUT ./chapters/preface.tex
 INPUT chapters/preface.tex
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vnti12.tfm
-INPUT ./report.lof
-INPUT report.lof
-INPUT report.lof
-OUTPUT report.lof
-INPUT ./report.lot
-INPUT report.lot
-INPUT report.lot
-OUTPUT report.lot
-INPUT ./chapters/abbreviations.tex
-INPUT chapters/abbreviations.tex
-INPUT ./chapters/abbreviations.tex
-INPUT chapters/abbreviations.tex
-INPUT ./report.nls
-INPUT report.nls
-INPUT ./report.nls
-INPUT report.nls
 INPUT report.toc
 OUTPUT report.mtc1
 OUTPUT report.mtc2
@@ -2001,12 +1997,31 @@ OUTPUT report.mtc11
 OUTPUT report.mtc12
 OUTPUT report.mtc13
 OUTPUT report.mtc14
-OUTPUT report.mtc15
-OUTPUT report.mtc16
 INPUT ./report.toc
 INPUT report.toc
 INPUT report.toc
 OUTPUT report.toc
+INPUT ./report.lof
+INPUT report.lof
+INPUT report.lof
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/vntex/t5cmtt.fd
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/vntex/t5cmtt.fd
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/vntex/t5cmtt.fd
+INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/vntex/t5cmtt.fd
+INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vntt12.tfm
+OUTPUT report.lof
+INPUT ./report.lot
+INPUT report.lot
+INPUT report.lot
+OUTPUT report.lot
+INPUT ./chapters/abbreviations.tex
+INPUT chapters/abbreviations.tex
+INPUT ./chapters/abbreviations.tex
+INPUT chapters/abbreviations.tex
+INPUT ./report.nls
+INPUT report.nls
+INPUT ./report.nls
+INPUT report.nls
 INPUT ./chapters/chapter1_introduction.tex
 INPUT chapters/chapter1_introduction.tex
 INPUT ./chapters/chapter1_introduction.tex
@@ -2039,16 +2054,12 @@ INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vnr17.tfm
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vnbx12.tfm
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vnr8.tfm
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vnr10.tfm
-INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vnti10.tfm
-INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/vntex/t5cmtt.fd
-INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/vntex/t5cmtt.fd
-INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/vntex/t5cmtt.fd
-INPUT d:/Images/texlive/2022/texmf-dist/tex/latex/vntex/t5cmtt.fd
-INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vntt10.tfm
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
-INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm
+INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vnr7.tfm
+INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vnti10.tfm
+INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vntt10.tfm
 INPUT ./chapters/chapter2_background.tex
 INPUT chapters/chapter2_background.tex
 INPUT ./chapters/chapter2_background.tex
@@ -2074,17 +2085,35 @@ INPUT ./figures/waf3.png
 INPUT figures/waf3.png
 INPUT ./figures/waf3.png
 INPUT ./figures/waf3.png
-INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm
-INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmbx8.tfm
-INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmbx6.tfm
-INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
-INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmbx7.tfm
-INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmbx5.tfm
+INPUT ./figures/sigmoid.PNG
+INPUT ./figures/sigmoid.PNG
+INPUT figures/sigmoid.PNG
+INPUT ./figures/sigmoid.PNG
+INPUT ./figures/sigmoid.PNG
 INPUT ./figures/CNN.png
 INPUT ./figures/CNN.png
 INPUT figures/CNN.png
 INPUT ./figures/CNN.png
 INPUT ./figures/CNN.png
+INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm
+INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vnbx8.tfm
+INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vnr6.tfm
+INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vnbx6.tfm
+INPUT ./figures/maxpooling.png
+INPUT ./figures/maxpooling.png
+INPUT figures/maxpooling.png
+INPUT ./figures/maxpooling.png
+INPUT ./figures/maxpooling.png
+INPUT ./figures/dropout.png
+INPUT ./figures/dropout.png
+INPUT figures/dropout.png
+INPUT ./figures/dropout.png
+INPUT ./figures/dropout.png
+INPUT ./figures/flattening.png
+INPUT ./figures/flattening.png
+INPUT figures/flattening.png
+INPUT ./figures/flattening.png
+INPUT ./figures/flattening.png
 INPUT ./figures/gradient descent.png
 INPUT ./figures/gradient descent.png
 INPUT figures/gradient descent.png
@@ -2112,7 +2141,6 @@ INPUT ./report.mtc
 INPUT report.mtc
 INPUT report.mtc
 OUTPUT report.mtc
-INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
 INPUT ./report.mtc7
 INPUT report.mtc7
 INPUT report.mtc7
@@ -2131,16 +2159,16 @@ OUTPUT report.mtc
 INPUT ./report.mtc8
 INPUT report.mtc8
 INPUT report.mtc8
-INPUT ./figures/architecture.jpg
-INPUT ./figures/architecture.jpg
-INPUT figures/architecture.jpg
-INPUT ./figures/architecture.jpg
-INPUT ./figures/architecture.jpg
-INPUT ./figures/architecture 2.drawio.png
-INPUT ./figures/architecture 2.drawio.png
-INPUT figures/architecture 2.drawio.png
-INPUT ./figures/architecture 2.drawio.png
-INPUT ./figures/architecture 2.drawio.png
+INPUT ./figures/architecture2.1.png
+INPUT ./figures/architecture2.1.png
+INPUT figures/architecture2.1.png
+INPUT ./figures/architecture2.1.png
+INPUT ./figures/architecture2.1.png
+INPUT ./figures/decision model.png
+INPUT ./figures/decision model.png
+INPUT figures/decision model.png
+INPUT ./figures/decision model.png
+INPUT ./figures/decision model.png
 INPUT ./chapters/chapter5_implementation.tex
 INPUT chapters/chapter5_implementation.tex
 INPUT ./chapters/chapter5_implementation.tex
@@ -2156,11 +2184,26 @@ OUTPUT report.mtc
 INPUT ./report.mtc9
 INPUT report.mtc9
 INPUT report.mtc9
+INPUT ./figures/Untitled Diagram.drawio (1).png
+INPUT ./figures/Untitled Diagram.drawio (1).png
+INPUT figures/Untitled Diagram.drawio (1).png
+INPUT ./figures/Untitled Diagram.drawio (1).png
+INPUT ./figures/Untitled Diagram.drawio (1).png
 INPUT ./figures/implement1.png
 INPUT ./figures/implement1.png
 INPUT figures/implement1.png
 INPUT ./figures/implement1.png
 INPUT ./figures/implement1.png
+INPUT ./figures/structural.png
+INPUT ./figures/structural.png
+INPUT figures/structural.png
+INPUT ./figures/structural.png
+INPUT ./figures/structural.png
+INPUT ./figures/layers.png
+INPUT ./figures/layers.png
+INPUT figures/layers.png
+INPUT ./figures/layers.png
+INPUT ./figures/layers.png
 INPUT ./chapters/chapter6_dataset.tex
 INPUT chapters/chapter6_dataset.tex
 INPUT ./chapters/chapter6_dataset.tex
@@ -2196,16 +2239,21 @@ INPUT ./figures/dataset3.png
 INPUT figures/dataset3.png
 INPUT ./figures/dataset3.png
 INPUT ./figures/dataset3.png
+INPUT ./figures/proportion.png
+INPUT ./figures/proportion.png
+INPUT figures/proportion.png
+INPUT ./figures/proportion.png
+INPUT ./figures/proportion.png
 INPUT ./figures/dataset4.png
 INPUT ./figures/dataset4.png
 INPUT figures/dataset4.png
 INPUT ./figures/dataset4.png
 INPUT ./figures/dataset4.png
-INPUT ./figures/dataset5.png
-INPUT ./figures/dataset5.png
-INPUT figures/dataset5.png
-INPUT ./figures/dataset5.png
-INPUT ./figures/dataset5.png
+INPUT ./figures/quantity of programming language.png
+INPUT ./figures/quantity of programming language.png
+INPUT figures/quantity of programming language.png
+INPUT ./figures/quantity of programming language.png
+INPUT ./figures/quantity of programming language.png
 INPUT ./chapters/chapter7_experiment.tex
 INPUT chapters/chapter7_experiment.tex
 INPUT ./chapters/chapter7_experiment.tex
@@ -2213,6 +2261,29 @@ INPUT chapters/chapter7_experiment.tex
 INPUT ./report.mtc11
 INPUT report.mtc11
 INPUT report.mtc11
+OUTPUT report.mtc
+INPUT ./report.mtc
+INPUT report.mtc
+INPUT report.mtc
+OUTPUT report.mtc
+INPUT ./report.mtc11
+INPUT report.mtc11
+INPUT report.mtc11
+INPUT ./figures/logistic result.png
+INPUT ./figures/logistic result.png
+INPUT figures/logistic result.png
+INPUT ./figures/logistic result.png
+INPUT ./figures/logistic result.png
+INPUT ./figures/metric and loss.png
+INPUT ./figures/metric and loss.png
+INPUT figures/metric and loss.png
+INPUT ./figures/metric and loss.png
+INPUT ./figures/metric and loss.png
+INPUT ./figures/confusion CNN final.png
+INPUT ./figures/confusion CNN final.png
+INPUT figures/confusion CNN final.png
+INPUT ./figures/confusion CNN final.png
+INPUT ./figures/confusion CNN final.png
 INPUT ./chapters/chapter8_conclusion.tex
 INPUT chapters/chapter8_conclusion.tex
 INPUT ./chapters/chapter8_conclusion.tex
@@ -2220,12 +2291,14 @@ INPUT chapters/chapter8_conclusion.tex
 INPUT ./report.mtc12
 INPUT report.mtc12
 INPUT report.mtc12
-INPUT ./chapters/appendix.tex
-INPUT chapters/appendix.tex
-INPUT ./chapters/appendix.tex
-INPUT chapters/appendix.tex
-INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vnbx10.tfm
-INPUT d:/Images/texlive/2022/texmf-dist/fonts/tfm/vntex/vnr/vntt12.tfm
+OUTPUT report.mtc
+INPUT ./report.mtc
+INPUT report.mtc
+INPUT report.mtc
+OUTPUT report.mtc
+INPUT ./report.mtc12
+INPUT report.mtc12
+INPUT report.mtc12
 INPUT ./report.ind
 INPUT report.ind
 INPUT ./report.ind
@@ -2274,7 +2347,6 @@ INPUT report.run.xml
 OUTPUT report.run.xml
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/enc/dvips/vntex/t5.enc
-INPUT d:/Images/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
@@ -2296,6 +2368,7 @@ INPUT d:/Images/texlive/2022/texmf-dist/fonts/type1/vntex/vnr/vnbx12.pfb
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/type1/vntex/vnr/vncsc10.pfb
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/type1/vntex/vnr/vnr10.pfb
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/type1/vntex/vnr/vnr12.pfb
+INPUT d:/Images/texlive/2022/texmf-dist/fonts/type1/vntex/vnr/vnr7.pfb
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/type1/vntex/vnr/vnr8.pfb
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/type1/vntex/vnr/vnssbx10.pfb
 INPUT d:/Images/texlive/2022/texmf-dist/fonts/type1/vntex/vnr/vnti10.pfb

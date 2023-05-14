@@ -1,7 +1,163 @@
 \chapter{Experiments}
 \label{chap:experiments}
-	\textit{This chapter discusses the division of the data set before training, assessment techniques, and experimental results. Compare the outcomes of the experiments we suggest to the reference experiments from relevant works.}
+	\textit{\hspace{0.5cm}This chapter discusses the division of the dataset before training, assessment techniques, and experimental results. Compare the outcomes of the experiments we suggest to the reference experiments from relevant works.}
 \minitoc
+
+
+\section{Classification evaluation metrics}
+\label{sec:class_metrics}
+\hspace{0.5cm}The effectiveness of a statistical or machine learning\index{Machine learning (ML)} model is assessed using evaluation metrics. These comprise classification accuracy\index{Accuracy}, logarithmic loss, confusion matrix\index{Confusion matrix}, and others. 
+
+It is necessary to analyze the model using a variety of measures. When utilizing one measurement from one assessment metric, a model may perform well, but when using another measurement from another evaluation metric, it may perform poorly. To make sure the model is working properly and ideally, evaluation metrics are essential.
+
+\subsection{Dataset preparation}
+\hspace{0.5cm}Splitting is a technique for evaluating the performance of a machine learning algorithm. Train-test split and train-validation-test split are two common types of split.
+
+In the train-test split technique, a dataset is split into two subsets.
+The training dataset is the first subset, used to fit the model. Instead of using the second subset to train the model, the input element of the dataset is given to the model, and predictions are then made and compared to the expected values. The testing dataset is the second dataset.
+\begin{itemize}
+	\item \textbf{Training dataset.} It is used to fit the machine learning model.
+	\item \textbf{Testing dataset.} It is used to evaluate the fit machine learning model.
+\end{itemize}
+
+The goal is to gauge how well the machine learning model performs on new data, i.e., data not used to train the model. We intend to put the model to use in this manner. In other words, to fit it to the data that is currently available with inputs and outputs that are known, and then to forecast outcomes for new cases in the future where we do not yet have the target values or expected outputs.
+
+The validation dataset is a set that is occasionally necessary. It is known as the train-validation-test split approach. The dataset is divided into three subsets: training dataset, validation dataset, and testing dataset.
+
+\begin{itemize}
+	\item \textbf{Training data.} The sample of data used to fit the model.
+	\item \textbf{Validation dataset.} The sample of data used to provide an unbiased evaluation of a model fit on the training dataset while tuning model hyperparameters.
+	\item \textbf{Testing data.} The sample of data used to provide an unbiased evaluation of a final model fit on the training dataset.
+\end{itemize}
+
+\subsection{Confusion matrix}
+\hspace{0.5cm}The confusion matrix (error matrix), a tabular depiction of the model predictions versus the ground-truth labels, is one of the fundamental ideas in classification performance. The examples in a predicted class are represented in each row of the confusion matrix\index{Confusion matrix}, while the occurrences in an actual class are represented in each column.  A confusion matrix is
+displayed in Table 7.1.
+
+\begin{table}[h!]
+	\begin{tabular}{llll}
+													   &                            & \multicolumn{2}{c}{Actual class}                                                 \\ \cline{3-4} 
+													   & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{\textbf{TRUE}}                & \multicolumn{1}{l|}{\textbf{FALSE}}               \\ \cline{2-4} 
+	\multicolumn{1}{c|}{\multirow{2}{*}{Predicted class}} & \multicolumn{1}{l|}{\textbf{TRUE}}  & \multicolumn{1}{l|}{True Positive (TP)}  & \multicolumn{1}{l|}{False Positive (FP)} \\ \cline{2-4} 
+	\multicolumn{1}{c|}{}                              & \multicolumn{1}{l|}{\textbf{FALSE}} & \multicolumn{1}{l|}{False Negative (FN)} & \multicolumn{1}{l|}{True Negative (TN)}  \\ \cline{2-4} 
+	\end{tabular}
+	\caption{\label{demo-table} Confusion matrix}
+\end{table} 
+
+As we can see diagonal elements of this matrix denote the correct prediction for different classes, while the off-diagonal elements denote the samples which are misclassified.
+The confusion matrix can be normalized to obtain the rates. The normalized confusion matrix is presented in Table 7.2. Instead of TP, FN, FP\index{False positive}, TN, normalized confusion matrix uses True Positive Rate (TPR), False Negative Rate (FNR), False Positive Rate (FPR), True Negative Rate (TNR). The most important figures here are FPR (also called false alarm rate) and FNR (miss detection rate).
+
+\begin{table}[h!]
+	\begin{tabular}{llll}
+													   &                            & \multicolumn{2}{c}{Actual class}                                                 \\ \cline{3-4} 
+													   & \multicolumn{1}{l|}{}      & \multicolumn{1}{l|}{\textbf{TRUE}}                & \multicolumn{1}{l|}{\textbf{FALSE}}               \\ \cline{2-4} 
+	\multicolumn{1}{c|}{\multirow{2}{*}{Predicted class}} & \multicolumn{1}{l|}{\textbf{TRUE}}  & \multicolumn{1}{l|}{TPR = TP/(TP+FN)}  & \multicolumn{1}{l|}{FPR = FP/(FP+TN)} \\ \cline{2-4} 
+	\multicolumn{1}{c|}{}                              & \multicolumn{1}{l|}{\textbf{FALSE}} & \multicolumn{1}{l|}{FNR = FN/(TP+FN)} & \multicolumn{1}{l|}{TNR = TN/(FP+TN)}  \\ \cline{2-4} 
+	\end{tabular}
+	\caption{\label{demo-table} Normalized confusion matrix}
+\end{table} 
+
+\subsection{Classification accuracy}
+\hspace{0.5cm}Classification accuracy\index{Accuracy} is one of the most straightforward metrics one can think of. It is calculated by dividing the proportion of accurate predictions by all possible predictions and multiplying the result by 100. The equation of classification accuracy is
+\begin{align*}
+	accuracy = 100\left (\frac{TP + TN}{TP + TN + FN + FP}  \right ).
+\end{align*}
+
+\subsection{Precision}
+\hspace{0.5cm}Classification accuracy sometimes fails to serve as an accurate reflection of model performance. One of these cases is when there is an imbalance in the distribution of the classes, with one class being more prevalent than the others. In this scenario, even if every sample is expected to belong to the most common class, we would still have a high accuracy rate, which is completely illogical given that the model is not learning anything and is simply forecasting every sample to belong to the top class. Therefore we need to look at class-specific performance metrics too, such as precision\index{Precision}, which is defined as
+\begin{align*}
+	precision = \frac{TP}{TP + FP}.
+\end{align*}
+
+\subsection{Recall}
+\hspace{0.5cm}Recall\index{Recall} is another important metric, which is defined as the fraction of samples from a class which are correctly predicted by the model. It is shown in following equation
+\begin{align*}
+	recall = \frac{TP}{TP + FN}.
+\end{align*}
+
+\subsection{F1-score}
+\hspace{0.5cm}Recall or precision\index{Precision} could be given a higher emphasis depending on the application. However, there are a lot of applications where both recall and precision are crucial. Therefore, it seems sensible to consider how to integrate these two metrics into a single one. The F1-score\index{F1-score}, which is the harmonic mean of precision and recall, is one well-known statistic that combines precision and recall
+\begin{align*}
+	F1 = \frac{2.precision.recall}{precision + recall}.
+\end{align*}
+
+The generalized version of the F1-score is
+\begin{align*}
+	F_\beta = \left(1 + \beta^2 \right)\frac{2.precision.recall}{\beta^2.precision + recall},
+\end{align*}
+
+as we can see F1-score is a special case of $F_\beta$ when $\beta$ = 1.
+
+\section{Machine learning models evaluation}
+\label{sec:model_evaluation}
+
+\subsection{Logistic regression validator}
+\subsubsection{Criteria and dataset preparation}
+\hspace{0.5cm}This module is one the two validators for the WAF\index{WAF}, therefore not missing any suspicious request is our top priority. However, this is only a part of our module, built with the criteria of fast and light, easy to run on many different configurations, so the accuracy\index{Accuracy} may not be as high as others approaches. FP is another major problem. 
+
+\newpage
+\subsubsection{Experimental results}
+\hspace{0.5cm}The experimental results of logistic regression\index{Logistic regression} are presented in Figure 7.1.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/logistic result.png}
+  \caption{Confusion matrix of logistic regression model}
+\end{figure}
+
+The result of the logistic regression model is presented below.
+\begin{itemize}
+	\item \textbf{Train accuracy:} 88.56\%
+	\item \textbf{Text accuracy:} 86,89\%
+\end{itemize}
+
+This model is not the greatest, but still can be acceptable as can be seen if we solely focus on its results. However, if we look more closely, we will see that this result has some problems. Let us first see Figures which are the results of the confusion matrix when predicting on the test set with the above model. According to the Figure, only 73.46\% of requests are correctly predicted by the logistic regression model to be attacks. Given that the model's accuracy\index{Accuracy} prediction for a normal request is 97.16\%, it is obvious that the model will put more emphasis on preventing erroneous preventing of legitimate users than on identifying assaults. This is quite appropriate because, from the standpoint of an application, the accuracy of 97.16\% is insufficient and may even be considered poor. We may use a simple example: Using this approach, there will be more than one request that is misinterpreted as a large amount of traffic for every 100 legitimate requests (counting just distinct requests) that reach the WAF\index{WAF} system. If the aforementioned WAF system is used to defend a customer website and even one request is unintentionally denied, it may render the user useless. It will be much worse if customers are unintentionally prevented from signing in or making transactions on e-commerce websites. The accuracy required to forecast the ``normal'' class must thus be extremely high (above 99.9\%), but the accuracy required to predict the ``attack'' class must be at a tolerable level (about 80\%).
+
+Attack detection should not be prioritized for another reason: when a hacker targets a web application, they will need to test out a wide range of attack methods, from basic to sophisticated. A model that can warn webmasters to take action to stop more assaults only needs to detect roughly 80\% of inbound attacks.
+
+We found it to be quite challenging to increase the model's accuracy\index{Accuracy
+} in this situation when testing it with a variety of various parameters. Our model only achieves 49.51\% success rate in correctly prevent a malicious request. Maybe in the favor of being light and fast, we have trade off the model's ability to detect an attack.
+
+\subsection{CNN Classifier}
+\subsubsection{Criteria and dataset preparation}
+\hspace{0.5cm}This module is a classifier for the incoming requests to the module. Then based on the proposed approach in \hyperref[chap:proposed_approaches]{\textbf{Chapter 4}}, the validator will decide whether the request is normal or not. The model must have very little false alarm rate and no miss detection rate. It means the model must achieve almost zero FPR, zero FNR, which leads to over 95\% precision\index{Precision}, especially on the category \textit{plaintext}. Another vital criterion is time eciency. A WAF\index{WAF} must respond to block or not to block a request immediately. Therefore the time processing of each request in the model must be less than 10 milliseconds. 
+\subsubsection{Experimental results}
+\hspace{0.5cm}The CNN\index{CNN} model is trained in 10 epoch with batch size 128. The precision metric and loss of the model during training process is plotted as Figure 7.2.
+       
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/metric and loss.png}
+  \caption{The precision metric and loss of the model}  
+\end{figure} 
+
+It appears that the model's training set and validation set differ fairly noticeably from one another. The loss of the training dataset decreases continuously, while the loss of the validation set decreases at early steps and starts increasing after a certain point. This demonstrates how ``overfitting'' our model was. The validation loss began below the training loss, then slightly decreased and increased after the fourth epoch. This leads to the stagnation of validation accuracy when the $val\_accuracy$ does not seem to increase. The confusion matrix is displayed in Figure 7.3.
+
+\begin{figure}[!h]
+	\centering
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/confusion CNN final.png}
+  \caption{Structural language classifier model trained}  
+\end{figure} 
+
+While the values for other categories are only from 90\% to 95\% correspondingly, it appears that the model has a fair possibility of recognizing regular requests (plain text) with pretty good accuracy and a tiny chance of false alert or miss detection. Because the following four categories are all programming languages, it's difficult for the model to separate them, and their weights are lower than plain text (one-fifth). Then the model succeeded in reducing the blocking of legitimate requests so that it reduced the false positive\index{False positive} rate of WAF\index{WAF}. But in reality, if you look at it from the point of an application, 95\% accuracy is insufficient and even considered inadequate. According to this model, on average, five genuine requests (only separate requests) out of every 100 legitimate requests that pass through the WAF system will be misconstrued for assaults. If the aforementioned WAF system is utilized to defend a customer website and even one request is unintentionally denied, it may render the user useless. If users are mistakenly stopped from signing in or doing transactions on e-commerce websites, the situation will be worse. The accuracy required to forecast the ``normal'' class must therefore be extremely high (above 99.9\%), but the acceptable accuracy of predicting the ``attack'' class must be at a tolerable level (about 80\%). Attack detection should not be prioritized for another reason: when a hacker targets a web application, they are obligated to try out a wide range of attack methods, from basic to complex. A model that can warn administrators to take action to stop more assaults only needs to detect roughly 80\% of incoming attacks.
+
+In the process of testing the machine learning model with many different parameters, we found it extremely difficult to improve the accuracy of the model in this case. The fact that request data often has a very different standard than normal text, along with the classification of many types of structural languages in our thesis leads to improved accuracy of the model in this case is beyond our ability.
+
+The evaluation metric of the model is presented in Table 7.3.
+\begin{table}[h!]
+\centering
+	\begin{tabular}{crrrr}
+	\hline
+	\textbf{Label}              & \multicolumn{1}{c}{\textbf{Accuracy}} & \multicolumn{1}{c}{\textbf{Precision}} & \multicolumn{1}{c}{\textbf{Recall}} & \multicolumn{1}{c}{\textbf{F1-score}} \\ \hline
+	\textbf{Plain text}         & 98.56\%                               & 0.95                                   & 0.99                                & 0.97                                  \\
+	\textbf{Client-side script} & 97.91\%                               & 0.95                                   & 0.95                                & 0.95                                  \\
+	\textbf{Server-side script} & 97.29\%                               & 0.96                                   & 0.99                                & 0.97                                  \\
+	\textbf{Shell script}       & 98.4\%                                & 0.90                                   & 0.36                                & 0.52                                  \\
+	\textbf{SQL}                & 99.34\%                               & 0.93                                   & 0.63                                & 0.75                                  \\ \hline
+	\end{tabular}
+	\caption{\label{demo-table} Malicious request validator model evaluation.}
+\end{table}
+ 
+\section{End-to-end experiments}
 
 % \section{Data preparation} 
 % \label{sec:data_preparation}

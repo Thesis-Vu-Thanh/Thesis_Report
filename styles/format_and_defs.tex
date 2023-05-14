@@ -19,7 +19,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Load basic packages
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \usepackage[utf8]{vietnam}
 \usepackage{graphicx}
 \usepackage{tikz}
@@ -37,7 +36,6 @@
 \usepackage{setspace}
 \usepackage[labelfont=bf]{caption}
 \usepackage[labelfont=bf]{subcaption}
-
 \usepackage[
 	linesnumbered,
 	commentsnumbered,
@@ -54,12 +52,12 @@
 	filecolor=magenta,
 	citecolor=blue,
 	urlcolor=blue,
-	unicode
+	unicode,
 ]{hyperref}
 \newcommand\fullref[1]{
-	\noindent\textbf{\autoref{#1}. \nameref{#1}.}\hspace{5mm}
+	\noindent\textbf{\autoref{#1}. \nameref{#1}.}\hspace{5mm} 
 }
-
+\usepackage{xurl}
 % end of load basic package
 
 
@@ -74,8 +72,8 @@
 	\renewcommand{\figurename}{Figure}
 	\renewcommand{\figureautorefname}{Figure}
 	\renewcommand{\listtablename}{List of Tables}
-	\renewcommand{\tablename}{Tables}
-	\renewcommand{\tableautorefname}{Tables}
+	\renewcommand{\tablename}{Table}
+	\renewcommand{\tableautorefname}{Table}
 	\renewcommand{\equationautorefname}{Formula}
 	\renewcommand{\listalgorithmcfname}{List of Algorithms}
 	\renewcommand{\algorithmcfname}{Mã}
@@ -305,7 +303,7 @@
 
 %%% More extra space for new paragraph----------
 \setlength{\parskip}{10pt}
-\setlength{\parindent}{0cm}
+\setlength{\parindent}{0.5cm}
 
 %%% Example environment-------------------------
 \newcounter{example}[chapter]
@@ -324,26 +322,26 @@
 }
 
 %%% List of footnotes---------------------------
-\newlistof[page]{footnotes}{fnt}{List of Footnotes}
-%\cftpagenumbersoff{footnotes}
-\let\oldfootnote\footnote
-\renewcommand\footnote[1]
-{
-	%\refstepcounter{footnotes}
-	\oldfootnote{#1}
-	\addcontentsline{fnt}{footnotes}
-	{
-		\protect
-		\numberline{$^{\thefootnote}$}
-		\hspace{-20pt} #1
-	}
-}
-\makeatletter
-\@newctr{footnote}[page]
-\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
-\makeatother
-\renewcommand{\thefootnote}{\arabic{footnote}}
-\deffootnote{3em}{0em}{\thefootnotemark\hspace{2mm}}
+% \newlistof[page]{footnotes}{fnt}{List of Footnotes}
+% %\cftpagenumbersoff{footnotes}
+% \let\oldfootnote\footnote
+% \renewcommand\footnote[1]
+% {
+% 	%\refstepcounter{footnotes}
+% 	\oldfootnote{#1}
+% 	\addcontentsline{fnt}{footnotes}
+% 	{
+% 		\protect
+% 		\numberline{$^{\thefootnote}$}
+% 		\hspace{-20pt} #1
+% 	}
+% }
+% \makeatletter
+% \@newctr{footnote}[page]
+% % \newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+% \makeatother
+% \renewcommand{\thefootnote}{\arabic{footnote}}
+% \deffootnote{0em}{1em}{\thefootnotemark\hspace{0mm}}
 
 %%% Figure environment--------------------------
 \let\oldfigure\figure

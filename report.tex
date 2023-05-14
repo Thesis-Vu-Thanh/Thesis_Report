@@ -6,14 +6,13 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Main content
+% Main content 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{document}
 	
-\pagenumbering{roman} 
+\pagenumbering{roman}  
 
-%-Cover Page------------------------------------
+%-Cover Page------------------------------------ 
 %\input{chapters/cover_page_1st.tex}
 \input{chapters/cover_page_2nd.tex}
 
@@ -23,9 +22,16 @@
 %-Thanks----------------------------------------
 \input{chapters/thanks.tex}
 
+\pagenumbering{arabic}
 %-Preface---------------------------------------
 \input{chapters/preface.tex}
+ 
+%-Table of contents-----------------------------
+\listofcontents  
+\cleardoublepage
 
+\pagenumbering{arabic}
+ 
 %-List of figures-------------------------------
 \phantomsection
 \addcontentsline{toc}{chapter}{List of Figures}
@@ -46,13 +52,7 @@
 % \addcontentsline{toc}{chapter}{List of Abbreviations}
 % \printnomenclature[2cm]
 \cleardoublepage
-
-%-Table of contents-----------------------------
-\listofcontents  
-\cleardoublepage
-
-\pagenumbering{arabic}
-
+  
 %-Chapters--------------------------------------
 \input{chapters/chapter1_introduction.tex}
 \input{chapters/chapter2_background.tex}
@@ -62,19 +62,20 @@
 \input{chapters/chapter6_dataset.tex}
 \input{chapters/chapter7_experiment.tex}
 \input{chapters/chapter8_conclusion.tex}
-
+ 
 %-Appendix--------------------------------------
-\input{chapters/appendix.tex}
+% \input{chapters/appendix.tex} 
 
 %-References------------------------------------
 \phantomsection
-\addcontentsline{toc}{chapter}{References}
+\addcontentsline{toc}{chapter}{Bibliography}
 \printbibliography
-\cleardoublepage
-
+\cleardoublepage 
+      
 %-Keywords--------------------------------------
 \phantomsection
 \addcontentsline{toc}{chapter}{List of Keywords}
 \printindex
 % \input{chapters/keywords.tex}  
-\end{document}
+\end{document}      
+      
