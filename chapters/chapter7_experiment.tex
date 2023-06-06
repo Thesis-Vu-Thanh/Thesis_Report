@@ -1,3 +1,5 @@
+\mathchardef\mhyphen="2D
+
 \chapter{Experiments}
 \label{chap:experiments}
 	\textit{\hspace{0.5cm}This chapter discusses the division of the dataset before training, assessment techniques, and experimental results. Compare the outcomes of the experiments we suggest to the reference experiments from relevant works.}
@@ -58,32 +60,32 @@ The confusion matrix can be normalized to obtain the rates. The normalized confu
 \end{table} 
 
 \subsection{Classification accuracy}
-\hspace{0.5cm}Classification accuracy\index{Accuracy} is one of the most straightforward metrics one can think of. It is calculated by dividing the proportion of accurate predictions by all possible predictions and multiplying the result by 100. The equation of classification accuracy is
+\hspace{0.5cm}Classification accuracy\index{Accuracy} is one of the most straightforward metrics one can think of. It is calculated by dividing the proportion of accurate predictions by all possible predictions and multiplying the result by 100. The equation of classification accuracy is.
 \begin{align*}
-	accuracy = 100\left (\frac{TP + TN}{TP + TN + FN + FP}  \right ).
+	accuracy = 100\left (\frac{TP + TN}{TP + TN + FN + FP}  \right )
 \end{align*}
 
 \subsection{Precision}
-\hspace{0.5cm}Classification accuracy sometimes fails to serve as an accurate reflection of model performance. One of these cases is when there is an imbalance in the distribution of the classes, with one class being more prevalent than the others. In this scenario, even if every sample is expected to belong to the most common class, we would still have a high accuracy rate, which is completely illogical given that the model is not learning anything and is simply forecasting every sample to belong to the top class. Therefore we need to look at class-specific performance metrics too, such as precision\index{Precision}, which is defined as
+\hspace{0.5cm}Classification accuracy sometimes fails to serve as an accurate reflection of model performance. One of these cases is when there is an imbalance in the distribution of the classes, with one class being more prevalent than the others. In this scenario, even if every sample is expected to belong to the most common class, we would still have a high accuracy rate, which is completely illogical given that the model is not learning anything and is simply forecasting every sample to belong to the top class. Therefore we need to look at class-specific performance metrics too, such as precision\index{Precision}, which is defined as.
 \begin{align*}
-	precision = \frac{TP}{TP + FP}.
+	precision = \frac{TP}{TP + FP}
 \end{align*}
 
 \subsection{Recall}
-\hspace{0.5cm}Recall\index{Recall} is another important metric, which is defined as the fraction of samples from a class which are correctly predicted by the model. It is shown in following equation
+\hspace{0.5cm}Recall\index{Recall} is another important metric, which is defined as the fraction of samples from a class which are correctly predicted by the model. It is shown in following equation.
 \begin{align*}
-	recall = \frac{TP}{TP + FN}.
+	recall = \frac{TP}{TP + FN}
 \end{align*}
 
 \subsection{F1-score}
-\hspace{0.5cm}Recall or precision\index{Precision} could be given a higher emphasis depending on the application. However, there are a lot of applications where both recall and precision are crucial. Therefore, it seems sensible to consider how to integrate these two metrics into a single one. The F1-score\index{F1-score}, which is the harmonic mean of precision and recall, is one well-known statistic that combines precision and recall
+\hspace{0.5cm}Recall or precision\index{Precision} could be given a higher emphasis depending on the application. However, there are a lot of applications where both recall and precision are crucial. Therefore, it seems sensible to consider how to integrate these two metrics into a single one. The F1-score\index{F1-score}, which is the harmonic mean of precision and recall, is one well-known statistic that combines precision and recall.
 \begin{align*}
-	F1 = \frac{2.precision.recall}{precision + recall}.
+	\mathit{F1\mhyphen score} = \frac{2 \times precision \times recall}{precision + recall}
 \end{align*}
 
-The generalized version of the F1-score is
+The generalized version of the F1-score is.
 \begin{align*}
-	F_\beta = \left(1 + \beta^2 \right)\frac{2.precision.recall}{\beta^2.precision + recall},
+	F_\beta = \left(1 + \beta^2 \right)\frac{2 \times precision \times recall}{\beta^2 \times precision + recall}
 \end{align*}
 
 as we can see F1-score is a special case of $F_\beta$ when $\beta$ = 1.
@@ -93,7 +95,7 @@ as we can see F1-score is a special case of $F_\beta$ when $\beta$ = 1.
 
 \subsection{Logistic regression validator}
 \subsubsection{Criteria and dataset preparation}
-\hspace{0.5cm}This module is one the two validators for the WAF\index{WAF}, therefore not missing any suspicious request is our top priority. However, this is only a part of our module, built with the criteria of fast and light, easy to run on many different configurations, so the accuracy\index{Accuracy} may not be as high as others approaches. FP is another major problem. 
+\hspace{0.5cm}This module is one of the two validators for the WAF\index{WAF}, so not missing any suspicious requests is our top priority. However, this is only a part of our module, built with the criteria of fast and light, easy to run on many different configurations, so the accuracy\index{Accuracy} may not be as high as other approaches. False positive is another major problem. 
 
 \newpage
 \subsubsection{Experimental results}
@@ -101,26 +103,57 @@ as we can see F1-score is a special case of $F_\beta$ when $\beta$ = 1.
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/logistic result.png}
+	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/confusion logistic.png}
   \caption{Confusion matrix of logistic regression model}
 \end{figure}
 
 The result of the logistic regression model is presented below.
 \begin{itemize}
 	\item \textbf{Train accuracy:} 88.56\%
-	\item \textbf{Text accuracy:} 86,89\%
+	\item \textbf{Test accuracy:} 86,89\%
 \end{itemize}
 
-This model is not the greatest, but still can be acceptable as can be seen if we solely focus on its results. However, if we look more closely, we will see that this result has some problems. Let us first see Figures which are the results of the confusion matrix when predicting on the test set with the above model. According to the Figure, only 73.46\% of requests are correctly predicted by the logistic regression model to be attacks. Given that the model's accuracy\index{Accuracy} prediction for a normal request is 97.16\%, it is obvious that the model will put more emphasis on preventing erroneous preventing of legitimate users than on identifying assaults. This is quite appropriate because, from the standpoint of an application, the accuracy of 97.16\% is insufficient and may even be considered poor. We may use a simple example: Using this approach, there will be more than one request that is misinterpreted as a large amount of traffic for every 100 legitimate requests (counting just distinct requests) that reach the WAF\index{WAF} system. If the aforementioned WAF system is used to defend a customer website and even one request is unintentionally denied, it may render the user useless. It will be much worse if customers are unintentionally prevented from signing in or making transactions on e-commerce websites. The accuracy required to forecast the ``normal'' class must thus be extremely high (above 99.9\%), but the accuracy required to predict the ``attack'' class must be at a tolerable level (about 80\%).
+% \begin{table}[h!]
+% \centering
+% 	\begin{tabular}{l|llll}
+% 	\hline
+% 				 & \textbf{precision} & \textbf{recall} & \textbf{f1-score} & \textbf{support} \\ \hline
+% 	bad          & 0.52      & 0.86   & 0.65     & 1430    \\
+% 	good         & 0.97      & 0.87   & 0.92     & 8568    \\
+% 				 &           &        &          &         \\
+% 	accuracy     &           &        & 0.87     & 9998    \\
+% 	macro avg    & 0.75      & 0.87   & 0.78     & 9998    \\
+% 	weighted avg & 0.91      & 0.87   & 0.88     & 9998   
+% 	\end{tabular}
+% 	\caption{\label{demo-table} Logistic regression model evaluation}
+% \end{table}
 
-Attack detection should not be prioritized for another reason: when a hacker targets a web application, they will need to test out a wide range of attack methods, from basic to sophisticated. A model that can warn webmasters to take action to stop more assaults only needs to detect roughly 80\% of inbound attacks.
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{l|cccc}
+	\hline
+				 & \multicolumn{1}{l}{\textbf{Precision}} & \multicolumn{1}{l}{\textbf{Recall}} & \multicolumn{1}{l}{\textbf{F1-score}} & \multicolumn{1}{l}{\textbf{Support}} \\ \hline
+	bad          & \textcolor{red}{\textbf{0.52}}                          & 0.86                                & 0.65                                  & 1430                                 \\
+	good         & \textcolor{red}{\textbf{0.97}}                          & 0.87                                & 0.92                                  & 8568                                 \\
+				 &                                        &                                     &                                       &                                      \\
+	accuracy     &                                        &                                     & 0.87                                  & 9998                                 \\
+	macro avg    & 0.75                                   & 0.87                                & 0.78                                  & 9998                                 \\
+	weighted avg & 0.91                                   & 0.87                                & 0.88                                  & 9998  \\ \hline                              
+	\end{tabular}
+	\caption{\label{demo-table} Logistic regression model evaluation}
+	\end{table}
 
-We found it to be quite challenging to increase the model's accuracy\index{Accuracy
-} in this situation when testing it with a variety of various parameters. Our model only achieves 49.51\% success rate in correctly prevent a malicious request. Maybe in the favor of being light and fast, we have trade off the model's ability to detect an attack.
+The model has a very good chance of detecting normal requests with a precision\index{Precision} of 97\%, however, performs poorly in identifying malicious requests. Recall is not advised as a metric for evaluating malicious request detection since FP\index{False positive} is more critical. This problem is not alarming, as we will discuss further in this thesis.
+
+% This model is not the greatest but still can be acceptable as can be seen if we solely focus on its results. However, if we look more closely, we will see that this result has some problems. Let's take a look at the results of the confusion matrix when predicting the test set with the above model. According to the Figure, only 73.46\% of requests are correctly predicted to be attacks by the logistic regression model. Given that the model's accuracy\index{Accuracy} prediction for a normal request is 97.16\%, it is clear that the model will put more emphasis on preventing erroneous preventing of legitimate users than on identifying assaults. This is relatively appropriate because, from the standpoint of an application, the accuracy of 97.16\% is insufficient and may even be considered poor. We may use an example:  Using this approach, there will be more than one request misinterpreted as a large amount of traffic for every 100 legitimate requests (just distinct requests) that reach the WAF\index{WAF} system. If the mentioned WAF system is used to protect a customer's website and even one request is wrongly turned down, it can make the user completely worthless. It will be much worse if customers are accidentally prevented from signing in or making transactions on e-commerce websites. The accuracy required to forecast the ``normal'' class must thus be extremely high (above 99.9\%), but the desired accuracy of predicting the ``attack'' class must be at a tolerable level (about 80\%).
+
+% Attack detection should not be prioritized for another reason: when a hacker targets a web application, they will need to test out a wide range of attack methods, from basic to sophisticated. A model that can warn webmasters to take action to stop more assaults only needs to detect roughly 80\% of inbound attacks.
+
+% We found it to be quite challenging to increase the model's accuracy\index{Accuracy} in this situation when testing it with a variety of various parameters. Our model only achieves a 49.51\% success rate in correctly preventing a malicious request. Maybe in favor of being light and fast, we have to trade off the model's ability to detect an attack.
 
 \subsection{CNN Classifier}
 \subsubsection{Criteria and dataset preparation}
-\hspace{0.5cm}This module is a classifier for the incoming requests to the module. Then based on the proposed approach in \hyperref[chap:proposed_approaches]{\textbf{Chapter 4}}, the validator will decide whether the request is normal or not. The model must have very little false alarm rate and no miss detection rate. It means the model must achieve almost zero FPR, zero FNR, which leads to over 95\% precision\index{Precision}, especially on the category \textit{plaintext}. Another vital criterion is time eciency. A WAF\index{WAF} must respond to block or not to block a request immediately. Therefore the time processing of each request in the model must be less than 10 milliseconds. 
+\hspace{0.5cm}This module is a classifier for the incoming requests to the module. Then based on the proposed approach in \hyperref[chap:proposed_approaches]{\textbf{Chapter 4}}, the validator will decide whether the request is normal or not. The model must have a low false alarm rate and no miss detection rate. It means the model must achieve almost zero FPR, and zero FNR, which leads to over 95\% precision\index{Precision}, especially in the category \textit{plaintext}. Another vital criterion is time efficiency. A WAF\index{WAF} must respond to block or not to block a request immediately. Therefore the time processing of each request in the model must be less than 10 milliseconds. 
 \subsubsection{Experimental results}
 \hspace{0.5cm}The CNN\index{CNN} model is trained in 10 epoch with batch size 128. The precision metric and loss of the model during training process is plotted as Figure 7.2.
        
@@ -130,7 +163,9 @@ We found it to be quite challenging to increase the model's accuracy\index{Accur
   \caption{The precision metric and loss of the model}  
 \end{figure} 
 
-It appears that the model's training set and validation set differ fairly noticeably from one another. The loss of the training dataset decreases continuously, while the loss of the validation set decreases at early steps and starts increasing after a certain point. This demonstrates how ``overfitting'' our model was. The validation loss began below the training loss, then slightly decreased and increased after the fourth epoch. This leads to the stagnation of validation accuracy when the $val\_accuracy$ does not seem to increase. The confusion matrix is displayed in Figure 7.3.
+It appears that the model's training set and validation set differ fairly noticeably from one another. The loss of the training dataset decreases continuously, while the loss of the validation set decreases at early steps and starts increasing after a certain point. This demonstrates how ``overfitting'' our model was. The validation loss began below the training loss, then slightly decreased and increased after the fourth epoch. This leads to the stagnation of validation accuracy\index{Accuracy} when the $val\_accuracy$ does not seem to increase. The confusion matrix is displayed in Figure 7.3.
+
+\newpage
 
 \begin{figure}[!h]
 	\centering
@@ -138,26 +173,89 @@ It appears that the model's training set and validation set differ fairly notice
   \caption{Structural language classifier model trained}  
 \end{figure} 
 
-While the values for other categories are only from 90\% to 95\% correspondingly, it appears that the model has a fair possibility of recognizing regular requests (plain text) with pretty good accuracy and a tiny chance of false alert or miss detection. Because the following four categories are all programming languages, it's difficult for the model to separate them, and their weights are lower than plain text (one-fifth). Then the model succeeded in reducing the blocking of legitimate requests so that it reduced the false positive\index{False positive} rate of WAF\index{WAF}. But in reality, if you look at it from the point of an application, 95\% accuracy is insufficient and even considered inadequate. According to this model, on average, five genuine requests (only separate requests) out of every 100 legitimate requests that pass through the WAF system will be misconstrued for assaults. If the aforementioned WAF system is utilized to defend a customer website and even one request is unintentionally denied, it may render the user useless. If users are mistakenly stopped from signing in or doing transactions on e-commerce websites, the situation will be worse. The accuracy required to forecast the ``normal'' class must therefore be extremely high (above 99.9\%), but the acceptable accuracy of predicting the ``attack'' class must be at a tolerable level (about 80\%). Attack detection should not be prioritized for another reason: when a hacker targets a web application, they are obligated to try out a wide range of attack methods, from basic to complex. A model that can warn administrators to take action to stop more assaults only needs to detect roughly 80\% of incoming attacks.
+While the values for other categories are only from 90\% to 95\% correspondingly, it appears that the model has a fair possibility of recognizing regular requests (plain text) with pretty good accuracy\index{Accuracy} and a tiny chance of false alert or miss detection. As the following four categories are all programming languages, it is difficult for the model to separate them, and their weights are lower than plain text (one-fifth). Then the model has succeeded in reducing the blocking of legitimate requests i.e. reducing the false positive rate of WAF\index{WAF}. 
+% While the values for other categories are only from 90\% to 95\% correspondingly, it appears that the model has a fair possibility of recognizing regular requests (plain text) with pretty good accuracy and a tiny chance of false alert or miss detection. Because the following four categories are all programming languages, it's difficult for the model to separate them, and their weights are lower than plain text (one-fifth). Then the model succeeded in reducing the blocking of legitimate requests so that it reduced the false positive\index{False positive} rate of WAF\index{WAF}. But in reality, if you look at it from the point of an application, 95\% accuracy is insufficient and even considered inadequate. According to this model, on average, five genuine requests (only separate requests) out of every 100 legitimate requests that pass through the WAF system will be misconstrued for assaults. If the aforementioned WAF system is utilized to defend a customer website and even one request is unintentionally denied, it may render the user useless. If users are mistakenly stopped from signing in or doing transactions on e-commerce websites, the situation will be worse. The accuracy required to forecast the ``normal'' class must therefore be extremely high (above 99.9\%), but the acceptable accuracy of predicting the ``attack'' class must be at a tolerable level (about 80\%). Attack detection should not be prioritized for another reason: when a hacker targets a web application, they are obligated to try out a wide range of attack methods, from basic to complex. A model that can warn administrators to take action to stop more assaults only needs to detect roughly 80\% of incoming attacks.
 
-In the process of testing the machine learning model with many different parameters, we found it extremely difficult to improve the accuracy of the model in this case. The fact that request data often has a very different standard than normal text, along with the classification of many types of structural languages in our thesis leads to improved accuracy of the model in this case is beyond our ability.
+% In the process of testing the machine learning model with many different parameters, we found it extremely difficult to improve the accuracy of the model in this case. The fact that request data often has a very different standard than normal text, along with the classification of many types of structural languages in our thesis leads to improved accuracy of the model in this case is beyond our ability.
 
-The evaluation metric of the model is presented in Table 7.3.
+The evaluation metric of the model is presented in Table 7.4.
+% \begin{table}[h!]
+% \centering
+% 	\begin{tabular}{crrrr}
+% 	\hline
+% 	\textbf{Label}              & \multicolumn{1}{c}{\textbf{Accuracy}} & \multicolumn{1}{c}{\textbf{Precision}} & \multicolumn{1}{c}{\textbf{Recall}} & \multicolumn{1}{c}{\textbf{F1-score}} \\ \hline
+% 	\textbf{Plain text}         & 98.56\%                               & 0.95                                   & 0.99                                & 0.97                                  \\
+% 	\textbf{Client-side script} & 97.91\%                               & 0.95                                   & 0.95                                & 0.95                                  \\
+% 	\textbf{Server-side script} & 97.29\%                               & 0.96                                   & 0.99                                & 0.97                                  \\
+% 	\textbf{Shell script}       & 98.4\%                                & 0.90                                   & 0.36                                & 0.52                                  \\
+% 	\textbf{SQL}                & 99.34\%                               & 0.93                                   & 0.63                                & 0.75                                  \\ \hline
+% 	\end{tabular}
+% 	\caption{\label{demo-table} Evaluating the model by precision, recall and F1-score.}
+% \end{table}
+
 \begin{table}[h!]
 \centering
-	\begin{tabular}{crrrr}
+	\begin{tabular}{lcccc}
 	\hline
-	\textbf{Label}              & \multicolumn{1}{c}{\textbf{Accuracy}} & \multicolumn{1}{c}{\textbf{Precision}} & \multicolumn{1}{c}{\textbf{Recall}} & \multicolumn{1}{c}{\textbf{F1-score}} \\ \hline
-	\textbf{Plain text}         & 98.56\%                               & 0.95                                   & 0.99                                & 0.97                                  \\
-	\textbf{Client-side script} & 97.91\%                               & 0.95                                   & 0.95                                & 0.95                                  \\
-	\textbf{Server-side script} & 97.29\%                               & 0.96                                   & 0.99                                & 0.97                                  \\
-	\textbf{Shell script}       & 98.4\%                                & 0.90                                   & 0.36                                & 0.52                                  \\
-	\textbf{SQL}                & 99.34\%                               & 0.93                                   & 0.63                                & 0.75                                  \\ \hline
+	\textbf{Label}     & \textbf{Accuracy} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} \\ \hline
+	Plain text         & \textcolor{red}{\textbf{98.56\%}}  & \textcolor{red}{\textbf{0.95}}      & 0.99            & 0.97              \\
+	Client-side script & 97.91\%           & 0.95               & 0.95            & 0.95              \\
+	Server-side script & 97.29\%           & 0.96               & 0.99            & 0.97              \\
+	Shell script       & 98.4\%            & 0.9                & 0.36            & 0.52              \\
+	SQL                & 99.34\%           & 0.93               & 0.63            & 0.75              \\ \hline
 	\end{tabular}
-	\caption{\label{demo-table} Malicious request validator model evaluation.}
+	\caption{\label{demo-table} Evaluating the model by precision, recall and F1-score.}
+	\end{table}
+
+It is noticeable that the model does not have the best accuracy (only 95.75\% on the test set). However, because there are just two convolutional layers in the model, it processes requests on average in 29ms (with system specifications shown in Table 7.5), meaning that the response is returned nowhere instantly. That time is still acceptable despite not reaching our goal yet (since our model requires the combination of two different models to produce the desired result).
+
+\begin{table}[h!]
+\centering
+	\begin{tabular}{ll}
+	\hline
+	\textbf{Hardware} & \textbf{Specification} \\ \hline
+	CPU               & Apple M1 (8 cores)     \\
+	GPU               & Apple M1 8-core GPU    \\
+	RAM               & 16GB                   \\ \hline
+	\end{tabular}
+	\caption{\label{demo-table} System specifications.}
 \end{table}
- 
+  
 \section{End-to-end experiments}
+\hspace{0.5cm}In these experiments, we are considering the default structural language category is plain text, showing that our module is defending an API application (which accepts just plain text queries, i.e. requests in JSON or XML).
+
+We are using CSIC 2020 dataset (\hyperref[subsec:csic_2010]{\textbf{Chapter 6}}) to test our model and compare our work with the related works that also train on the mentioned datasets.
+
+\begin{table}[h!]
+\centering
+	\begin{tabular}{lll}
+	\hline
+										  & \textbf{CSIC}       & \textbf{Custom dataset} \\ \hline
+	Our propose Logistic Regression model & 86.89\%    & 88.56\%        \\
+	Our propose CNN classifier            & Not tested & 94.64\%        \\
+	A. Shaheed et al.\cite{Shaheed}                     & 99.59\%    & 98.8\%         \\
+	I. Jemal et al. \cite{Jemal}                       & 98.1\%     & Not tested     \\
+	M. T. Nguyen et al. \cite{Truong}                      & 99.99\%    & Not tested     \\
+	S. Toprak et al. \cite{Toprak}                     & 99.03\%    & Not tested     \\
+	D. T. A. M. Devi et al. \cite{Devi}                             & 99.93\%    & Not tested \\ \hline
+	\end{tabular}
+	\caption{\label{demo-table} Accuracy of our proposed model compared with related works.
+	}
+\end{table}
+
+We regret to claim that the final stage of our model is currently incomplete. Based solely on what we currently have, it is also clear that in comparison to previous related works, our proposed model has numerous significant flaws.
+
+
+Based on the result of the two models, we could calculate the probability of the module blocking a request. The module only considers the incoming request as malicious when and only when both of the validators give a negative result
+\begin{align*}
+	P_{\overline{A}\hspace{0.05cm}\overline{B}} = P_{\overline{A}} \times P_{\overline{B}}.
+\end{align*}
+
+With $P_{\overline{A}}$ is the probability that the logistic regression model considers a request as malicious, $P_{\overline{B}}$ is the probability that the CNN\index{CNN} model considers a request as malicious. We have $P_{\overline{A}} = 24.55\%$ and $P_{\overline{B}} = 5\%$, so that the probability that the probability of a request being blocked ($P_{\overline{A}\hspace{0.05cm}\overline{B}}$) is 1.23\%. 
+
+We do not even have to consider the accuracy\index{Accuracy} of the final module. In reality, if you look at it from the standpoint of an application, 1.23\% of blocking the request is insufficient and even considered inadequate. This model predicts that out of every 100 legitimate requests that pass through the WAF\index{WAF} system on average (just distinct requests), over 1 of them will be mistaken for attacks. If the mentioned WAF system is used to defend a customer website and even one request is unintentionally blocked, it may render the user useless. It would be even worse if customers were prevented from logging in or making transactions on e-commerce websites by accident. The accuracy required to forecast the ``normal'' class must therefore be extremely high (above 99.9\%), but the desired accuracy of predicting the ``attack'' class must be at a tolerable level (about 80\%). Attack detection should not be prioritized for another reason: when a hacker targets a web application, he must try out a wide range of attack methods, from basic to complex. A model that can warn administrators to take action to stop more assaults only needs to detect roughly 80\% of incoming attacks. Besides, the response time criterion is also not satisfactory for an effective WAF. 
+
+During the testing phase of the machine learning\index{Machine learning (ML)} model with many different parameters, we found it extremely difficult to improve the accuracy of the model in this case. The fact that request data often has a very different standard than normal text, along with the classification of many types of structural languages in our thesis leads to improving the accuracy of the model in this case is beyond our ability.
 
 % \section{Data preparation} 
 % \label{sec:data_preparation}

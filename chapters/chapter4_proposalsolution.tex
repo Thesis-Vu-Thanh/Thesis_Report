@@ -1,41 +1,41 @@
-\chapter{Proposed approaches}
+\chapter{Proposed approach}
 \label{chap:proposed_approaches}
 	\textit{\hspace{0.5cm}This chapter displays the problems as well as the malicious request validator's input and output. Then we offer the design and architecture of the problems' solutions.}
 \minitoc
  
 \section{Cyber security problems}
 \label{Cyber problems}
-\hspace{0.5cm}WAFs\index{WAF}, as previously indicated, are frequently used, however, they suffer from high false positive\index{False positive}. We aim to enhance the accuracy\index{Accuracy} of WAFs, using the help of machine learning\index{Machine learning (ML)} rather than rule-based\index{Rule-based} approaches.  
+\hspace{0.5cm}WAFs\index{WAF}, as previously indicated, are frequently used, however, they suffer from high false positive\index{False positive} rate. We aim to enhance the accuracy\index{Accuracy} of WAFs, using the help of machine learning\index{Machine learning (ML)} rather than rule-based\index{Rule-based} approaches.  
 
-Because WAFs only cover the Application Layer, the network requests are the model's input (mostly HTTP requests). Our method produces the same result as WAFs: whether the request is malicious or not.
+Because WAFs only cover the Application Layer, the network requests are the model's input (mostly HTTP requests). Our method produces the same result as WAFs: \emph{whether the request is malicious or not}.
 
 With its nature, WAF is obligated to have fast processing speed in deciding whether an incoming request is reliable or not. For user experiences, we can't examine the request's veracity for minutes before granting or denying access. Our system's time constraint must be in milliseconds.
 
-Any flaw in an organization's internal controls, system procedures, or information systems is known as a vulnerability in cyber security. Cybercriminals may target these vulnerabilities and exploit them through the points of vulnerability.
-These hackers can enter the networks without authorization and seriously harm data privacy. As a result, it is crucial to constantly check for cybersecurity vulnerabilities because flaws in a network could lead to a complete compromise of an organization's systems.
-Let's take a look at some common cybersecurity vulnerabilities\footnote{
-    Intellipaat. \textit{What is Vulnerability in Cyber Security? Types and Definition}.
-    Mar 2023.
-    \url{https://intellipaat.com/blog/vulnerability-in-cyber-security/}
-}:
-\begin{itemize}
-    \item \textbf{Zero-day vulnerabilities.}
-    Zero-day vulnerabilities are specific software flaws that the attackers are aware of but that a company or user hasn't yet discovered.
-    Since the vulnerability has not yet been identified or reported by the system manufacturer, there are no known remedies or solutions in these situations. These are particularly risky because there is no protection against them before an attack occurs. To reduce the risk of zero-day attacks, it is crucial to exercise caution and constantly check systems for vulnerabilities.
-    \item \textbf{Poor Encryption.}
-    If a network has weak or nonexistent encryption, it will be easier for attackers to intercept system communications and compromise them. Cybercriminals may obtain crucial information and introduce misleading information onto a server when there is weak or unencrypted data. This may result in regulatory body fines and adversely jeopardize an organization's efforts to comply with cyber security regulations.
-    \item \textbf{System misconfigurations.}
-    System failures can be caused by network assets with inappropriate security settings or restrictions. Networks are frequently searched for system errors and vulnerable spots by cyber criminals. Network misconfigurations are increasing as a result of the quick digital revolution. Working with knowledgeable security professionals is crucial when implementing new technology.
+% Any flaw in an organization's internal controls, system procedures, or information systems is known as a vulnerability in cyber security. Cybercriminals may target these vulnerabilities and exploit them through the points of vulnerability.
+% These hackers can enter the networks without authorization and seriously harm data privacy. As a result, it is crucial to constantly check for cybersecurity vulnerabilities because flaws in a network could lead to a complete compromise of an organization's systems.
+% Let's take a look at some common cybersecurity vulnerabilities\footnote{
+%     Intellipaat. \textit{What is Vulnerability in Cyber Security? Types and Definition}.
+%     Mar 2023.
+%     \url{https://intellipaat.com/blog/vulnerability-in-cyber-security/}
+% }:
+% \begin{itemize}
+%     \item \textbf{Zero-day vulnerabilities.}
+%     Zero-day vulnerabilities are specific software flaws that the attackers are aware of but that a company or user hasn't yet discovered.
+%     Since the vulnerability has not yet been identified or reported by the system manufacturer, there are no known remedies or solutions in these situations. These are particularly risky because there is no protection against them before an attack occurs. To reduce the risk of zero-day attacks, it is crucial to exercise caution and constantly check systems for vulnerabilities.
+%     \item \textbf{Poor Encryption.}
+%     If a network has weak or nonexistent encryption, it will be easier for attackers to intercept system communications and compromise them. Cybercriminals may obtain crucial information and introduce misleading information onto a server when there is weak or unencrypted data. This may result in regulatory body fines and adversely jeopardize an organization's efforts to comply with cyber security regulations.
+%     \item \textbf{System misconfigurations.}
+%     System failures can be caused by network assets with inappropriate security settings or restrictions. Networks are frequently searched for system errors and vulnerable spots by cyber criminals. Network misconfigurations are increasing as a result of the quick digital revolution. Working with knowledgeable security professionals is crucial when implementing new technology.
 
-\end{itemize}
+% \end{itemize}
 
 \section{Ratiocination}
 \label{ratio}
 \hspace{0.5cm}There several characteristics between the two strategies of machine learning in WAF. These distinctions are expected based on the approach of each direction.
 
-WAF would be a deep learning program learned from a fixed data set or freshly added during operation under the supervision of Machine Learning Based WAF, however it will be limited to genuine Machine Learning. As a result, as compared to traditional WAF, machine learning-based WAF often achieves very high accuracy, typically exceeding 96\%. \cite{Jemal}, \cite{Toprak}, \cite{Gogoi}, \cite{Devi}, and \cite{Alshammari} attained accuracy greater than 99\%. Furthermore, the response time of this direction's approaches is guaranteed to be very low, approximately 2.6ms at \cite{Jemal}. This could be explained by the fact that machine learning-based WAFs are often constructed on rather powerful hardware, and the data used to feed the machine learning models is preprocessed with much effort.
+WAF would be a deep learning program learned from a fixed data set or freshly added during operation under the supervision of machine learning-based WAF, however it will be limited to genuine machine learning. As a result, as compared to traditional WAF, machine learning-based WAF often achieves very high accuracy, typically exceeding 96\%. \cite{Jemal}, \cite{Toprak}, \cite{Gogoi}, \cite{Devi}, and \cite{Alshammari} attained accuracy greater than 99\%. Furthermore, the response time of this direction's approaches is guaranteed to be very low, approximately 2.6ms at \cite{Jemal}. This could be explained by the fact that machine learning-based WAFs are often constructed on rather powerful hardware, and the data used to feed the machine learning models is preprocessed with much effort.
 
-With researches on using WAFs to improve existing wafs, it is common to aim to improve on one or a few existing WAF weaknesses. In \cite{Tin}, N.-T. Tran et al. focus on reducing the false-positive rate of ModSecurity CRS based on machine learning methods by combining ModSecurity with a classification ML algorithm. \cite{Dawadi} offers 2 separate layers of validation to ensure no malicious requests could “sneak” through the WAF, avoid DDOS and improve the precision for WAFs.
+With researches on using WAFs to improve existing wafs, it is common to aim to improve on one or a few existing WAF weaknesses. In \cite{Tin}, N.T. Tran et al. focus on reducing the false-positive rate of ModSecurity CRS based on machine learning methods by combining ModSecurity with a classification ML algorithm. \cite{Dawadi} offers 2 separate layers of validation to ensure no malicious requests could “sneak” through the WAF, avoid DDOS and improve the precision for WAFs.
  
 To summary, numerous strategies for identifying malicious URLs have been proposed. Most of these solutions utilize supervised-based machine learning\index{Machine learning (ML)} techniques for classification. This technique can detect irregularities between requests, but it cannot extract these abnormalities into human-readable form in order to reconstruct the WAF\index{WAF}. Relying solely on machine learning eventhough brought higher accuracy\index{Accuracy} like in \cite{s22093373}, WAFs need to be time-efficient. We can not compromise accuracy for speed, hence these methods don't work for WAFs.
 
@@ -43,7 +43,7 @@ Our approach is categorizing the incoming request and analyzing its structure, w
 
 We have some theoretical points to prove why we decide to design in this way.
 
-\textbf{First point,} in his 1996 paper, The Lack of A Priori Distinctions Between Learning Algorithms, D. H. Wolpert introduced the No Free Lunch theorem for supervised machine learning and stated a quote at the beginning of his paper. The theorem states that given a noise-free dataset, “for any two machine learning algorithms A and B, the average performance of A and B will be the same across all possible problem instances drawn from a uniform probability distribution.” This means  “an algorithm may perform very well for one problem, but that gives us no reason to believe it will do just as well on a different problem where the same assumptions may not work.”
+\textbf{First point,} in his 1996 paper, \emph{The Lack of A Priori Distinctions Between Learning Algorithms}, D. Wolpert\cite{wolpert} introduced the No Free Lunch theorem for supervised machine learning and stated a quote at the beginning of his paper. The theorem states that given a noise-free dataset, “for any two machine learning algorithms A and B, the average performance of A and B will be the same across all possible problem instances drawn from a uniform probability distribution.” This means  “an algorithm may perform very well for one problem, but that gives us no reason to believe it will do just as well on a different problem where the same assumptions may not work.”
 
 \textbf{Second point,} moreover, simpler models like logistic regression\index{Logistic regression} have more bias and tend to underfit, while more complex models like neural networks have more variance and tend to overfit.
 
@@ -52,7 +52,7 @@ Let's take a look at some advantages provided by logistic regression. Firstly, i
 First, this model cannot deal with data that is non-linear or has complex linear relationships. Second, it is sensitive to noise and outliers in data. Next, it can only be applied to classification problems, not to unsupervised learning algorithms. Lastly, it is prone to overfitting when the number of features is larger than the number of training samples.
 
 \textbf{Strengths and Weaknesses of CNN.} 
-CNN\index{CNN} model combined with word2vec\index{word2vec} is a widely used method in machine learning to perform natural languages processing tasks such as text classification or machine translation. Below is a detailed analysis of the strengths and weaknesses of the CNN model combined with word2vec.
+CNN\index{CNN} model combined with word2vec\index{word2vec} is a widely used method in machine learning to perform natural language processing\index{NLP} tasks such as text classification or machine translation. Below is a detailed analysis of the strengths and weaknesses of the CNN model combined with word2vec.
 Let's look at some of the CNN model's benefits. First, it can handle ordered data, including long data strings. Second, it can remember past information and apply it to future decisions. Next, it helps machine learning models understand the meaning of words and sentences in natural language. Another advantage, this model is capable of learning common features from texts, resulting in better prediction results with never-before-seen new text. Finally, CNN is faster by design compared to RNN - the more fitting model to categorize text. This machine learning model also has some weaknesses. The first one is that the CNN model requires a lot of computational resources to train due to many parameters. The following disadvantage is that sometimes it is not effective for problems with complex structured data such as images. Next, it is necessary to use appropriate dictionaries to represent words in vector space. Eventually, it is difficult for it to deal with words that are not in the user dictionary. 
 
 \textbf{Last point,}
@@ -61,7 +61,7 @@ Ensemble learning reduces variance and bias, improving predictions of the develo
 
 This problem classifies the input data as yes/no. It needs accuracy\index{Accuracy} and the data set is not large, needs high accuracy. So we decided to combine logistic regression\index{Logistic regression} and CNN\index{CNN} model.
 
-\emph{Comparisons between ensemble learning and other machine learning approaches.} 
+\section{Comparisons between ensemble learning and other machine learning approaches} 
 
 To prove that ensemble learning is good enough for our project, we will make comparisons between ensemble learning and other machine learning\index{Machine learning (ML)} approaches.
 First, let's discuss ensemble and rule-based\index{Rule-based} learning. About the method, ensemble learning is a method of combining different machine learning models to create a better predictive model, while rule-based learning is a method of determining specific security rules based on information about known web attacks. About performance, ensemble learning can improve the performance of a machine learning model because it aggregates predictions from many different models. Meanwhile, new or unknown attacks can easily bypass rule-based learning. One of the most importance aspects is accuracy,
@@ -76,12 +76,11 @@ Thus, deep learning and ensemble learning both have their own advantages and dis
 \label{design}
 \hspace{0.5cm}There are many efforts spent on this topic, as mentioned in section (Related works). But there are two significant literatures about detecting malicious requests that inspired us. 
 
-1. M.Alsaedi et al.\cite{s22093373} proposed an approach to detect malicious URLs using ensemble learning\index{Ensemble learning}. They extracted features using N-Gram and then use TF-IDF\index{TF-IDF} to represent them. After that, the model applied Rain Forest Ensemble-Based for prediction and an artificial neural network (ANN) classifier was constructed for decision making. Results show that this approach significantly improved the detection performance, achieving 96.80\% compared with the best 90.4\% achieved by the URL-based features. The false-positive rate was significantly decreased to 3.1\% compared with 12\% performed by the URL-based model. This work is proven to be promising, but time is not the focus of this approach. 
+1. M.Alsaedi et al.\cite{s22093373} proposed an approach to detect malicious URLs using ensemble learning\index{Ensemble learning}. They extracted features using N-Gram and then use TF-IDF\index{TF-IDF} to represent them. After that, the model applied Rain Forest Ensemble-Based for prediction and an artificial neural network (ANN) classifier was constructed for decision making. Results show that this approach significantly improved the detection performance, achieving 96.8\% compared with the best 90.4\% achieved by the URL-based features. The false-positive rate was significantly decreased to 3.1\% compared with 12\% performed by the URL-based model. This work is proven to be promising, but time is not the focus of this approach. 
 
 2. N. M. K. Le et al.\cite{Khoi} suggested an approach of extracting WAF\index{WAF} rules and trained a machine learning\index{Machine learning (ML)} with the decision model independent from the rules themselves. This makes the model more self-reliant and the overall result more neutral. The module has been tested, and though it is not completed yet, it shows potential. We aim to finalize this module but combine it with another machine learning model to specialize it for the goal of determining incoming requests independent of the WAF rule.
 
-\newpage
-Our proposed approach is explained as follow.
+Our proposed approach is explained as follows.
 
 It is already obvious that when attackers attempt to breach a system, they must try to execute or inject something executable onto the system. Malicious requests must therefore be script-based or written in computer languages. Most standard online applications and services, particularly API applications, appear to accept just plain text queries, i.e. requests in JSON or XML. 
 
@@ -115,28 +114,40 @@ From the hypothesises, we can create a CNN\index{CNN} model to detect the type o
      \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/architecture2.1.png}
    \caption{Malicious request validator architecture}
 \end{figure}
-result: \emph{when two prediction is the same, the result is straight forward}. When the logistic regression model decided that the request is malicious, but the CNN\index{CNN} model predicted the request is nornal, the CNN is favored. Otherwise, the Regression model classified the request as valid but the CNN predicted as abnormal, we'll favor the Regression. The desicion model can be expressed in a decision table. \\
+result: \emph{when two prediction is the same, the result is straight forward}. When the logistic regression model decided that the request is malicious, but the CNN\index{CNN} model predicted the request is nornal, the CNN is favored. Otherwise, the Regression model classified the request as valid but the CNN predicted as abnormal, we'll favor the Regression. The decision model can be expressed in a decision table (Table 4.1). \\
 
+% \begin{table}[h]
+% \begin{center}
+% \begin{tabular}{||c c c ||} 
+%  \hline
+%  \textbf{Regression} & \textbf{CNN} & \textbf{Result}  \\ [0.5ex] 
+%  \hline\hline
+%  Valid & Normal & Valid \\ 
+ 
+%  Valid & Abnormal & Valid  \\
+
+%  Invalid & Normal & Valid  \\
+ 
+%  Invalid & Abnormal & Invalid  \\ [1ex] 
+% \hline
+% \end{tabular}
+% \end{center}
+% \caption{\label{demo-table} Decision table}
+% \end{table}
 \begin{table}[h]
-\begin{center}
-\begin{tabular}{||c c c ||} 
- \hline
- \textbf{Regression} & \textbf{CNN} & \textbf{Result}  \\ [0.5ex] 
- \hline\hline
- Valid & Normal & Valid \\ 
- 
- Valid & Abnormal & Valid  \\
+  \centering
+  \begin{tabular}{lll}
+  \hline
+  \textbf{Regression} & \textbf{CNN}      & \textbf{Result}  \\ \hline
+  Valid      & Normal   & Valid   \\
+  Valid      & Abnormal & Valid   \\
+  Invalid    & Normal   & Valid   \\
+  Invalid    & Abnormal & Invalid \\ \hline
+  \end{tabular}
+  \caption{\label{demo-table} Decision table}
+  \end{table}
 
- Invalid & Normal & Valid  \\
- 
- Invalid & Abnormal & Invalid  \\ [1ex] 
-\hline
-\end{tabular}
-\end{center}
-\caption{\label{demo-table} Decision table}
-\end{table}
-
-The CNN validator will run for a set period of time (usually one or two weeks) to collect the familiar category of incoming requests and assign a threshold (which can be the mean or maximum (if we are optimistic) distance between each request vector in the observing stage and the sum vector). The same will also happened with the Regression model. After that training phase, the module will run on `active phase', parallel with the WAF\index{WAF}. 
+The CNN\index{CNN} validator will run for a set period of time (usually one or two weeks) to collect the familiar category of incoming requests and assign a threshold (which can be the mean or maximum (if we are optimistic) distance between each request vector in the observing stage and the sum vector). The same will also happened with the Regression model. After that training phase, the module will run on `active phase', parallel with the WAF\index{WAF}. 
 
 \begin{figure}[!h]
      \centering

@@ -5,7 +5,8 @@
 \section{Logistic regression dataset}
 \label{sec:logistic_dataset}
 \subsection{CSIC 2010 dataset}
-\hspace{0.5cm}The HTTP dataset CSIC 2010\footnote{Available at \url{https://www.isi.csic.es/dataset/}} contains web requests automatically generated, both normal and abnormal. It can be used for the testing of web attack protection systems. It was developed at the ``Information Security Institute'' of CSIC (Spanish Research National Council). The HTTP dataset CSIC 2010\index{CSIC 2010} contains the generated traffic targeted to an e-commerce web application developed at their department. In this web application, users can buy items using a shopping cart and register by providing some personal information. As it is a web application in Spanish, the data set contains some Latin characters. A request from the dataset is presented in the following figure.
+\label{subsec:csic_2010}
+\hspace{0.5cm}The HTTP dataset CSIC 2010\footnote{Available at \url{https://www.isi.csic.es/dataset/}} contains web requests automatically generated, both normal and abnormal. It can be used for the testing of web attack protection systems. It was developed at the ``Information Security Institute'' of CSIC (Spanish Research National Council). The HTTP dataset CSIC 2010\index{CSIC 2010} contains the generated traffic targeted to an e-commerce web application developed at their department. In this web application, users can buy items using a shopping cart and register by providing some personal information. As it is a web application in Spanish, the data set contains some Latin characters. A request from the dataset is presented in the following figure (Figure 6.1).
 
 \begin{figure}[!h]
 	\centering
@@ -13,7 +14,7 @@
   \caption{A sample request of the dataset}
 \end{figure} 
 
-The dataset consists of 36,000 legitimate requests and 25,063 anomalous requests. The HTTP requests are labeled as normal or abnormal; the dataset includes attacks such as SQL injection\index{SQLi}, buffer overflow, information gathering, file disclosure, CRLF injection, XSS\index{XSS}, server-side include, parameter tampering and so on. 
+The dataset consists of 36,000 legitimate requests and 25,063 anomalous requests. The HTTP requests are labeled as normal or abnormal; the dataset includes attacks such as SQL injection\index{SQLi}, buffer overflow, information gathering, file disclosure, CRLF injection, XSS\index{XSS}, server-side includes injection, parameter tampering, and so on. 
 
 According to the authors, the dataset is generated using the following steps.
 
@@ -24,13 +25,13 @@ According to the authors, the dataset is generated using the following steps.
 In this dataset, three types of anomalous requests were considered. 
 \begin{itemize}
 	\item Static attacks try to request hidden (or non-existent) resources. These requests include obsolete files, configuration files, default files, etc. 
-	\item Dynamic attacks modify valid request arguments: SQLi\index{SQLi}, CRLF injection, XSS\index{XSS}, buffer overflows, etc.
+	\item Dynamic attacks modify valid request arguments: SQLi\index{SQLi}, CRLF injection, XSS\index{XSS}, buffer overflow, etc.
 	\item Unintentional illegal requests. These requests do not have malicious intentions, however, they do not follow the normal behavior of the web application and do not have the same structure as normal parameter values.
 \end{itemize}
 
 This dataset is quite outdated and randomly generated. It comprises a complete HTTP request with various components such as request URL, request method, pragma, and so on. During our research, we observed that the majority of the indicators of a malicious request may be located in the URL portion of the request. For example, an SQLi\index{SQLi} will have a route that includes a string such as: \textit{2\&nombre=Jam\%F3n+Ib\%E9rico\&precio=85 \\ \&cantidad=\%27\%3B+  DROP +TABLE+usuarios\%3B+SELECT+*+FROM+datos+ \\ WHERE+nombre+LIKE+\%27\%25\&B1=A\%F1adir+al+carrito}.
 
-Consequently, we will solely concentrate on the URL and Method parts of each http request in order to detect fraudulent requests.
+Consequently, we will solely concentrate on the URL and Method parts of each HTTP request in order to detect fraudulent requests.
 
 \begin{figure}[!h]
 	\centering
@@ -49,7 +50,7 @@ Consequently, we will solely concentrate on the URL and Method parts of each htt
   \caption{A set of labeled URLs}
 \end{figure}
 
-Another thing to mention is the requests datasets generally are confidential, as they may contain sensitive data of users. There are not much open datasets available. Also, labeling these datasets are costly task, as it requires expertise in the field.
+Another thing to mention is the requests datasets generally are confidential, as they may contain sensitive data of users. There are not many open datasets available. Also, labeling these datasets are costly task, as it requires expertise in the field.
 
 \begin{figure}[!h]
 	\centering
@@ -63,11 +64,11 @@ Another thing to mention is the requests datasets generally are confidential, as
 \label{sec:CNN_module}
 \hspace{0.5cm}The malicious request validator module detects the category of requests. As the categories are mostly structured languages (four out of five categories), we need to get a dataset of structured language and its category, as proposed in the proposed approach.
 
-This dataset contains over 97,000,000 snippets of code from various GitHub repositories with more than 10,000 stars. The repositories included in this dataset were the results of searching for repositories with greater than 10,000 stars. For each repository, we created snippets from the default branch by going through each text file and extracting 5-line chunks of text every 5 lines. The dataset used file extensions to associate snippets with the programming language they most likely represent. For snippets for which it could not infer the language from the file extension, it use the value UNKNOWN in the language column.
+This dataset contains over 97,000,000 snippets of code from various GitHub repositories with more than 10,000 stars. The repositories included in this dataset were the results of searching for repositories with greater than 10,000 stars. For each repository, we created snippets from the default branch by going through each text file and extracting 5-line chunks of text every 5 lines. The dataset used file extensions to associate snippets with the programming language they most likely represent. For snippets for which it could not infer the language from the file extension, it uses the value UNKNOWN in the language column.
 
-This dataset is a very large data set, stored in a SQLite database, and includes many languages, so data preprocessing is very critical. We use a python script to extract randomly 400,000 snippet of code from the database, and only from the languages relevant to our classification in the proposed approach.
+This dataset is very large, stored in an SQLite database, and includes many languages, so data preprocessing is very critical. We use a Python script to extract randomly 400,000 snippets of code from the database, and only from the languages relevant to our classification in the proposed approach.
 
-The list consist of
+The list consist of these categories.
 \begin{itemize}
 	\item Plain text: JSON, HTML, YAML
 	\item Client-side script: JavaScript
@@ -91,7 +92,7 @@ The quantity of each programming language is shown in Figure 6.6.
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/quantity of programming language.png}
   \caption{The quantity of every category in the dataset}
 \end{figure}
- 
+  
 
 
   

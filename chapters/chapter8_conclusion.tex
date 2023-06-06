@@ -4,11 +4,23 @@
 	\textit{\hspace{0.5cm}This chapter summarizes the results for the thesis. Finally, we want to present future improvements.}
 \minitoc
 
-\section{Results}
-\label{sec:results}
+\section{Result}
+\label{sec:result}
+After the thesis, we have had time to research and learn more about NLP\index{NLP}, and other machine learning\index{Machine learning (ML)} models, as well as security applications. We have benefited from understanding engineering in machine learning, and provided an unconventional method in integrating two deep learning models to identify attack requests during the execution of the topic ``Building a Machine Learning-Based Web Application Firewall.'' We have not yet been successful in constructing a machine learning-based WAF that can recognize attack requests. Based on the obtained results, our model is proved to be less efficient than other works with the direction: ``Machine learning-based WAF''\index{WAF}. 
 
 \section{Limitations and future improvements}
 \label{sec:limits_and_improve}
+\subsection{Limitations}
+\hspace{0.5cm}Our thesis faces difficulties and has many drawbacks.
+\begin{itemize}
+	\item The dataset destined for this thesis became inaccessible midway through. So we have to improvise and redesign the whole thesis. This led to the dataset currently used for the module being small and outdated, along with being impractical. The machine learning model of logistic regression performed poorly, with an accuracy\index{Accuracy} of 88.56\%. This can be improved by further data cleaning and processing. Also, data labeling and preprocessing is a gruesome task. If we had had more trustworthy data, the machine learning model could have been trained better. 
+	\item The malicious request validator is yet to be put to the test in a real-world production environment. But only by implementing the module, we could conclude that our proposed approach is not an effective one.
+\end{itemize}
+\subsection{Further improvements}
+
+\hspace{0.5cm}For each of the modules separately, there are rooms and potential for them to be further improved. About the logistic regression model, more data can be collected by constructing a proxy server. This proxy server will then take on the role of a forward proxy, transferring all HTTP request data from the user to it at this time and also collecting real request data for the model. We can extract more features, and the model could be built to be a phishing website URLs detector.
+
+The structural language categorization module, however, has the potential to be applied in other domains. We can train data lacking categories (SQL script) and shell script, as well as crawl additional data. The CNN\index{CNN} model would be able to categorize the languages independently rather than only categorizing them into the five suggested categories. It may then be implemented as a programming languages detection addon for VSCode in a real-world setting. To track the languages and create a continuous detector for programming languages, we may attempt extracting the model and combining it with an RNN model (for example, LSTM).
 % \section{Results}
 % \label{sec:results}
 % 	Kết thúc giai đoạn Luận văn tốt nghiệp, chúng tôi đã được trang bị thêm các kiến thức trong lĩnh vực Xử lý ảnh nói chung, cũng như các phương pháp tiếp cận trong lĩnh vực Phân đoạn hình ảnh y khoa nói riêng. Chúng tôi đã hiện thực được một hệ thống xây dựng hệ thống mạch máu của cơ quan gan từ ảnh chụp CT.
