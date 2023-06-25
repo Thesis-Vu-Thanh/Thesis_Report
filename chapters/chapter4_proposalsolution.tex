@@ -35,27 +35,27 @@ With its nature, WAF is obligated to have fast processing speed in deciding whet
 
 WAF would be a deep learning program learned from a fixed data set or freshly added during operation under the supervision of machine learning-based WAF, however it will be limited to genuine machine learning. As a result, as compared to traditional WAF, machine learning-based WAF often achieves very high accuracy, typically exceeding 96\%. \cite{Jemal}, \cite{Toprak}, \cite{Gogoi}, \cite{Devi}, and \cite{Alshammari} attained accuracy greater than 99\%. Furthermore, the response time of this direction's approaches is guaranteed to be very low, approximately 2.6ms at \cite{Jemal}. This could be explained by the fact that machine learning-based WAFs are often constructed on rather powerful hardware, and the data used to feed the machine learning models is preprocessed with much effort.
 
-With researches on using WAFs to improve existing wafs, it is common to aim to improve on one or a few existing WAF weaknesses. In \cite{Tin}, N.T. Tran et al. focus on reducing the false-positive rate of ModSecurity CRS based on machine learning methods by combining ModSecurity with a classification ML algorithm. \cite{Dawadi} offers 2 separate layers of validation to ensure no malicious requests could “sneak” through the WAF, avoid DDOS and improve the precision for WAFs.
+With researches on using machine learning to improve existing WAFs, it is common to aim to improve on one or a few existing WAF weaknesses. In \cite{Tin}, N.T. Tran et al. focus on reducing the false-positive rate of ModSecurity CRS based on machine learning methods by combining ModSecurity with a classification ML algorithm. \cite{Dawadi} offers 2 separate layers of validation to ensure no malicious requests could “sneak” through the WAF, avoid DDOS and improve the precision for WAFs.
  
 To summary, numerous strategies for identifying malicious URLs have been proposed. Most of these solutions utilize supervised-based machine learning\index{Machine learning (ML)} techniques for classification. This technique can detect irregularities between requests, but it cannot extract these abnormalities into human-readable form in order to reconstruct the WAF\index{WAF}. Relying solely on machine learning eventhough brought higher accuracy\index{Accuracy} like in \cite{s22093373}, WAFs need to be time-efficient. We can not compromise accuracy for speed, hence these methods don't work for WAFs.
 
 Our approach is categorizing the incoming request and analyzing its structure, with moderate reliability, then combining the result of these two processes to achieve high precision\index{Precision} yet not expend an excessive amount of time.
-
+\newpage
 We have some theoretical points to prove why we decide to design in this way.
 
-\textbf{First point,} in his 1996 paper, \emph{The Lack of A Priori Distinctions Between Learning Algorithms}, D. Wolpert\cite{wolpert} introduced the No Free Lunch theorem for supervised machine learning and stated a quote at the beginning of his paper. The theorem states that given a noise-free dataset, “for any two machine learning algorithms A and B, the average performance of A and B will be the same across all possible problem instances drawn from a uniform probability distribution.” This means  “an algorithm may perform very well for one problem, but that gives us no reason to believe it will do just as well on a different problem where the same assumptions may not work.”
+\textbf{Firstly,} in his 1996 paper, \emph{The Lack of A Priori Distinctions Between Learning Algorithms}, D. Wolpert \cite{wolpert} introduced the No Free Lunch theorem for supervised machine learning and stated a quote at the beginning of his paper. The theorem states that given a noise-free dataset, “for any two machine learning algorithms A and B, the average performance of A and B will be the same across all possible problem instances drawn from a uniform probability distribution.” This means  “an algorithm may perform very well for one problem, but that gives us no reason to believe it will do just as well on a different problem where the same assumptions may not work.”
 
-\textbf{Second point,} moreover, simpler models like logistic regression\index{Logistic regression} have more bias and tend to underfit, while more complex models like neural networks have more variance and tend to overfit.
+\textbf{Secondly,} moreover, simpler models like logistic regression\index{Logistic regression} have more bias and tend to underfit, while more complex models like neural networks have more variance and tend to overfit.
+\begin{itemize}
+  \item \textbf{Strengths and Weaknesses of logistic regression.} 
+  Let's take a look at some advantages provided by logistic regression. Firstly, it's easy to deploy, and it calculates accurately and fasts with big data. Secondly, it can handle both continuous and discrete data. Next, it's suitable for binary or multiclass classification problems. Finally, it allows us to determine the importance of input features. Besides the strengths, this model also has some weaknesses.
+  First, this model cannot deal with data that is non-linear or has complex linear relationships. Second, it is sensitive to noise and outliers in data. Next, it can only be applied to classification problems, not to unsupervised learning algorithms. Lastly, it is prone to overfitting when the number of features is larger than the number of training samples.
+  \item \textbf{Strengths and Weaknesses of CNN.} 
+  CNN\index{CNN} model combined with word2vec\index{word2vec} is a widely used method in machine learning to perform natural language processing\index{NLP} tasks such as text classification or machine translation. Below is a detailed analysis of the strengths and weaknesses of the CNN model combined with word2vec.
+  Let's look at some of the CNN model's benefits. First, it can handle ordered data, including long data strings. Second, it can remember past information and apply it to future decisions. Next, it helps machine learning models understand the meaning of words and sentences in natural language. Another advantage, this model is capable of learning common features from texts, resulting in better prediction results with never-before-seen new text. Finally, CNN is faster by design compared to RNN - the more fitting model to categorize text. This machine learning model also has some weaknesses. The first one is that the CNN model requires a lot of computational resources to train due to many parameters. The following disadvantage is that sometimes it is not effective for problems with complex structured data such as images. Next, it is necessary to use appropriate dictionaries to represent words in vector space. Eventually, it is difficult for it to deal with words that are not in the user dictionary. 
+\end{itemize}
 
-\textbf{Strengths and Weaknesses of logistic regression.} 
-Let's take a look at some advantages provided by logistic regression. Firstly, it's easy to deploy, and it calculates accurately and fasts with big data. Secondly, it can handle both continuous and discrete data. Next, it's suitable for binary or multiclass classification problems. Finally, it allows us to determine the importance of input features. Besides the strengths, this model also has some weaknesses.
-First, this model cannot deal with data that is non-linear or has complex linear relationships. Second, it is sensitive to noise and outliers in data. Next, it can only be applied to classification problems, not to unsupervised learning algorithms. Lastly, it is prone to overfitting when the number of features is larger than the number of training samples.
-
-\textbf{Strengths and Weaknesses of CNN.} 
-CNN\index{CNN} model combined with word2vec\index{word2vec} is a widely used method in machine learning to perform natural language processing\index{NLP} tasks such as text classification or machine translation. Below is a detailed analysis of the strengths and weaknesses of the CNN model combined with word2vec.
-Let's look at some of the CNN model's benefits. First, it can handle ordered data, including long data strings. Second, it can remember past information and apply it to future decisions. Next, it helps machine learning models understand the meaning of words and sentences in natural language. Another advantage, this model is capable of learning common features from texts, resulting in better prediction results with never-before-seen new text. Finally, CNN is faster by design compared to RNN - the more fitting model to categorize text. This machine learning model also has some weaknesses. The first one is that the CNN model requires a lot of computational resources to train due to many parameters. The following disadvantage is that sometimes it is not effective for problems with complex structured data such as images. Next, it is necessary to use appropriate dictionaries to represent words in vector space. Eventually, it is difficult for it to deal with words that are not in the user dictionary. 
-
-\textbf{Last point,}
+\textbf{Finally,}
 ensemble learning\index{Ensemble learning} is an approach that combines diverse models to improve performance. The idea behind integrating different models is logical: each model has unique abilities, and when combined, they may excel in multiple tasks or subtasks. When these models are appropriately merged, they create a potent training algorithm capable of enhancing overall performance compared to using individual models alone.
 Ensemble learning reduces variance and bias, improving predictions of the developed model. Technically speaking, it helps avoid overfitting.
 
@@ -63,7 +63,7 @@ This problem classifies the input data as yes/no. It needs accuracy\index{Accura
 
 \section{Comparisons between ensemble learning and other machine learning approaches} 
 
-To prove that ensemble learning is good enough for our project, we will make comparisons between ensemble learning and other machine learning\index{Machine learning (ML)} approaches.
+\hspace{0.5cm}To prove that ensemble learning is good enough for our project, we will make comparisons between ensemble learning and other machine learning\index{Machine learning (ML)} approaches.
 First, let's discuss ensemble and rule-based\index{Rule-based} learning. About the method, ensemble learning is a method of combining different machine learning models to create a better predictive model, while rule-based learning is a method of determining specific security rules based on information about known web attacks. About performance, ensemble learning can improve the performance of a machine learning model because it aggregates predictions from many different models. Meanwhile, new or unknown attacks can easily bypass rule-based learning. One of the most importance aspects is accuracy,
 ensemble learning can improve the accuracy of machine learning models by eliminating false predictions. However, the accuracy of the ensemble learning model also depends on the combination of submodels. Rule-based learning can achieve high accuracy if security rules are set up correctly.
 About generalizability, ensemble learning can improve the generalizability of a machine learning model by using a variety of models and avoiding overfitting. Rule-based\index{Rule-based} learning may not generalize well if the security rules are not universal enough or easily circumvented. In summary, ensemble learning can improve the performance, accuracy, and generalizability of machine learning models for WAFs\index{WAF}. Meanwhile, rule-based learning provides specific security rules and achieves high accuracy in some cases.
@@ -74,11 +74,11 @@ Thus, deep learning and ensemble learning both have their own advantages and dis
 
 \section{Designs}
 \label{design}
-\hspace{0.5cm}There are many efforts spent on this topic, as mentioned in section (Related works). But there are two significant literatures about detecting malicious requests that inspired us. 
+\hspace{0.5cm}There are many efforts spent on this topic, as mentioned in \hyperref[chap:literaturereview]{\textbf{Chapter 3}}. But there are two significant literatures about detecting malicious requests that inspired us. 
 
-1. M.Alsaedi et al.\cite{s22093373} proposed an approach to detect malicious URLs using ensemble learning\index{Ensemble learning}. They extracted features using N-Gram and then use TF-IDF\index{TF-IDF} to represent them. After that, the model applied Rain Forest Ensemble-Based for prediction and an artificial neural network (ANN) classifier was constructed for decision making. Results show that this approach significantly improved the detection performance, achieving 96.8\% compared with the best 90.4\% achieved by the URL-based features. The false-positive rate was significantly decreased to 3.1\% compared with 12\% performed by the URL-based model. This work is proven to be promising, but time is not the focus of this approach. 
+M.Alsaedi et al.\cite{s22093373} proposed an approach to detect malicious URLs using ensemble learning\index{Ensemble learning}. They extracted features using N-Gram and then use TF-IDF\index{TF-IDF} to represent them. After that, the model applied Rain Forest Ensemble-Based for prediction and an artificial neural network (ANN) classifier was constructed for decision making. Results show that this approach significantly improved the detection performance, achieving 96.8\% compared with the best 90.4\% achieved by the URL-based features. The false-positive rate was significantly decreased to 3.1\% compared with 12\% performed by the URL-based model. This work is proven to be promising, but time is not the focus of this approach. 
 
-2. N. M. K. Le et al.\cite{Khoi} suggested an approach of extracting WAF\index{WAF} rules and trained a machine learning\index{Machine learning (ML)} with the decision model independent from the rules themselves. This makes the model more self-reliant and the overall result more neutral. The module has been tested, and though it is not completed yet, it shows potential. We aim to finalize this module but combine it with another machine learning model to specialize it for the goal of determining incoming requests independent of the WAF rule.
+N. M. K. Le et al.\cite{Khoi} suggested an approach of extracting WAF\index{WAF} rules and trained a machine learning\index{Machine learning (ML)} with the decision model independent from the rules themselves. This makes the model more self-reliant and the overall result more neutral. The module has been tested, and though it is not completed yet, it shows potential. We aim to finalize this module but combine it with another machine learning model to specialize it for the goal of determining incoming requests independent of the WAF rule.
 
 Our proposed approach is explained as follows.
 
@@ -95,14 +95,13 @@ Our goal is to classify request supplied as inputs in order to determine whether
     \item \textbf{SQL script.} Request that in form of SQL, can be used to query data from the database.
 \end{itemize}
 
-Then we introduce the first hypothesis: \textit{normal requests to a server have the same category}. For example, a static web request may only contain plain text, API server requests are mostly in JSON format, incoming queries to a database are SQL or online compilers use programming language-format requests. A malicious request must be in different category with the normal requests, like a script request to a static web server or API server can be considered code injection or command injection, SQL requests to an API server may be SQLi\index{SQLi}, or script requests to a database is command injection or stored XSS\index{XSS} attacks. We can determine if a request is 'normal' to a server by comparing the types of incoming suspicious requests to the average categories of regular requests. If the resemblance is low, we might presume that the origin of the inbound request is unusual. For instance, if a typical request to a secured server is in JSON format (plain text), but a suspicious request is in JavaScript (client-side script), we can deduce that the incoming request is malicious. If a suspicious request is in XML format (plain text), we may assume that the user made a mistake and the alarm was false.
+Then we introduce the first hypothesis: \textit{normal requests to a server have the same category}. For example, a static web request may only contain plain text, API server requests are mostly in JSON format, incoming queries to a database are SQL or online compilers use programming language-format requests. A malicious request must be in different category with the normal requests, like a script request to a static web server or API server can be considered code injection or command injection, SQL requests to an API server may be SQLi\index{SQLi}, or script requests to a database is command injection or stored XSS\index{XSS} attacks. We can determine if a request is `normal' to a server by comparing the types of incoming suspicious requests to the average categories of regular requests. If the resemblance is low, we might presume that the origin of the inbound request is unusual. For instance, if a typical request to a secured server is in JSON format (plain text), but a suspicious request is in JavaScript (client-side script), we can deduce that the incoming request is malicious. If a suspicious request is in XML format (plain text), we may assume that the user made a mistake and the alarm was false.
 
 
 
-The second hypothesis can be presented as all regular requests will have a similar pattern, the same goes for malicious requests. For example, a request with a URL ending in.exe or.php is frequently malicious, and a request with work like ``SELECT'', ``DROP'', or ``TABLE'' is unquestionably a SQLi\index{SQLi}. We can implement logistic regression\index{Logistic regression} to identify if an incoming request is normal or abnormal by analyzing its content.
+The second hypothesis can be presented as \textit{all regular requests will have a similar pattern, the same goes for malicious requests}. For example, a request with a URL ending in.exe or.php is frequently malicious, and a request with work like ``SELECT'', ``DROP'', or ``TABLE'' is unquestionably a SQLi\index{SQLi}. We can implement logistic regression\index{Logistic regression} to identify if an incoming request is normal or abnormal by analyzing its content.
 
 From the hypothesises, we can create a CNN\index{CNN} model to detect the type of request. Then we compare the incoming requests with the ``normal'' corresponding category and decide whether the requests is malicious or not, by using logistic regression.
-
 
 \section{Architecture}
 \label{architecture design}
@@ -114,7 +113,7 @@ From the hypothesises, we can create a CNN\index{CNN} model to detect the type o
      \includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/architecture2.1.png}
    \caption{Malicious request validator architecture}
 \end{figure}
-result: \emph{when two prediction is the same, the result is straight forward}. When the logistic regression model decided that the request is malicious, but the CNN\index{CNN} model predicted the request is nornal, the CNN is favored. Otherwise, the Regression model classified the request as valid but the CNN predicted as abnormal, we'll favor the Regression. The decision model can be expressed in a decision table (Table 4.1). \\
+result: \emph{when two prediction is the same, the result is straight forward}. When the logistic regression model decided that the request is malicious, but the CNN\index{CNN} model predicted the request is nornal, the CNN is favored. Otherwise, the Regression model classified the request as valid but the CNN predicted as abnormal, we'll favor the Regression. The decision model can be expressed in a decision table (Table 4.1). 
 
 % \begin{table}[h]
 % \begin{center}
@@ -134,19 +133,40 @@ result: \emph{when two prediction is the same, the result is straight forward}. 
 % \end{center}
 % \caption{\label{demo-table} Decision table}
 % \end{table}
-\begin{table}[h]
+
+% \begin{table}[h]
+%   \centering
+%   \begin{tabular}{lll}
+%   \hline
+%   \textbf{Regression} & \textbf{CNN}      & \textbf{Result}  \\ \hline
+%   Valid      & Normal   & Valid   \\
+%   Valid      & Abnormal & Valid   \\
+%   Invalid    & Normal   & Valid   \\
+%   \textcolor{red}{Invalid}    & \textcolor{red}{Abnormal} & \textcolor{red}{Invalid} \\ \hline
+%   \end{tabular}
+%   \caption{\label{demo-table} Decision table}
+%   \end{table}
+
+% \begin{figure}[!h]
+   
+%   \centering
+%   \includegraphics[width=\linewidth, height=3cm,keepaspectratio]{figures/decision table new.png}
+% \caption{Decision table}
+% \end{figure}
+\begin{table}[!h]
   \centering
   \begin{tabular}{lll}
-  \hline
-  \textbf{Regression} & \textbf{CNN}      & \textbf{Result}  \\ \hline
-  Valid      & Normal   & Valid   \\
-  Valid      & Abnormal & Valid   \\
-  Invalid    & Normal   & Valid   \\
-  Invalid    & Abnormal & Invalid \\ \hline
+  \specialrule{.1em}{.05em}{.05em} 
+  \textbf{Regression}            & \textbf{CNN}                    & \textbf{Result}                         \\ \hline
+  Valid                          & Normal                          & Valid                          \\
+  Valid                          & Abnormal                        & Valid                          \\
+  Invalid                        & Normal                          & Valid                          \\
+  {\color[HTML]{FE0000} Invalid} & {\color[HTML]{FE0000} Abnormal} & {\color[HTML]{FE0000} Invalid} \\ \specialrule{.1em}{.05em}{.05em} 
   \end{tabular}
   \caption{\label{demo-table} Decision table}
   \end{table}
 
+\newpage
 The CNN\index{CNN} validator will run for a set period of time (usually one or two weeks) to collect the familiar category of incoming requests and assign a threshold (which can be the mean or maximum (if we are optimistic) distance between each request vector in the observing stage and the sum vector). The same will also happened with the Regression model. After that training phase, the module will run on `active phase', parallel with the WAF\index{WAF}. 
 
 \begin{figure}[!h]

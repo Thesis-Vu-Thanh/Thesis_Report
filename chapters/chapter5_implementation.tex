@@ -2,24 +2,25 @@
 \label{chap:implementation}
 	\textit{\hspace{0.5cm}This chapter describes the implementation steps of the systems including system frame- works.}
 \minitoc
-
-
+ 
+ 
 \section{Framework}
 \label{sec:framework}
-\hspace{0.5cm}In this thesis, our module is built on Python. The framework is presented in the following figure (Figure 5.1).
+\hspace{0.5cm}In this thesis, our module is built on Keras and Sklearn (python libraries). The framework is presented in the following figure (Figure 5.1).
 
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/Untitled Diagram.drawio (1).png}
   \caption{The framework of module}
-\end{figure} 
+\end{figure}   
 
 \subsection{Logistic regression model}
 \hspace{0.5cm}In the prediction process, we train a logistic regression\index{Logistic regression} model to determine whether an incoming request is malicious or not.
 \subsubsection{Data Processing}
 \hspace{0.5cm}The data acquired, however, wasn't always in the format required for this project, i.e. just the input string. For instance, some of the data were in HTTP, GET, and POST queries. The data was converted into a format appropriate for this purpose to a CSV\footnote{A comma-separated values (CSV) file is a delimited text file that uses a comma to separate values. Each line of the file is a data record.} file using Python scripts.
+
 \subsubsection{Feature engineering}
-\hspace{0.5cm}The first part is tokenizing the data. Since our input do not only contain only words and punctuation like normal sentences, we must have an efficient way to tokenize our data.
+\hspace{0.5cm}The first part is tokenizing the data. Since our input do not only contain only words and punctuation like normal sentences, we must have an efficient way to tokenize our data (Figure 5.2).
 
 \begin{figure}[!h]
 	\centering
@@ -43,13 +44,13 @@ A competent classifier in bag-of-words recognizes patterns in word distribution,
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/structural.png}
   \caption{Framework of CNN classifier}
 \end{figure} 
-The request classifier consists of three parts: tokenizer, vectorizer\index{Vectorizer}, and CNN\index{CNN}. The whole categorizer is built on Python.
+The request classifier consists of three parts: tokenizer\index{Tokenizer}, vectorizer\index{Vectorizer}, and CNN\index{CNN}. The whole categorizer is built on Python.
 
-The tokenizer formats the request by utilizing regular expressions to format white spaces and messages and a predetermined set of keywords (symbol table).
+The tokenizer\index{Tokenizer} formats the request by utilizing regular expressions to format white spaces and messages and a predetermined set of keywords (symbol table).
 
 The vectorizer vectorizes the request using a small word2vec\index{word2vec} model built by gensim\footnote{Gensim is a Python library for topic modelling, document indexing and similarity retrieval with large corpora. Target audience is the natural language processing (NLP) and information retrieval (IR) community.}. The structured language dataset is used to train the model. The output of the vectorizer\index{Vectorizer} is a list of vectors (with height 150) representing each word of tokens.
 
-The embedded vector is then sent into a trained CNN\index{CNN} to forecast the request's categorization. 
+The embedded vector is then sent into a trained CNN\index{CNN} to forecast the request's categorization. The architecture is illustrated in Figure 5.4 and detailed as Table 5.1.
 
 \begin{figure}[!h]
 	\centering
@@ -84,6 +85,7 @@ The embedded vector is then sent into a trained CNN\index{CNN} to forecast the r
 The model can be explained as follows.
 \begin{itemize}
 	\item \textbf{Input data}. The input data of the model is from the word2vec\index{word2vec} model. The data is then embedded using the previous vectorizer with height 150, making the output of the layer a 100 $\times$ 150 neuron matrix. The 3,716,319 parameters of this layer are the embeddings of the word2vec itself, then we have already trained these parameters in the previous vectorizer. This layer is frozen the CNN train starts with the next layer.
+	\newpage
 	\item \textbf{First 1D CNN layer}. The first layer defines a filter (also called feature detector) of height 9 (also called kernel size). Only defining one filter would allow the neural network to learn one single feature in the first layer. It might not be sufficient, so we will define 512 filters. It allows us to train 512 different features on the first layer of the network. The output of the first neural network layer is a 92 $\times$ 512 neuron matrix. Each column of the output matrix holds the weights of one single filter. With the defined kernel size and considering the length of the input matrix, each filter will contain 92 weights. 
 	\item \textbf{First Max pooling layer}. A pooling layer is often used after a CNN layer to reduce the complexity of the output and prevent overfitting of the data. In the thesis, we chose a size of five. It means that the size of the output matrix of this layer is only one-fifth of the input matrix. 
 	\item \textbf{Second 1D CNN layer}. Another sequence of 1D CNN\index{CNN} layers follows to learn higher-level features. The output matrix after those two layers is an 18 $\times$ 512 matrix. 
@@ -94,6 +96,7 @@ The model can be explained as follows.
 		Rectifier Linear Unit (ReLU) function: $g(z) = max(0, z)$
 	} as the activation function. The final layer reduces from size 16 to 5. Softmax\index{Softmax} is used as the activation function. It forces all three outputs of the neural network to sum up to one. The output value will therefore represent the probability for each of the three classes.
 \end{itemize}
+\newpage
 \hspace{0.5cm}The CNN\index{CNN} focuses on identifying typical requests (plain text) to decrease the FP\index{False positive} of rule-based\index{Rule-based} techniques. Then the model is converted to plain text using class weights. The weight for plain text is 5, whereas for others is 1. As a five-label loss function\index{Loss function}, the training method employs Mean squared error\footnote{
 	Mean Squared Error function: $MSE = \frac{1}{n}\sum_{i=1}^{n}(Y_i-\widehat{Y}_i)^2$
 } loss function. Because others are programming languages, their predicted distributions are similar. When the loss function is Sparse Categorical Cross-Entropy\hspace{-0.15cm}

@@ -6,14 +6,13 @@
 
 \section{Result}
 \label{sec:result}
-After the thesis, we have had time to research and learn more about NLP\index{NLP}, and other machine learning\index{Machine learning (ML)} models, as well as security applications. We have benefited from understanding engineering in machine learning, and provided an unconventional method in integrating two deep learning models to identify attack requests during the execution of the topic ``Building a Machine Learning-Based Web Application Firewall.'' We have not yet been successful in constructing a machine learning-based WAF that can recognize attack requests. Based on the obtained results, our model is proved to be less efficient than other works with the direction: ``Machine learning-based WAF''\index{WAF}. 
-
+After completing the thesis, we have had time to research and learn more about NLP\index{NLP} and other machine learning\index{Machine learning (ML)} models, as well as security applications. We have benefited greatly from understanding engineering in machine learning and provided an unconventional method in integrating two deep learning models to identify attack requests during the execution of the topic \emph{Building a web application firewall using machine learning techniques}. We have managed to construct a malicious request validator that can validate incoming requests. Our machine learning-based WAF succeeded in reducing the false positive rate by less than 1\%. However, the response time of 40ms to 140ms per request is still not satisfactory for practical WAF. And based on the comparison of our machine learning-based WAF with others' works in the field, we can conclude that depending on the requirements, a machine learning-based WAF or machine learning assist WAF can be applied.
 \section{Limitations and future improvements}
 \label{sec:limits_and_improve}
 \subsection{Limitations}
 \hspace{0.5cm}Our thesis faces difficulties and has many drawbacks.
 \begin{itemize}
-	\item The dataset destined for this thesis became inaccessible midway through. So we have to improvise and redesign the whole thesis. This led to the dataset currently used for the module being small and outdated, along with being impractical. The machine learning model of logistic regression performed poorly, with an accuracy\index{Accuracy} of 88.56\%. This can be improved by further data cleaning and processing. Also, data labeling and preprocessing is a gruesome task. If we had had more trustworthy data, the machine learning model could have been trained better. 
+	\item The dataset destined for this thesis became inaccessible midway through. So we have to improvise and redesign the whole thesis. This led to the dataset currently used for the module being small and outdated, along with being impractical. This can be improved by further data cleaning and processing. Also, data labeling and preprocessing is a gruesome task. If we had had more reliable data, the machine learning model could have been trained more accurately. 
 	\item The malicious request validator is yet to be put to the test in a real-world production environment. But only by implementing the module, we could conclude that our proposed approach is not an effective one.
 \end{itemize}
 \subsection{Further improvements}

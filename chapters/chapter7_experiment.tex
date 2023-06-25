@@ -130,12 +130,11 @@ The result of the logistic regression model is presented below.
 
 \begin{table}[h!]
 	\centering
-	\begin{tabular}{l|cccc}
+	\begin{tabular}{lcccc}
 	\hline
 				 & \multicolumn{1}{l}{\textbf{Precision}} & \multicolumn{1}{l}{\textbf{Recall}} & \multicolumn{1}{l}{\textbf{F1-score}} & \multicolumn{1}{l}{\textbf{Support}} \\ \hline
 	bad          & \textcolor{red}{\textbf{0.52}}                          & 0.86                                & 0.65                                  & 1430                                 \\
-	good         & \textcolor{red}{\textbf{0.97}}                          & 0.87                                & 0.92                                  & 8568                                 \\
-				 &                                        &                                     &                                       &                                      \\
+	good         & \textcolor{red}{\textbf{0.97}}                          & 0.87                                & 0.92                                  & 8568                                 \\ \hline
 	accuracy     &                                        &                                     & 0.87                                  & 9998                                 \\
 	macro avg    & 0.75                                   & 0.87                                & 0.78                                  & 9998                                 \\
 	weighted avg & 0.91                                   & 0.87                                & 0.88                                  & 9998  \\ \hline                              
@@ -224,38 +223,51 @@ It is noticeable that the model does not have the best accuracy (only 95.75\% on
 \section{End-to-end experiments}
 \hspace{0.5cm}In these experiments, we are considering the default structural language category is plain text, showing that our module is defending an API application (which accepts just plain text queries, i.e. requests in JSON or XML).
 
-We are using CSIC 2020 dataset (\hyperref[subsec:csic_2010]{\textbf{Chapter 6}}) to test our model and compare our work with the related works that also train on the mentioned datasets.
+We are using CSIC 2010 dataset (\hyperref[subsec:csic_2010]{\textbf{Chapter 6}}) to test our model and compare our work with the related works that also train on the mentioned datasets.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\linewidth, height=9cm,keepaspectratio]{figures/confusion 3.png}
+	\caption{Confusion matrix of our WAF}
+\end{figure}
 
 \begin{table}[h!]
+	\begin{tabular}{llllll}
+	\hline
+	\textbf{}                       & \textbf{Precision}         & \textbf{1-Precision}       & \textbf{Recall}            & \textbf{1-Recall}          & \textbf{F1-score}          \\ \hline
+	Bad                             & \multicolumn{1}{c}{0.7157} & \multicolumn{1}{c}{0.2843} & \multicolumn{1}{c}{0.9955} & \multicolumn{1}{c}{0.0045} & \multicolumn{1}{c}{0.8327} \\
+	Good                            & \multicolumn{1}{c}{0.9966} & \multicolumn{1}{c}{0.0112} & \multicolumn{1}{c}{0.7686} & \multicolumn{1}{c}{0.2314} & \multicolumn{1}{c}{0.8679} \\ \hline
+	\textbf{Accuracy}               &                            &                            & 0.8523                     &                            &                            \\
+	\textbf{Misclassification rate} &                            &                            & 0.1477                     &                            &                            \\
+	\textbf{Macro F1}               &                            &                            & 0.8503                     &                            &                            \\
+	\textbf{Weighted F1}            &                            &                            & 0.8549                     &                            &                            \\ \hline
+	\end{tabular}
+	\caption{\label{demo-table} Evaluation of our WAF.}
+	\end{table}
+	\newpage
+	Through these experiments, we can see that the WAF model performs excellently in correctly detecting normal requests with a 99.66\% chance. This implies that it is extremely uncommon for our WAF to unintentionally intercept a legitimate request. On the other hand, the WAF's performance on identifying imalicious request was found to be suboptimal, with precision values of 0.7157. This seems to be a problem. But attack detection should not be emphasized because when a hacker targets a web site, he must test out a wide range of attack techniques, from simple to complicated, and send a large amount of malicious request in a short amount of time. As a result, this issue is not concerning. Only around 80\% of incoming attacks need to be detected for a model to alert administrators to take action to prevent further attacks. The extremely high precision in predicting normal request also means that we have succeed in reducing the FP rate in Traditional WAF. Therefore, the WAF have passed the FP rate criteria. 
+\begin{table}[h!]
 \centering
-	\begin{tabular}{lll}
+	\begin{tabular}{lll} 
 	\hline
 										  & \textbf{CSIC}       & \textbf{Custom dataset} \\ \hline
-	Our propose Logistic Regression model & 86.89\%    & 88.56\%        \\
-	Our propose CNN classifier            & Not tested & 94.64\%        \\
-	A. Shaheed et al.\cite{Shaheed}                     & 99.59\%    & 98.8\%         \\
-	I. Jemal et al. \cite{Jemal}                       & 98.1\%     & Not tested     \\
-	M. T. Nguyen et al. \cite{Truong}                      & 99.99\%    & Not tested     \\
-	S. Toprak et al. \cite{Toprak}                     & 99.03\%    & Not tested     \\
-	D. T. A. M. Devi et al. \cite{Devi}                             & 99.93\%    & Not tested \\ \hline
+	\textbf{Our machine learning-based WAF} &85.23\% & To be tested \\
+	\textbf{Our machine learning-assisted WAF} &66.98\% & To be tested \\
+	\textbf{ModSecurity}                &51.46\% &44.21\% \\
+	A. Shaheed et al.\cite{Shaheed} (2022)                    & 99.59\%    & 98.8\%         \\
+	I. Jemal et al. \cite{Jemal} (2022)                       & 98.1\%     & To be tested     \\
+	S. Toprak et al. \cite{Toprak} (2022)                     & 99.03\%    & To be tested     \\
+	D. T. A. M. Devi et al. \cite{Devi} (2022)                             & 99.93\%    & To be tested \\ \hline
 	\end{tabular}
 	\caption{\label{demo-table} Accuracy of our proposed model compared with related works.
 	}
-\end{table}
+\end{table} 
 
-We regret to claim that the final stage of our model is currently incomplete. Based solely on what we currently have, it is also clear that in comparison to previous related works, our proposed model has numerous significant flaws.
+Even though our WAF is still far from perfect, it has perfected the core elements of a WAF, such as accepting requests as input and returning whether or not the requests were denied. 
 
-
-Based on the result of the two models, we could calculate the probability of the module blocking a request. The module only considers the incoming request as malicious when and only when both of the validators give a negative result
-\begin{align*}
-	P_{\overline{A}\hspace{0.05cm}\overline{B}} = P_{\overline{A}} \times P_{\overline{B}}.
-\end{align*}
-
-With $P_{\overline{A}}$ is the probability that the logistic regression model considers a request as malicious, $P_{\overline{B}}$ is the probability that the CNN\index{CNN} model considers a request as malicious. We have $P_{\overline{A}} = 24.55\%$ and $P_{\overline{B}} = 5\%$, so that the probability that the probability of a request being blocked ($P_{\overline{A}\hspace{0.05cm}\overline{B}}$) is 1.23\%. 
-
-We do not even have to consider the accuracy\index{Accuracy} of the final module. In reality, if you look at it from the standpoint of an application, 1.23\% of blocking the request is insufficient and even considered inadequate. This model predicts that out of every 100 legitimate requests that pass through the WAF\index{WAF} system on average (just distinct requests), over 1 of them will be mistaken for attacks. If the mentioned WAF system is used to defend a customer website and even one request is unintentionally blocked, it may render the user useless. It would be even worse if customers were prevented from logging in or making transactions on e-commerce websites by accident. The accuracy required to forecast the ``normal'' class must therefore be extremely high (above 99.9\%), but the desired accuracy of predicting the ``attack'' class must be at a tolerable level (about 80\%). Attack detection should not be prioritized for another reason: when a hacker targets a web application, he must try out a wide range of attack methods, from basic to complex. A model that can warn administrators to take action to stop more assaults only needs to detect roughly 80\% of incoming attacks. Besides, the response time criterion is also not satisfactory for an effective WAF. 
-
-During the testing phase of the machine learning\index{Machine learning (ML)} model with many different parameters, we found it extremely difficult to improve the accuracy of the model in this case. The fact that request data often has a very different standard than normal text, along with the classification of many types of structural languages in our thesis leads to improving the accuracy of the model in this case is beyond our ability.
+When our machine learning-based WAF is compared to traditional WAF, in this case, ModSecurity, it is clear that our WAF performs significantly better, with 85.23\% accuracy compared to 51.46\% of ModSecurity, on the same dataset. We also attempt to apply our machine learning models to ModSecurity to determine whether a machine learning-aided WAF may outperform a WAF under the same circumstances. And in this instance, it is still insufficient to be compared to our WAF, thereby showing that, under the same conditions, machine learning-based WAF is better than the other two approaches. However, it is still not enough for our WAF to be considered superior to other studies. It still has weaknesses that can be overcome in the future. In reality, if you look at it from the standpoint of an application, 99.66\% of blocking the request is sufficient and even considered average. Because if a model has a precision in predicting a legitimate request of 99\%, that means out of every 100 legitimate requests that pass through the WAF system on average (just counting different requests), one of them will be mistakenly labeled as attacks. If the aforementioned WAF system is used to defend a customer website and even one request is unintentionally blocked, it may render the user useless. It will be even worse if customers are prevented from logging in or making transactions on e-commerce websites. The accuracy required to forecast the ``normal'' class must therefore be extremely high (above 99.9\%), but the accuracy required to predict the ``attack'' class must be at a tolerable level (about 80\%).
+\newpage
+The weakness of this WAF is that it takes from 40ms to 140ms to process a request, depending on the type of request. This is an unacceptable time for WAF. WAF must be able to handle thousands of requests per second, otherwise, it will greatly affect the user experience. So, in the latency criteria, our WAF has failed to pass.
 
 % \section{Data preparation} 
 % \label{sec:data_preparation}

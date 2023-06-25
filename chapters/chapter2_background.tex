@@ -1,7 +1,6 @@
-
 \chapter{Background}
 \label{chap:background}
-\textit{\hspace{0.5cm}This chapter introduces the background knowledge of this thesis, including information about Web Application Firewalls, Machine Learning Models and Deep Neural Networks.}
+\textit{\hspace{0.5cm}This chapter introduces the background knowledge of this thesis, including information about Web Application Firewall, Machine Learning Models, HTTP request, Natural Language Processing, and Deep Neural Networks.}
 \minitoc
 
 \section{Web Application Firewall} 
@@ -49,7 +48,6 @@ The layer of security that WAF and network-level firewalls operate on is the pri
 	\caption{WAF and network firewall block attacks (source: \url{https://www.wallarm.com/what/waf-meaning})}
 \end{figure}
 \newpage
-
 It's critical to pick a suitable network firewall or WAF\index{WAF} to protect against all of the risks that may be present. Businesses cannot be protected from web page attacks by a network firewall alone; WAF capabilities are the sole means of defense. Business organizations risk leaving their larger network vulnerable to attack due to web application vulnerabilities without an application firewall. A WAF cannot protect from attacks at the network layer, so it should supplement a network firewall rather than replace it. Network-based and web-based solutions operate at several layers and protect from multiple types of traffic. As a result, they perform best together rather than against one another. A network firewall usually protects a wider range of traffic types, but a WAF deals with a specific threat that a conventional strategy cannot handle. Having both options is therefore advisable, especially if a company's operating systems and the web interact frequently.
 \subsection{False positive}
 \subsubsection{Definition}
@@ -69,8 +67,74 @@ There may be substantial financial repercussions as well. It can take too long t
 
 Due to the overwhelming amount of false positives, staff members could grow accustomed to ignoring reports, increasing the likelihood that an actual vulnerability will go unnoticed and enter the production application, again with very costly results\footnote{Ritika Singh. \textit{The Risks Of False Positives With Web Application Firewalls}. Sep 2021. \raggedright\url{https://www.indusface.com/blog/the-risks-of-false-positives-with-web-application-firewalls/}}.
 
-\newpage
+
+\section{HTTP request}
+\subsection{Normal request}
+\hspace{0.5cm}HTTP request is information sent from the client to the server, to ask the server to find or process some information and data that the client wants. The HTTP request can be a text file in the form of XML or JSON that both can understand. Here is an HTTP request using the POST method (Figure 2.3).
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\linewidth, height=3cm,keepaspectratio]{figures/normal request.png}
+	\caption{Normal HTTP request using POST method}
+\end{figure}
+
+\hspace{0.5cm}An HTTP request consists of.
+\begin{itemize}
+	\item \textbf{Request line.} It begins with a method token, followed by the Request-URI and the protocol version, and ending with CRLF.
+	\item \textbf{Body request.} It can be plain text, HTML, XML, JSON, Javascript, or a set of form-data key-value pairs.
+\end{itemize}
+\subsubsection{Request line}
+\hspace{0.5cm}Request line is the first line of an HTTP request. It includes.
+\begin{itemize}
+	\item \textbf{HTTP method.} There are many types, but the most common are GET and POST.
+	\item \textbf{URI (Uniform Resource Identifier).} It helps identify the resources requested by the client.
+	\item \textbf{HTTP version.} The version of the HTTP protocol.
+\end{itemize}
+\subsubsection{Body request}
+\hspace{0.5cm}Allows the client to send additional requests that the server needs to do, such as creating or updating data that cannot be passed on the Header Parameters. Request body is often used in POST, PUT, PATCH methods.
+\subsection{Malicious request}
+\hspace{0.5cm}Malicious traffic or malicious network traffic is any suspicious link, file or connection that is being created or received over the network. Malicious traffic is a threat with an organization's security or may compromise personal computers.
+
+An example of a request used to attack Facebook is a cross-site scripting (XSS) attack (Figure 2.4). In this attack, a hacker can use a malicious HTTP request to inject JavaScript code into Facebook websites. When a user visits Facebook's website, JavaScript code is executed and allows the hacker to obtain the user's logins, transactions, and personal information.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\linewidth, height=7cm,keepaspectratio]{figures/malicious request.png}
+	\caption{Malicious HTTP request used to attack Facebook}
+\end{figure}
+
+In it, the status field contains malicious HTML and JavaScript characters. When a user visits Facebook's website, this JavaScript code is executed and displays a malicious warning on the user's screen.
+
+This can cause unsuspecting users to log into their accounts. Upon successful login, the user's credentials will be captured and used by the hacker to access their account and perform other malicious activities.
+
+
+\section{Natural processing language}
+\hspace{0.5cm}The field of computer science known as \emph{Natural Language Processing} (NLP)\index{NLP} is more particularly the branch of artificial intelligence (AI) that is concerned with providing computers the ability to understand spoken and written language like that of humans. Its practical applications include spam detection, translation, and sentiment analysis.
+
+NLP blends statistical, machine learning, and deep learning models with computational linguistics—rule-based modeling of human language. With the use of these technologies, computers are now able to process human language in the form of text or audio data and fully ``understand'' what is being said or written, including the speaker's or writer's intentions and sentiments.
+
+\subsection{Tokenization}
+\hspace{0.5cm}Tokenization\index{Tokenization} is used in natural language processing to split paragraphs and sentences into smaller units that can be more easily assigned meaning. The first step of the NLP process is gathering the data (a sentence) and breaking it into understandable parts (words). 
+
+There are 3 types of tokenization\index{Tokenization}.
+\begin{itemize}
+	\item \textbf{Word tokenization.} The most used type of tokenization is word tokenization. It employs delimiters (characters like `,' or `;' or ``,'') to divide the data into its corresponding words when there are natural breaks, like pauses in voice or spaces in the text. Although this is the simplest method for breaking up voice or text into component pieces, it has several disadvantages.  
+	\item \textbf{Character tokenization.} Tokenization of characters was developed to solve some of the problems associated with word tokenization. It entirely splits text into characters rather than dividing it up into words. In contrast to word tokenization, this enables the tokenization process to maintain information about OOV terms.
+	\item \textbf{Sub-word tokenization.} Similar to word tokenization, sub-word tokenization uses specific linguistic rules to further dissect individual words. They often use cutting-off affixes as one of their main tools. Prefixes, suffixes, and infixes can aid programs in comprehending the function of a word because they alter the basic meaning of words. This can be particularly helpful for terms not in your lexicon because figuring out an affix can provide a program with more understanding of how unfamiliar words work.  
+\end{itemize}
+
+\subsection{Vectorization}
+\hspace{0.5cm}Vectorization\index{Vectorization} is a classic approach to converting input data from its raw format (i.e. text) into vectors of real numbers which is the format that ML models support. 
+In machine learning, vectorization is a step in feature extraction. The idea is to get some distinct features out of the text for the model to train on, by converting text to numerical vectors.
+
+Some vectorization techniques used in this thesis.
+\begin{itemize}
+	\item \textbf{TF-IDF.} It is a numerical statistic that's intended to reflect how important a word is to a document.
+	\item \textbf{Word2Vec.} In a nutshell, this approach uses the power of a simple Neural Network to generate word embeddings. 
+\end{itemize}
+
+
 \section{Machine learning models} 
+
 \label{sec:machine_model}
 \hspace{0.5cm}In this thesis, we are using two machine learning algorithms to train the model: \textit{Logistic Regression} and \textit{Convolutional Neural Network}.
 \subsection{Logistic regression}
@@ -97,39 +161,38 @@ The formula of the sigmoid function is shown in (2.3).
     f(x) = \frac{1}{1 + e^{-x}} \triangleq \sigma(x)
 \end{align}
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=\linewidth, height=7cm,keepaspectratio]{figures/sigmoid.PNG}
-	\caption{Sigmoid function forms an S-shaped graph (source: \url{https://www.educative.io/answers/what-is-sigmoid-and-its-role-in-logistic-regression})}
-\end{figure}
-
-\newpage
-As a result of the sigmoid function's S-shaped graph (displayed in Figure 2.3), the probability increases as x approaches infinity and decreases as x approaches negative infinity. The model establishes a threshold that determines which binary variable corresponds to which probability range\footnote{
+As a result of the sigmoid function's S-shaped graph (displayed in Figure 2.5), the probability increases as x approaches infinity and decreases as x approaches negative infinity. The model establishes a threshold that determines which binary variable corresponds to which probability range\footnote{
 	Ayesha Naeem. \textit{What is sigmoid and its role in logistic regression?}. \url{https://www.educative.io/answers/what-is-sigmoid-and-its-role-in-logistic-regression}
 }.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=\linewidth, height=6cm,keepaspectratio]{figures/sigmoid.PNG}
+	\caption{Sigmoid function forms an S-shaped graph (source: \url{https://www.educative.io/answers/what-is-sigmoid-and-its-role-in-logistic-regression})}
+\end{figure}
 
 Suppose we have two possible outcomes, normal and abnormal, and have set the threshold as 0.5. A probability less than 0.5 would be mapped to the outcome abnormal, and a probability greater than or equal to 0.5 would be mapped to the outcome normal.
 
 \subsubsection{Optimizing loss functions}
-\hspace{0.5cm}The Stochastic Gradient Descent (SGD) algorithm will be used here. Loss function\index{Loss function} with only one data point.
-\begin{align*}
+\hspace{0.5cm}The Stochastic Gradient Descent (SGD) algorithm will be used here. Loss function\index{Loss function} with only one data point (Equation 2.4).
+\begin{align}
 	J(w; x_i, y_i) = -(y_i \log {z}_i + (1-y_i) \log (1 - {z}_i))
-\end{align*}
-\hspace{0.5cm}Using derivative, we have the expression shown in (2.4).
+\end{align}
+\hspace{0.5cm}Using derivative, we have the expression shown in (2.5).
 \begin{eqnarray}
 	\frac{\partial J(w; x_i, y_i)}{\partial w} 
 	&=& \frac{z_i - y_i}{z_i(1 - z_i)} \frac{\partial z_i}{\partial w} 
 \end{eqnarray}
 \hspace{0.5cm}To make this expression more compact and beautiful, we will find the function 
-$z = f(w^T x)$ such that the denominator cancels out. If set $s = w^T x$, we have.
-\begin{align*}
+$z = f(w^T x)$ such that the denominator cancels out. If set $s = w^T x$, we have (2.6).
+\begin{align}
 	\frac{\partial z_i}{\partial w} = \frac{\partial z_i}{\partial s} \frac{\partial s}{\partial w} = \frac{\partial z_i}{\partial s} x  
-\end{align*}
-\hspace{0.5cm}Most intuitively, we will find the function $z = f(s)$ such that.
+\end{align}
+\hspace{0.5cm}Most intuitively, we will find the function $z = f(s)$ such that (2.7) happens.
 \begin{align}
 	\frac{\partial z}{\partial s} = z(1 - z)
 \end{align}
-to suppress the denominator in the expression (2.4). Expression in (2.5) will be equivalent to.
+to suppress the denominator in the expression (2.5). Expression in (2.7) will be equivalent to.
 \begin{align}
     % & \frac{\partial z}{z(1-z)} = \partial s \\ 
 	% \Leftrightarrow & (\frac{1}{z} + \frac{1}{1 - z})\partial z = \partial s \notag \\  
@@ -138,15 +201,15 @@ to suppress the denominator in the expression (2.4). Expression in (2.5) will be
 	% \Leftrightarrow & \frac{z}{1 - z} = e^s \notag \\
 	% \Leftrightarrow & z = e^s (1 - z) \notag \\
 	% \Leftrightarrow & 
-	z = \frac{e^s}{1 +e^s} = \frac{1}{1 + e^{-s}} = \sigma(s) \notag 
+	z = \frac{e^s}{1 +e^s} = \frac{1}{1 + e^{-s}} = \sigma(s) 
 \end{align}
 
 \subsubsection{Updated math formula for logistic sigmoid regression}
-\hspace{0.5cm}From above equations, we have.
-\begin{align*}
+\hspace{0.5cm}From above equations, we have (2.9).
+\begin{align}
     \frac{\partial J(w; x_i, y_i)}{\partial w} = (z_i - y_i)x_i 
-\end{align*}
-\hspace{0.5cm}The updated formula (according to the SGD algorithm) for logistic regression\index{Logistic regression} is displayed in (2.6).
+\end{align}
+\hspace{0.5cm}The updated formula (according to the SGD algorithm) for logistic regression\index{Logistic regression} is displayed in (2.10).
 \begin{align}
     w = w + \eta(y_i - z_i)x_i
 \end{align}
@@ -154,7 +217,7 @@ to suppress the denominator in the expression (2.4). Expression in (2.5) will be
 
 \section{Deep neural network}
 \label{sec:deep_neural_network}
-\hspace{0.5cm}With their excellent results, broad applicability, and vast growth potential, neural networks are currently the most advanced advancement in artificial intelligence. \textit{Feedforward Neural Networks }(FNN) and \textit{Convolutional Neural Networks} (CNN)\index{CNN} are widely used to make predictions with independent data input. In CNN (Figure 2.4), each input image is passed through convolutional layers (Filters, Pooling, and Fully-connected layers) to extract features before being classified using the Softmax\index{Softmax} function\footnote{Softmax function:$ \sigma (\overrightarrow{z})_i \: = \: (e^{z_i})/ \sum_{j=1}^{K} e^z_i  $}.
+\hspace{0.5cm}With their excellent results, broad applicability, and vast growth potential, neural networks are currently the most advanced advancement in artificial intelligence. \textit{Feedforward Neural Networks }(FNN) and \textit{Convolutional Neural Networks} (CNN)\index{CNN} are widely used to make predictions with independent data input. In CNN (Figure 2.6), each input image is passed through convolutional layers (Filters, Pooling, and Fully-connected layers) to extract features before being classified using the Softmax\index{Softmax} function\footnote{Softmax function:$ \sigma (\overrightarrow{z})_i \: = \: (e^{z_i})/ \sum_{j=1}^{K} e^z_i  $}.
 \begin{figure}[h!] 
 	\centering
 	\includegraphics[width=\linewidth, height=6cm,keepaspectratio]{figures/CNN.png}
@@ -209,36 +272,38 @@ By altering the convolution's stride over the image, convolutional layers can be
 
 In order to apply a pooling operation on feature maps, similar to a filter, pooling is conducted. The size of the pooling operation or filter, which is typically 2 $\times$ 2 pixels applied with a stride of 2 pixels, is smaller than the size of the feature map. This means that each feature map will always be compressed by a factor of 2, i.e., each dimension is cut in half, making each feature map only contain a quarter as many pixels or values.
 
-Instead of being taught, the pooling operation is defined. A typical function used in the process of pooling is Max pooling, which works by calculating the maximum value for each patch of the feature map, and MaxPooling1D is applied for 1D temporal data. The max pooling is demonstrated in Figure 2.5.
+Instead of being taught, the pooling operation is defined. A typical function used in the process of pooling is Max pooling, which works by calculating the maximum value for each patch of the feature map, and MaxPooling1D is applied for 1D temporal data. The max pooling is demonstrated in Figure 2.7.
 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\linewidth, height=5cm,keepaspectratio]{figures/maxpooling.png}
+	\includegraphics[width=\linewidth, height=4cm,keepaspectratio]{figures/maxpooling.png}
    \caption{Max pooling demonstration (source: \url{https://paperswithcode.com/method/max-pooling})}
 \end{figure}
-\newpage
+
 \subsection{Dropout layer}
 \hspace{0.5cm}Dropout is a training method in which some neurons are ignored at random. They are ``dropped out'' in a random manner. It means that on the forward pass, their contribution to the activation of downstream neurons is momentarily removed, and on the backward pass, no weight updates are made to the neuron.
 
-If neurons are randomly removed from the network during training, the remaining neurons will have to step in and handle the representation needed to produce predictions for the missing neurons. The network is believed to learn numerous independent internal representations as a result.
+If neurons are randomly removed from the network during training, the remaining neurons will have to step in and handle the representation needed to produce predictions for the missing neurons. The network is believed to learn numerous independent internal representations as a result. Dropout procedure is demonstrated in Figure 2.8.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\linewidth, height=6cm,keepaspectratio]{figures/dropout.png}
    \caption{Dropout demonstration (source: \url{https://laid.delanover.com/dropout-explained-and-implementation-in-tensorflow/})}
 \end{figure}
 
+\newpage
 The result is a decrease in the network's sensitivity to the particular neuronal weights. As a result, the network is better able to generalize and is less prone to overfit the training set of data\footnote{
 	Jason Brownlee. \textit{Dropout Regularization in Deep Learning Models with Keras}. Jul 2022. \url{https://machinelearningmastery.com/dropout-regularization-deep-learning-models-keras/}
 }.
 In Tensorflow\index{TensorFlow}, the \emph{dropout layer}\index{Dropout layer} randomly sets input units to 0 with a frequency of rate
 at each step during training time. Inputs not set to 0 are scaled up by 1/(1 - rate)  (with rate is the fraction of the input units to drop) such that the sum over all inputs is unchanged\footnote{Keras. \textit{Dropout layer}. \url{https://keras.io/api/layers/regularization_layers/dropout/}}.
 \subsection{Flatten layer}
-\hspace{0.5cm}To\index{Flatten layer} enter data into the following layer, flattening converts the data to a 1-dimensional array. To construct a single, lengthy feature vector, the output of the convolutional layers is flattened. The last classification model, referred to as a fully-connected layer, is connected to it as well. In other words, the final layer is connected to the flattened, single-line representation of all the pixel data. The flatten procedure is displayed in Figure 2.7.
+\hspace{0.5cm}To\index{Flatten layer} enter data into the following layer, flattening converts the data to a 1-dimensional array. To construct a single, lengthy feature vector, the output of the convolutional layers is flattened. The last classification model, referred to as a fully-connected layer, is connected to it as well. In other words, the final layer is connected to the flattened, single-line representation of all the pixel data. The flatten procedure is displayed in Figure 2.9.
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\linewidth, height=6cm,keepaspectratio]{figures/flattening.png}
+	\includegraphics[width=\linewidth, height=5cm,keepaspectratio]{figures/flattening.png}
    \caption{Flattening demonstration (source: \url{https://towardsdatascience.com/the-most-intuitive-and-easiest-guide-for-convolutional-neural-network-3607be47480})}
 \end{figure}
+\newpage
 \subsection{Dense layer}
 \hspace{0.5cm}\emph{Dense layer}\index{Dense layer} is a neural network that has deep connection, meaning that each neuron in dense layer receives input from all neurons of its previous layer. The dense layer is found to be the most commonly used layer in the models.
 
@@ -246,27 +311,25 @@ The values utilized in the matrix are parameters that may be trained and updated
 
 An `n' dimensional vector is produced as the dense layer's output. The vector can have its dimensions, rotation, scaling, and translation changed using a dense layer. 
 
-\newpage
 \subsection{Gradient descent}
 \label{subsec:gradient_descent}
-\hspace{0.5cm}\emph{Gradient descent} is an optimization algorithm that is used to minimize a function by iteratively traveling in the direction of the steepest descent as defined by the gradient's negative. Gradient descent\index{Gradient descent} is used in machine learning\index{Machine learning (ML)} to update the parameters of our model, especially weights in neural networks.
+\hspace{0.5cm}\emph{Gradient descent} is an optimization algorithm that is used to minimize a function by iteratively traveling in the direction of the steepest descent as defined by the gradient's negative. Gradient descent\index{Gradient descent} is used in machine learning\index{Machine learning (ML)} to update the parameters of our model, especially weights in neural networks. Gradient descent is demonstrated in Figure 2.10. \\ 
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\linewidth, height=7cm,keepaspectratio]{figures/gradient descent.png}
+	\includegraphics[width=\linewidth, height=6cm,keepaspectratio]{figures/gradient descent.png}
    \caption{Gradient descent demonstration (source: \url{https://www.analyticsvidhya.com/blog/2020/10/how-does-the-gradient-descent-algorithm-work-in-machine-learning/})}
 \end{figure}
 
 The objective of gradient descent is to minimize the cost function, or the error between predicted and actually, much like the purpose of determining the line of best fit in linear regression. It needs two data points to perform this: a direction and a learning rate. Future iterations' partial derivative calculations are determined by these variables, allowing the local or global minimum (i.e., point of convergence) to be reached gradually\footnote{IBM.\textit{What is gradient descent?}.\url{https://www.ibm.com/topics/gradient-descent}}.
 \subsection{Learning Rate}
 \label{subsec:learning_rate}
-\hspace{0.5cm}The learning rate\index{Learning rate} is the size of each step in each gradient descent\index{Gradient descent} cycle. We can cover more territory per step with a high learning rate, but we risk overshooting the lowest spot because the slope of the hill is continually changing. We may reliably go in the direction of the negative gradient with a very low learning rate because we are recalculating it so frequently. A low learning rate is more exact, but calculating the gradient takes time, so we will take a long time to reach the bottom. An example of the learning rate is in Figure 2.9.
+\hspace{0.5cm}The learning rate\index{Learning rate} is the size of each step in each gradient descent\index{Gradient descent} cycle. We can cover more territory per step with a high learning rate, but we risk overshooting the lowest spot because the slope of the hill is continually changing. We may reliably go in the direction of the negative gradient with a very low learning rate because we are recalculating it so frequently. A low learning rate is more exact, but calculating the gradient takes time, so we will take a long time to reach the bottom. An example of the learning rate is in Figure 2.11.
 \begin{figure}[!h]
 	\centering
-	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/learning rate.png}
+	\includegraphics[width=\linewidth, height=6cm,keepaspectratio]{figures/learning rate.png}
    \caption{Learning rate (source: \url{https://www.jeremyjordan.me/nn-learning-rate/})}
 \end{figure}
 
-\newpage
 How quickly the model adapts to the challenge is determined by the learning rate. Given the smaller changes to the weights made with each update, lower learning rates necessitate more training epochs, whereas higher learning rates produce quick changes and necessitate fewer training epochs.
 
 When the learning rate is too high, the model may converge too rapidly to an unsatisfactory answer, whereas when it is too low, the process may become stuck.
@@ -276,7 +339,7 @@ Choosing the learning rate appropriately is a difficult aspect in training deep 
 \newpage
 \subsection{Loss function}
 \label{subsec:loss_function}
-\hspace{0.5cm}A loss function\index{Loss function} (or cost function) indicates how well the model predicts a given set of parameters. The loss function has its curve and gradients. The slope of this curve indicates how we should adjust our parameters to improve the model's accuracy\index{Accuracy}. If the cost ever rises, we must reduce the value of the learning rate\index{Learning rate}; if the cost falls slowly, we must increase the value of the learning rate. Figure 2.10 shows an example of loss function behavior based on the learning rate.
+\hspace{0.5cm}A loss function\index{Loss function} (or cost function) indicates how well the model predicts a given set of parameters. The loss function has its curve and gradients. The slope of this curve indicates how we should adjust our parameters to improve the model's accuracy\index{Accuracy}. If the cost ever rises, we must reduce the value of the learning rate\index{Learning rate}; if the cost falls slowly, we must increase the value of the learning rate. Figure 2.12 shows an example of loss function behavior based on the learning rate.
 \begin{figure}[!h]
 	\centering
 	\includegraphics[width=\linewidth, height=7cm,keepaspectratio]{figures/loss function DL.png}
@@ -285,22 +348,22 @@ Choosing the learning rate appropriately is a difficult aspect in training deep 
 
 \subsection{Gradient descent optimizer}
 \label{gradient_optimizer}
-\hspace{0.5cm}A\index{Gradient descent optimizer} method that computes adaptive learning rates\index{Learning rate} for each parameter is \textit{Adaptive Moment Estimation} (Adam). Adam\index{Adam (algorithm)}, like Adadelta and RMSprop, preserves an exponentially decaying average of past squared gradients $v_t$ in addition to an exponentially decaying average of past gradients $m_t$. Whereas momentum can be thought of as a ball rolling down a hill, Adam behaves more like a heavy ball with friction, preferring flat minima on the error surface. The decaying averages of past and past squared gradients, $m_t$ and $v_t$, are computed as follows.
-\begin{align*}
+\hspace{0.5cm}A\index{Gradient descent optimizer} method that computes adaptive learning rates\index{Learning rate} for each parameter is \textit{Adaptive Moment Estimation} (Adam). Adam\index{Adam (algorithm)}, like Adadelta and RMSprop, preserves an exponentially decaying average of past squared gradients $v_t$ in addition to an exponentially decaying average of past gradients $m_t$. Whereas momentum can be thought of as a ball rolling down a hill, Adam behaves more like a heavy ball with friction, preferring flat minima on the error surface. The decaying averages of past and past squared gradients, $m_t$ and $v_t$, are computed as follows (2.11).
+\begin{align}
     m_t \: = \: \beta_1 m_{t-1} \: + \: (1-\beta_1)g_{t}\\
-    v_t \: = \: \beta_2 v_{t-1} \: + \: (1-\beta_2)g^2_t
-\end{align*}
+    v_t \: = \: \beta_2 v_{t-1} \: + \: (1-\beta_2)g^2_t \notag
+\end{align}
 
 
 $m_t$ and $v_t$ are estimates of the first moment (the mean) and the second moment (the uncentered variance) of the gradients respectively, hence the name of the method. As $m_t$ and $v_t$ are initialized as vectors of 0's, the authors of Adam\index{Adam (algorithm)} observe that they are biased towards zero, especially during the initial time steps, especially when the decay rates are small.
-\begin{align*}
+\begin{align}
     \hat{m}_t \: = \: \frac{m_t}{1\:-\:\beta^t_1} \\
- \hat{v}_t \: = \: \frac{v_t}{1\: - \: \beta^t_2}
-\end{align*}
+ \hat{v}_t \: = \: \frac{v_t}{1\: - \: \beta^t_2} \notag
+\end{align}
 
 
 
 They then use these to update the parameters.
-\begin{align*}
+\begin{align}
 \theta_{t+1} \: = \: \theta_t \: - \: \frac{\eta}{\sqrt{\hat{v}_t} \: +\: \epsilon} \hat{m}_t
-\end{align*}
+\end{align}
