@@ -43,7 +43,7 @@ displayed in Table 7.1.
 	\multicolumn{1}{c|}{\multirow{2}{*}{Predicted class}} & \multicolumn{1}{l|}{\textbf{TRUE}}  & \multicolumn{1}{l|}{True Positive (TP)}  & \multicolumn{1}{l|}{False Positive (FP)} \\ \cline{2-4} 
 	\multicolumn{1}{c|}{}                              & \multicolumn{1}{l|}{\textbf{FALSE}} & \multicolumn{1}{l|}{False Negative (FN)} & \multicolumn{1}{l|}{True Negative (TN)}  \\ \cline{2-4} 
 	\end{tabular}
-	\caption{\label{demo-table} Confusion matrix}
+	\caption{\label{demo-table-3} Confusion matrix}
 \end{table} 
 
 As we can see diagonal elements of this matrix denote the correct prediction for different classes, while the off-diagonal elements denote the samples which are misclassified.
@@ -56,7 +56,7 @@ The confusion matrix can be normalized to obtain the rates. The normalized confu
 	\multicolumn{1}{c|}{\multirow{2}{*}{Predicted class}} & \multicolumn{1}{l|}{\textbf{TRUE}}  & \multicolumn{1}{l|}{TPR = TP/(TP+FN)}  & \multicolumn{1}{l|}{FPR = FP/(FP+TN)} \\ \cline{2-4} 
 	\multicolumn{1}{c|}{}                              & \multicolumn{1}{l|}{\textbf{FALSE}} & \multicolumn{1}{l|}{FNR = FN/(TP+FN)} & \multicolumn{1}{l|}{TNR = TN/(FP+TN)}  \\ \cline{2-4} 
 	\end{tabular}
-	\caption{\label{demo-table} Normalized confusion matrix}
+	\caption{\label{demo-table-4} Normalized confusion matrix}
 \end{table} 
 
 \subsection{Classification accuracy}
@@ -101,7 +101,7 @@ as we can see F1-score is a special case of $F_\beta$ when $\beta$ = 1.
 \subsubsection{Experimental results}
 \hspace{0.5cm}The experimental results of logistic regression\index{Logistic regression} are presented in Figure 7.1.
 
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/confusion logistic.png}
   \caption{Confusion matrix of logistic regression model}
@@ -139,7 +139,7 @@ The result of the logistic regression model is presented below.
 	macro avg    & 0.75                                   & 0.87                                & 0.78                                  & 9998                                 \\
 	weighted avg & 0.91                                   & 0.87                                & 0.88                                  & 9998  \\ \hline                              
 	\end{tabular}
-	\caption{\label{demo-table} Logistic regression model evaluation}
+	\caption{\label{demo-table-5} Logistic regression model evaluation}
 	\end{table}
 
 The model has a very good chance of detecting normal requests with a precision\index{Precision} of 97\%, however, performs poorly in identifying malicious requests. Recall is not advised as a metric for evaluating malicious request detection since FP\index{False positive} is more critical. This problem is not alarming, as we will discuss further in this thesis.
@@ -156,7 +156,7 @@ The model has a very good chance of detecting normal requests with a precision\i
 \subsubsection{Experimental results}
 \hspace{0.5cm}The CNN\index{CNN} model is trained in 10 epoch with batch size 128. The precision metric and loss of the model during training process is plotted as Figure 7.2.
        
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/metric and loss.png}
   \caption{The precision metric and loss of the model}  
@@ -166,7 +166,7 @@ It appears that the model's training set and validation set differ fairly notice
 
 \newpage
 
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/confusion CNN final.png}
   \caption{Structural language classifier model trained}  
@@ -192,7 +192,7 @@ The evaluation metric of the model is presented in Table 7.4.
 % 	\caption{\label{demo-table} Evaluating the model by precision, recall and F1-score.}
 % \end{table}
 
-\begin{table}[h!]
+\begin{table}[ht]
 \centering
 	\begin{tabular}{lcccc}
 	\hline
@@ -208,7 +208,7 @@ The evaluation metric of the model is presented in Table 7.4.
 
 It is noticeable that the model does not have the best accuracy (only 95.75\% on the test set). However, because there are just two convolutional layers in the model, it processes requests on average in 29ms (with system specifications shown in Table 7.5), meaning that the response is returned nowhere instantly. That time is still acceptable despite not reaching our goal yet (since our model requires the combination of two different models to produce the desired result).
 
-\begin{table}[h!]
+\begin{table}[ht]
 \centering
 	\begin{tabular}{ll}
 	\hline
@@ -217,7 +217,7 @@ It is noticeable that the model does not have the best accuracy (only 95.75\% on
 	GPU               & Apple M1 8-core GPU    \\
 	RAM               & 16GB                   \\ \hline
 	\end{tabular}
-	\caption{\label{demo-table} System specifications.}
+	\caption{\label{demo-table-6} System specifications.}
 \end{table}
   
 \section{End-to-end experiments}
@@ -225,13 +225,13 @@ It is noticeable that the model does not have the best accuracy (only 95.75\% on
 
 We are using CSIC 2010 dataset (\hyperref[subsec:csic_2010]{\textbf{Chapter 6}}) to test our model and compare our work with the related works that also train on the mentioned datasets.
 
-\begin{figure}[h!]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=9cm,keepaspectratio]{figures/confusion 3.png}
 	\caption{Confusion matrix of our WAF}
 \end{figure}
 
-\begin{table}[h!]
+\begin{table}[ht]
 	\begin{tabular}{llllll}
 	\hline
 	\textbf{}                       & \textbf{Precision}         & \textbf{1-Precision}       & \textbf{Recall}            & \textbf{1-Recall}          & \textbf{F1-score}          \\ \hline
@@ -242,11 +242,11 @@ We are using CSIC 2010 dataset (\hyperref[subsec:csic_2010]{\textbf{Chapter 6}})
 	\textbf{Macro F1}               &                            &                            & 0.8503                     &                            &                            \\
 	\textbf{Weighted F1}            &                            &                            & 0.8549                     &                            &                            \\ \hline
 	\end{tabular}
-	\caption{\label{demo-table} Evaluation of our WAF.}
+	\caption{\label{demo-table-7} Evaluation of our WAF.}
 	\end{table}
 	\newpage
 	Through these experiments, we can see that the WAF model performs excellently in correctly detecting normal requests with a 99.66\% chance. This implies that it is extremely uncommon for our WAF to unintentionally intercept a legitimate request. On the other hand, the WAF's performance on identifying imalicious request was found to be suboptimal, with precision values of 0.7157. This seems to be a problem. But attack detection should not be emphasized because when a hacker targets a web site, he must test out a wide range of attack techniques, from simple to complicated, and send a large amount of malicious request in a short amount of time. As a result, this issue is not concerning. Only around 80\% of incoming attacks need to be detected for a model to alert administrators to take action to prevent further attacks. The extremely high precision in predicting normal request also means that we have succeed in reducing the FP rate in Traditional WAF. Therefore, the WAF have passed the FP rate criteria. 
-\begin{table}[h!]
+\begin{table}[ht]
 \centering
 	\begin{tabular}{lll} 
 	\hline
@@ -259,7 +259,7 @@ We are using CSIC 2010 dataset (\hyperref[subsec:csic_2010]{\textbf{Chapter 6}})
 	S. Toprak et al. \cite{Toprak} (2022)                     & 99.03\%    & To be tested     \\
 	D. T. A. M. Devi et al. \cite{Devi} (2022)                             & 99.93\%    & To be tested \\ \hline
 	\end{tabular}
-	\caption{\label{demo-table} Accuracy of our proposed model compared with related works.
+	\caption{\label{demo-table-8} Accuracy of our proposed model compared with related works.
 	}
 \end{table} 
 

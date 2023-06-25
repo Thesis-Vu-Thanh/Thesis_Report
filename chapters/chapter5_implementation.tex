@@ -8,7 +8,7 @@
 \label{sec:framework}
 \hspace{0.5cm}In this thesis, our module is built on Keras and Sklearn (python libraries). The framework is presented in the following figure (Figure 5.1).
 
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/Untitled Diagram.drawio (1).png}
   \caption{The framework of module}
@@ -22,7 +22,7 @@
 \subsubsection{Feature engineering}
 \hspace{0.5cm}The first part is tokenizing the data. Since our input do not only contain only words and punctuation like normal sentences, we must have an efficient way to tokenize our data (Figure 5.2).
 
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/implement1.png}
   \caption{The method of tokenizing data}
@@ -39,7 +39,7 @@ A competent classifier in bag-of-words recognizes patterns in word distribution,
 
 \subsection{Framework}
 \hspace{0.5cm}The framework of classifier is presented in Figure 5.3.
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/structural.png}
   \caption{Framework of CNN classifier}
@@ -52,13 +52,13 @@ The vectorizer vectorizes the request using a small word2vec\index{word2vec} mod
 
 The embedded vector is then sent into a trained CNN\index{CNN} to forecast the request's categorization. The architecture is illustrated in Figure 5.4 and detailed as Table 5.1.
 
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/layers.png}
   \caption{Architecture of malicious request validator model.}
 \end{figure} 
 
-\begin{table}[!h]
+\begin{table}[ht]
 	\begin{tabular}{lrr}
 	\hline
 	\textbf{Layer (type)}             & \textbf{Output Shape} & \textbf{Amount of parameters} \\ \hline
@@ -78,7 +78,7 @@ The embedded vector is then sent into a trained CNN\index{CNN} to forecast the r
 	\multicolumn{3}{l}{Trainable parameters: 3,716,389}                                       \\
 	\multicolumn{3}{l}{Non-trainable parameters: 172,447,200}                                 \\ \hline
 	\end{tabular}
-	\caption{\label{demo-table} Architecture specifiations of malicious request validator model.}
+	\caption{\label{demo-table-2} Architecture specifiations of malicious request validator model.}
 \end{table}
 
 

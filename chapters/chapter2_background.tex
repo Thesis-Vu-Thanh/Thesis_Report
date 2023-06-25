@@ -16,7 +16,7 @@ The WAF tool can be distributed using network-based, cloud-based, or host-based 
 \subsection{The functionality of WAF}
 \label{subsec:waf_work}
 \hspace{0.5cm}As previously stated, WAF is deployed at the application layer and serves as a two-way firewall. At work, WAF monitors HTTP or HTTPS traffic entering or exiting a specific web app. When WAF detects a malicious object in the traffic, it activates and destroys it. Figure 2.1 demonstrates how WAF works, legitimate users (top-left and bottom-left) are permitted access to the server with a WAF enabled, but attackers (middle-left) are prevented from doing so.
-\begin{figure}[!h]
+\begin{figure}[ht]
    
 	\centering
 	\includegraphics[width=\linewidth, height=6.5cm,keepaspectratio]{figures/wallarmwaf.png}
@@ -42,7 +42,7 @@ A WAF stands between external users and web applications to track all HTTP traff
 A network firewall guards a secure local-area network against unwanted access to reduce the risk of assaults. Its goal is to distinguish a safe zone from a less secure zone and to control communication between the two. Without it, every device that has a public IP address is exposed to the outside network and potentially vulnerable to attack.
 
 The layer of security that WAF and network-level firewalls operate on is the primary technological distinction between them. Attacks at OSI model Layer 7, or the application level, are protected by WAFs. This covers URL assaults, cookie manipulation, SQL injection\index{SQLi}, and attacks against JavaScript, ActiveX, and Ajax applications. They also target HTTP and HTTPS, the web application protocols that link web browsers and web servers. Network firewalls secure data transfer and network traffic at OSI model Layers 3 and 4. This covers assaults on the Domain Name System (DNS) and File Transfer Protocol (FTP), as well as Telnet, Secure Shell (SSH), and Simple Mail Transfer Protocol (SMTP). The following figure (Figure 2.2) displays the attacks which can be blocked by network firewall and WAF.
-\begin{figure}[h!]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=7cm,keepaspectratio]{figures/waf3.png}
 	\caption{WAF and network firewall block attacks (source: \url{https://www.wallarm.com/what/waf-meaning})}
@@ -71,7 +71,7 @@ Due to the overwhelming amount of false positives, staff members could grow accu
 \section{HTTP request}
 \subsection{Normal request}
 \hspace{0.5cm}HTTP request is information sent from the client to the server, to ask the server to find or process some information and data that the client wants. The HTTP request can be a text file in the form of XML or JSON that both can understand. Here is an HTTP request using the POST method (Figure 2.3).
-\begin{figure}[h!]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=3cm,keepaspectratio]{figures/normal request.png}
 	\caption{Normal HTTP request using POST method}
@@ -96,7 +96,7 @@ Due to the overwhelming amount of false positives, staff members could grow accu
 
 An example of a request used to attack Facebook is a cross-site scripting (XSS) attack (Figure 2.4). In this attack, a hacker can use a malicious HTTP request to inject JavaScript code into Facebook websites. When a user visits Facebook's website, JavaScript code is executed and allows the hacker to obtain the user's logins, transactions, and personal information.
 
-\begin{figure}[h!]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=7cm,keepaspectratio]{figures/malicious request.png}
 	\caption{Malicious HTTP request used to attack Facebook}
@@ -165,7 +165,7 @@ As a result of the sigmoid function's S-shaped graph (displayed in Figure 2.5), 
 	Ayesha Naeem. \textit{What is sigmoid and its role in logistic regression?}. \url{https://www.educative.io/answers/what-is-sigmoid-and-its-role-in-logistic-regression}
 }.
 
-\begin{figure}[h!]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=6cm,keepaspectratio]{figures/sigmoid.PNG}
 	\caption{Sigmoid function forms an S-shaped graph (source: \url{https://www.educative.io/answers/what-is-sigmoid-and-its-role-in-logistic-regression})}
@@ -218,7 +218,7 @@ to suppress the denominator in the expression (2.5). Expression in (2.7) will be
 \section{Deep neural network}
 \label{sec:deep_neural_network}
 \hspace{0.5cm}With their excellent results, broad applicability, and vast growth potential, neural networks are currently the most advanced advancement in artificial intelligence. \textit{Feedforward Neural Networks }(FNN) and \textit{Convolutional Neural Networks} (CNN)\index{CNN} are widely used to make predictions with independent data input. In CNN (Figure 2.6), each input image is passed through convolutional layers (Filters, Pooling, and Fully-connected layers) to extract features before being classified using the Softmax\index{Softmax} function\footnote{Softmax function:$ \sigma (\overrightarrow{z})_i \: = \: (e^{z_i})/ \sum_{j=1}^{K} e^z_i  $}.
-\begin{figure}[h!] 
+\begin{figure}[ht] 
 	\centering
 	\includegraphics[width=\linewidth, height=6cm,keepaspectratio]{figures/CNN.png}
 	\caption{CNN architecture (source: \url{https://www.upgrad.com/blog/basic-cnn-architecture/})}
@@ -274,7 +274,7 @@ In order to apply a pooling operation on feature maps, similar to a filter, pool
 
 Instead of being taught, the pooling operation is defined. A typical function used in the process of pooling is Max pooling, which works by calculating the maximum value for each patch of the feature map, and MaxPooling1D is applied for 1D temporal data. The max pooling is demonstrated in Figure 2.7.
 
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=4cm,keepaspectratio]{figures/maxpooling.png}
    \caption{Max pooling demonstration (source: \url{https://paperswithcode.com/method/max-pooling})}
@@ -284,7 +284,7 @@ Instead of being taught, the pooling operation is defined. A typical function us
 \hspace{0.5cm}Dropout is a training method in which some neurons are ignored at random. They are ``dropped out'' in a random manner. It means that on the forward pass, their contribution to the activation of downstream neurons is momentarily removed, and on the backward pass, no weight updates are made to the neuron.
 
 If neurons are randomly removed from the network during training, the remaining neurons will have to step in and handle the representation needed to produce predictions for the missing neurons. The network is believed to learn numerous independent internal representations as a result. Dropout procedure is demonstrated in Figure 2.8.
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=6cm,keepaspectratio]{figures/dropout.png}
    \caption{Dropout demonstration (source: \url{https://laid.delanover.com/dropout-explained-and-implementation-in-tensorflow/})}
@@ -298,7 +298,7 @@ In Tensorflow\index{TensorFlow}, the \emph{dropout layer}\index{Dropout layer} r
 at each step during training time. Inputs not set to 0 are scaled up by 1/(1 - rate)  (with rate is the fraction of the input units to drop) such that the sum over all inputs is unchanged\footnote{Keras. \textit{Dropout layer}. \url{https://keras.io/api/layers/regularization_layers/dropout/}}.
 \subsection{Flatten layer}
 \hspace{0.5cm}To\index{Flatten layer} enter data into the following layer, flattening converts the data to a 1-dimensional array. To construct a single, lengthy feature vector, the output of the convolutional layers is flattened. The last classification model, referred to as a fully-connected layer, is connected to it as well. In other words, the final layer is connected to the flattened, single-line representation of all the pixel data. The flatten procedure is displayed in Figure 2.9.
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=5cm,keepaspectratio]{figures/flattening.png}
    \caption{Flattening demonstration (source: \url{https://towardsdatascience.com/the-most-intuitive-and-easiest-guide-for-convolutional-neural-network-3607be47480})}
@@ -314,7 +314,7 @@ An `n' dimensional vector is produced as the dense layer's output. The vector ca
 \subsection{Gradient descent}
 \label{subsec:gradient_descent}
 \hspace{0.5cm}\emph{Gradient descent} is an optimization algorithm that is used to minimize a function by iteratively traveling in the direction of the steepest descent as defined by the gradient's negative. Gradient descent\index{Gradient descent} is used in machine learning\index{Machine learning (ML)} to update the parameters of our model, especially weights in neural networks. Gradient descent is demonstrated in Figure 2.10. \\ 
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=6cm,keepaspectratio]{figures/gradient descent.png}
    \caption{Gradient descent demonstration (source: \url{https://www.analyticsvidhya.com/blog/2020/10/how-does-the-gradient-descent-algorithm-work-in-machine-learning/})}
@@ -324,7 +324,7 @@ The objective of gradient descent is to minimize the cost function, or the error
 \subsection{Learning Rate}
 \label{subsec:learning_rate}
 \hspace{0.5cm}The learning rate\index{Learning rate} is the size of each step in each gradient descent\index{Gradient descent} cycle. We can cover more territory per step with a high learning rate, but we risk overshooting the lowest spot because the slope of the hill is continually changing. We may reliably go in the direction of the negative gradient with a very low learning rate because we are recalculating it so frequently. A low learning rate is more exact, but calculating the gradient takes time, so we will take a long time to reach the bottom. An example of the learning rate is in Figure 2.11.
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=6cm,keepaspectratio]{figures/learning rate.png}
    \caption{Learning rate (source: \url{https://www.jeremyjordan.me/nn-learning-rate/})}
@@ -340,7 +340,7 @@ Choosing the learning rate appropriately is a difficult aspect in training deep 
 \subsection{Loss function}
 \label{subsec:loss_function}
 \hspace{0.5cm}A loss function\index{Loss function} (or cost function) indicates how well the model predicts a given set of parameters. The loss function has its curve and gradients. The slope of this curve indicates how we should adjust our parameters to improve the model's accuracy\index{Accuracy}. If the cost ever rises, we must reduce the value of the learning rate\index{Learning rate}; if the cost falls slowly, we must increase the value of the learning rate. Figure 2.12 shows an example of loss function behavior based on the learning rate.
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=7cm,keepaspectratio]{figures/loss function DL.png}
    \caption{Loss function behaviour with different learning rate (source: \url{https://www.researchgate.net/figure/Loss-function-is-changing-with-different-learning-rates-30_fig4_342657394})}

@@ -8,7 +8,7 @@
 \label{subsec:csic_2010}
 \hspace{0.5cm}The HTTP dataset CSIC 2010\footnote{Available at \url{https://www.isi.csic.es/dataset/}} contains web requests automatically generated, both normal and abnormal. It can be used for the testing of web attack protection systems. It was developed at the ``Information Security Institute'' of CSIC (Spanish Research National Council). The HTTP dataset CSIC 2010\index{CSIC 2010} contains the generated traffic targeted to an e-commerce web application developed at their department. In this web application, users can buy items using a shopping cart and register by providing some personal information. As it is a web application in Spanish, the data set contains some Latin characters. A request from the dataset is presented in the following figure (Figure 6.1).
 
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/dataset1.png}
   \caption{A sample request of the dataset}
@@ -33,7 +33,7 @@ This dataset is quite outdated and randomly generated. It comprises a complete H
 
 Consequently, we will solely concentrate on the URL and Method parts of each HTTP request in order to detect fraudulent requests.
 
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/dataset part1.PNG}
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/dataset part2.PNG}
@@ -44,7 +44,7 @@ Consequently, we will solely concentrate on the URL and Method parts of each HTT
 \subsection{Malicious and non-malicious URL}
 
 \hspace{0.5cm}We opted to utilize this extra dataset from Kaggle, with an extremely basic structure, because using only data from the CSIC 2010\index{CSIC 2010} set is not dependable enough for our model to have a high level of reliability. Include just URLs and their labels. It consists of over 400,000 unique already labeled URLs.
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/dataset3.png}
   \caption{A set of labeled URLs}
@@ -52,7 +52,7 @@ Consequently, we will solely concentrate on the URL and Method parts of each HTT
 
 Another thing to mention is the requests datasets generally are confidential, as they may contain sensitive data of users. There are not many open datasets available. Also, labeling these datasets are costly task, as it requires expertise in the field.
 
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=8cm,keepaspectratio]{figures/proportion.png} 
   \caption{Proportion of requests}
@@ -79,7 +79,7 @@ The list consist of these categories.
 
 The shorten dataset is presented in Figure 6.5.
 
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/dataset4.png}
   \caption{The processed dataset}
@@ -87,7 +87,7 @@ The shorten dataset is presented in Figure 6.5.
 
 \newpage
 The quantity of each programming language is shown in Figure 6.6. 
-\begin{figure}[!h]
+\begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth, height=10cm,keepaspectratio]{figures/quantity of programming language.png}
   \caption{The quantity of every category in the dataset}
